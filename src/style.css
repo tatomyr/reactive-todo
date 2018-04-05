@@ -1,0 +1,91 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  border: none;
+}
+
+/* Temporarly */
+div {
+  /* border: 1px dashed orange; */
+}
+
+/* Constant height components */
+.header, .controls > .row {
+  height: 30px;
+  min-height: 30px;
+}
+
+
+/* Main container */
+.container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 600px;
+  height: 100vh;
+  max-height: 100vh;
+  font-size: 18px;
+}
+
+/* Header */
+.header h2 {
+  text-transform: uppercase;
+  text-align: center;
+  height: 100%;
+  /* vertical-align: middle; */
+  line-height: 30px
+}
+
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+}
+/* .controls div {
+  height: 100%;
+} */
+.controls .row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.controls button {
+  font-size: 18px;
+  height: 100%;
+  width: 32.6%;
+}
+.controls form {
+  height: 100%;
+}
+.controls .input {
+  width: 100%;
+  height: 100%;
+  /* padding: 5px; */
+  background: black;
+  color: white;
+  font-size: 18px;
+
+}
+
+
+
+/* TasksList style */
+.tasks-list {
+  /* height: 100%; */
+  overflow-y: auto;
+  height: calc(100% - 3 * 30px);
+  max-height: calc(100% - 3 * 30px);
+}
+.tasks-list .task.completed {
+  text-decoration: line-through;
+}
+.tasks-list .task img {
+  max-height: 100px;
+}
+
+
+
+.hidden {
+  display: none;
+}
