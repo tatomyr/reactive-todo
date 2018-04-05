@@ -6,8 +6,7 @@ export const TaskItem = task => `
     id="${task.id}"
     class="task ${task.completed ? 'completed' : ''}"
   >
+    <div class="image" style="background-image: url(${images[task.index]})"></div>
     ${task.description}
-    <img src="${images[task.index]}" />
-    <!-- ${task.completed ? '' : `<img src="${images[task.index]}" />`} -->
   </li>
 `

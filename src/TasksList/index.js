@@ -8,7 +8,7 @@ const filter =  ({
   completed: task => task.completed,
 })
 
-const TasksList = ({ tasks, route }) => console.log(':::', route, filter[route])|| `
+const TasksList = ({ tasks, route }) => `
   <ul
     class="tasks-list"
     onclick="global.dispatch('TRIGGER_TASK', { event: event })"

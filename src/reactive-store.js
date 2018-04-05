@@ -10,17 +10,12 @@ export const createStore = defaults => {
   const store = { ...defaults }
   console.log('triggered store constructor:', store)
 
-  // Global helpers init
-  // window.global = { ...(window.global || {}) }
-  // window.global.helpers = { ...(window.global.helpers || {}) }
-
   // Track each rendered component
   const tracker = {
     components: [],
     add: component => {
       if (!component.args) {
-        return
-        // throw new Error('Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].')
+        throw new Error('Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].')
       }
       const id = tracker.components.unshift(component)
       tracker.components[0].id = `$${component.name}-${id}`
@@ -40,7 +35,6 @@ export const createStore = defaults => {
 
   const wrapWithId = component => {
     const renderedComponent = component(store).trim()
-
     return component.id
       ? renderedComponent
         .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} id="${component.id}">`)
@@ -50,40 +44,24 @@ export const createStore = defaults => {
   /**
    * Returns funcion to be invoked
    * @param component - a function that retuns a string which represents a valid html tag with its content
-   * @param ...args - an optional list of arguments (specifically they are the store fields). If not any - the component will not rerender later on
    * @returns function to be invoked later on
    */
   const render = (component) => {
     tracker.add(component)
-
     // TODO implement a method to wrap a component properly
     return () => wrapWithId(component)
   }
 
-  // /**
-  //  * Returns a text field value wrapped in <span> tag
-  //  * @param field - a string name of a field to be rendered
-  //  * @return string
-  //  */
-  // // TODO implement support for nested store fields
-  // // TODO prevent adding anonymous functions to tracker multiple times || remove this feature
-  // const renderTextField = field => {
-  //   const component = store => `<span>${store[field]}</span>`
-  //   return render(component, field)()
-  //   // render(store => `<span>${store[field]}</span>`, field)()
-  // }
-
   /**
    * Store mutation method
    * @param callback - a callback function that will take the store as a single argunent and retuns an object that represents store changes
+   * @param after - an optional callback function that takes the store as a single argunent and run after the store is updated
    */
   const mutate = (callback, after = () => undefined) => {
     const changes = callback(store)
     Object.assign(store, changes)
     console.log('store changes:', changes)
-
     tracker.rerender(changes)
-
     after(store)
     return 'TODO'
   }

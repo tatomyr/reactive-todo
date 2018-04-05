@@ -15,6 +15,6 @@ const Filter = ({ route }) => `
   </div>
 `
 
-// Filter.args = ['route']
+Filter.args = ['route']
 
 export default render(Filter)

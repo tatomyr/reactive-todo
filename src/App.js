@@ -10,8 +10,6 @@ export default () => `
     ${TasksList()}
 
     <div class="controls">
-      ${Filter()}
-
       <div class="row">
         <form onSubmit="global.dispatch('ADD_TASK', { event: event })">
           <input
@@ -22,6 +20,8 @@ export default () => `
           />
         </form>
       </div>
+
+      ${Filter()}
     </div>
   </div>
 `
