@@ -3,7 +3,7 @@ import { highlight } from '../fakes'
 import filters from '../data/filters'
 
 const Header = ({ route }) => `
-  <div class="header">
+  <div class="header" ${highlight('light')}>
     <h2>${filters.find(({ id }) => id === route).caption}</h2>
   </div>
 `

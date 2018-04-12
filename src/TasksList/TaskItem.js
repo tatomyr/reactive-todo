@@ -2,7 +2,7 @@ import { highlight, images } from '../fakes'
 
 export const TaskItem = task => `
   <li
-    ${highlight()}
+    ${highlight('light')}
     id="${task.id}"
     class="task ${task.completed ? 'completed' : ''}"
   >

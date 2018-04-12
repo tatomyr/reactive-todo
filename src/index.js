@@ -11,3 +11,7 @@ const mount = app => {
 (() => {
   mount(App())
 })()
+
+navigator.serviceWorker
+  .register('./service-worker.js')
+  .then(() => { console.log('Service Worker Registered') })

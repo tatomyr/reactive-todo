@@ -7,16 +7,22 @@ export const fakeRequest = () => new Promise(resolve => {
 })
 
 // Color highlighting or rerender
-function getRandomColor() {
-  var letters = '89ABCDEF';
+function getRandomColor(prefer = 'none') {
+  var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 8)];
+    const rnd = Math.random();
+    const val = {
+      'none': rnd * 16,
+      'light': rnd * 6 + 10,
+      'dark': rnd * 6,
+    }
+    color += letters[Math.floor(val[prefer])];
   }
   return color;
 }
 
-export const highlight = () => `style="background-color: ${getRandomColor()};"`
+export const highlight = prefer => `style="background-color: ${getRandomColor(prefer)};"`
 
 // Set of images
 export const images = [

@@ -7,7 +7,7 @@ const Filter = ({ route }) => `
     ${filters.map(item => `
       <button
         onclick="global.dispatch('FILTER', { filter: '${item.id}' })"
-        ${highlight()}
+        ${highlight('light')}
       >
         ${item.caption}
       </button>
