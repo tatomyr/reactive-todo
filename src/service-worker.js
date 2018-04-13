@@ -1,8 +1,8 @@
 const cacheName = 'reactive-todo-app'
 const filesToCache = [
-  '/dist/index.html',
-  '/dist/index.js',
-  '/dist/index.css',
+  '/index.html',
+  '/index.js',
+  '/index.css',
 ]
 
 self.addEventListener('install', e => {
