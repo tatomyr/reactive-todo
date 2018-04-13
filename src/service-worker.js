@@ -1,8 +1,8 @@
 const cacheName = 'reactive-todo-app'
 const filesToCache = [
-  '/',
-  '/index.html',
-  // '/index.js',
+  '/dist/index.html',
+  '/dist/index.js',
+  '/dist/index.css',
 ]
 
 self.addEventListener('install', e => {
@@ -15,26 +15,22 @@ self.addEventListener('install', e => {
   )
 })
 
-self.addEventListener('activate', function(e) {
-  console.log('[ServiceWorker] Activate')
+self.addEventListener('activate', e => {
+  console.log('[ServiceWorker] Activate');
   e.waitUntil(
-    caches.keys().then(function(keyList) {
-      return Promise.all(keyList.map(function(key) {
-        if (key !== cacheName) {
-          console.log('[ServiceWorker] Removing old cache', key)
-          return caches.delete(key)
-        }
-      }))
-    })
+    caches.keys().then(keyList => Promise.all(keyList.map(key => {
+      if (key !== cacheName) {
+        console.log('[ServiceWorker] Removing old cache', key);
+        return caches.delete(key);
+      }
+    })))
   );
-  return self.clients.claim()
-})
+  return self.clients.claim();
+});
 
-self.addEventListener('fetch', function(e) {
-  console.log('[ServiceWorker] Fetch', e.request.url);
+self.addEventListener('fetch', e => {
+  console.log('[Service Worker] Fetch', e.request.url);
   e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
-    })
+    caches.match(e.request).then(res => res || fetch(e.request))
   );
 });
