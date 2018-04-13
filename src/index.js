@@ -12,6 +12,7 @@ const mount = app => {
   mount(App())
 })()
 
+// Registering service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('./service-worker.js')

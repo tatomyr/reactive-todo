@@ -9,10 +9,27 @@ div {
   /* border: 1px dashed orange; */
 }
 
+@font-face {
+  font-family: 'SandNew';
+  src: url('../assets/fonts/SandNew.ttf');
+}
+
+/* Declaring variables */
+body {
+  --controls-height: 60px;
+  --li-height: 60px;
+}
+
+/* Fonts */
+body, input, button {
+  font-family: SandNew;
+  font-size: 32px;
+}
+
 /* Constant height components */
 .header, .controls > .row {
-  height: 52px;
-  min-height: 52px;
+  height: var(--controls-height);
+  min-height: var(--controls-height);
 }
 
 
@@ -23,7 +40,7 @@ div {
   max-width: 600px;
   height: 100vh;
   max-height: 100vh;
-  font-size: 18px;
+  /* font-size: 18px; */
 }
 
 /* Header */
@@ -31,7 +48,7 @@ div {
   text-transform: uppercase;
   text-align: center;
   height: 100%;
-  line-height: 52px
+  line-height: var(--controls-height)
 }
 
 /* Controls */
@@ -47,7 +64,7 @@ div {
   justify-content: space-between;
 }
 .controls button {
-  font-size: 18px;
+  /* font-size: 18px; */
   height: 100%;
   width: 32.6%;
 }
@@ -60,7 +77,7 @@ div {
   height: 100%;
   background: black;
   color: white;
-  font-size: 18px;
+  /* font-size: 18px; */
   padding: 0 10px;
 }
 
@@ -69,11 +86,11 @@ div {
 /* TasksList style */
 .tasks-list {
   overflow-y: auto;
-  height: calc(100% - 3 * 52px);
-  max-height: calc(100% - 3 * 52px);
+  height: calc(100% - 3 * var(--controls-height));
+  max-height: calc(100% - 3 * var(--controls-height));
 }
 .tasks-list .task {
-  height: 100px;
+  height: var(--li-height);
   display: flex;
   align-items: center;
 }
@@ -81,9 +98,9 @@ div {
   text-decoration: line-through;
 }
 .tasks-list .task .image {
-  height: 100px;
-  width: 100px;
-  min-width: 100px;
+  height: var(--li-height);
+  width: var(--li-height);
+  min-width: var(--li-height);
   border-radius: 50%;
   display: inline-block;
   background-position: center center;
@@ -94,7 +111,7 @@ div {
   transition: 1s;
 }
 .tasks-list .task.completed .image {
-  transform: rotateX(-90deg);
+  -webkit-filter: grayscale(1);
 }
 
 

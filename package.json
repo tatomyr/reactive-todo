@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cp ./src/index.html ./dist/ && parcel ./src/index.js --public-url /",
-    "build": "cp ./src/index.html ./dist/ && parcel build ./src/index.js --public-url /",
+    "start": "bash ./tools/prepare.sh && parcel ./src/index.js --public-url /",
+    "build": "bash ./tools/prepare.sh && parcel build ./src/index.js --public-url /",
+    "deploy": "bash ./tools/deploy.sh",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
     "test": "echo \"Error: no test specified\" && exit 1"

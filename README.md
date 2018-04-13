@@ -1,4 +1,4 @@
-# Reactive ToDo Application
+# Reactive Store
 
 Implementation of reactive global store for pure JavaScript applications.
 
@@ -9,3 +9,11 @@ Each store mutation triggers rerendering of components that directly rely on
 the changed fields.
 To set up store for your application you have to implement a provider via
 `createStore` method.
+
+# Reactive ToDo Application
+
+To start dev server run `npm start`. Your app will be accessible at
+http://localhost:1234/index.html.
+
+To deploy use `npm run build && npm run deploy`.
+Make sure that a branch you're deploying to (e.g. `master`) isn't protected.

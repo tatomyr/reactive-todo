@@ -4,6 +4,8 @@ const filesToCache = [
   '/index.js',
   '/index.css',
 ]
+// Cache root path on production
+if (location.hostname !== 'localhost') filesToCache.push('/')
 
 self.addEventListener('install', e => {
   console.log('[ServiceWorker] Install')
