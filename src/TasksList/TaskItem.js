@@ -7,6 +7,16 @@ export const TaskItem = task => `
     class="task ${task.completed ? 'completed' : ''}"
   >
     <div class="image" style="background-image: url(${task.img})"></div>
-    ${task.description}
+    <span onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}' })">
+      ${task.description}
+    </span>
+    ${task.completed
+      ? `
+        <button onclick="global.dispatch('DELETE_TASK', { taskId: '${task.id}' })">
+          [X]
+        </button>
+      `
+      : ''
+    }
   </li>
 `

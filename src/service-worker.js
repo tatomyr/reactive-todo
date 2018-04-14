@@ -1,15 +1,18 @@
-console.log('0.0.3')
+const dev = location.hostname == 'localhost'
+console.log('0.0.6', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
-const filesToCache = [
-  '/index.html',
-  '/index.js',
-  '/index.css',
-  '/assets/fonts/SandNew.ttf',
-  '/assets/images/undefined-task.jpg',
-]
-// Cache root path on production
-if (location.hostname !== 'localhost') filesToCache.push('/')
+
+const filesToCache = dev
+  ? []
+  : [
+    '/',
+    '/index.html',
+    '/index.js',
+    '/index.css',
+    '/assets/fonts/SandNew.ttf',
+    '/assets/images/undefined-task.jpg',
+  ]
 
 self.addEventListener('install', e => {
   console.log('[ServiceWorker] Install')

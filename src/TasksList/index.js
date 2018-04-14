@@ -11,7 +11,7 @@ const filter =  ({
 const TasksList = ({ tasks, route }) => `
   <ul
     class="tasks-list"
-    onclick="global.dispatch('TRIGGER_TASK', { event: event })"
+
     ${highlight('light')}
   >
     ${tasks.filter(filter[route]).map(TaskItem).join('')}
