@@ -1,4 +1,4 @@
-import { highlight, images } from '../fakes'
+import { highlight } from '../fakes'
 
 export const TaskItem = task => `
   <li
@@ -6,7 +6,7 @@ export const TaskItem = task => `
     id="${task.id}"
     class="task ${task.completed ? 'completed' : ''}"
   >
-    <div class="image" style="background-image: url(${images[task.index]})"></div>
+    <div class="image" style="background-image: url(${task.img})"></div>
     ${task.description}
   </li>
 `

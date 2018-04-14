@@ -21,19 +21,31 @@ window.global.dispatch = (action, payload) => {
   switch (action) {
     case 'ADD_TASK':
       payload.event.preventDefault()
-      console.log(payload.event.target.newTask.value)
-      mutate(({ tasks }) => ({
-        tasks: [
-          ...tasks,
-          {
-            description: payload.event.target.newTask.value,
-            completed: false,
-            index: tasks.length,
-            id: `task-${tasks.length}`,
-            updatedAt: Date.now(),
-          },
-        ]
-      }), updateTasks)
+      const description = payload.event.target.newTask.value
+      console.log(description)
+
+      fetch(`https://www.googleapis.com/customsearch/v1/?q=${description}&num=1&key=AIzaSyCzOZT0KpisM7GOxnNm2IHoI9L8SFJN8UI&cx=006011215058077132006:oomzxe2ej2o&searchType=image`)
+        .then(res => res.json())
+        .then(doc => {
+          const img = doc.items[0] && doc.items[0].link || '../assets/images/undefined-task.jpg'
+          console.log(doc,img)
+
+          mutate(({ tasks }) => ({
+            tasks: [
+              ...tasks,
+              {
+                description,
+                img,
+                completed: false,
+                // FIXME what if we delete a task?
+                index: tasks.length,
+                id: `task-${tasks.length}`,
+                updatedAt: Date.now(),
+              },
+            ]
+          }), updateTasks)
+        })
+
       return false
 
     case 'TRIGGER_TASK':

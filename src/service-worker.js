@@ -1,9 +1,12 @@
+console.log('0.0.3')
+
 const cacheName = 'reactive-todo-app'
 const filesToCache = [
   '/index.html',
   '/index.js',
   '/index.css',
   '/assets/fonts/SandNew.ttf',
+  '/assets/images/undefined-task.jpg',
 ]
 // Cache root path on production
 if (location.hostname !== 'localhost') filesToCache.push('/')
