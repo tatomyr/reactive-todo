@@ -3,6 +3,7 @@ const filesToCache = [
   '/index.html',
   '/index.js',
   '/index.css',
+  '/assets/fonts/SandNew.ttf',
 ]
 // Cache root path on production
 if (location.hostname !== 'localhost') filesToCache.push('/')
