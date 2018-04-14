@@ -28,12 +28,13 @@ window.global.dispatch = (action, payload) => {
       payload.event.target.reset()
       payload.event.target.newTask.blur()
       const date = Date.now()
-      const undefinedTask = '../assets/images/undefined-task.jpg'
+      const undefinedTask = './assets/images/undefined-task.jpg'
+      const img = './assets/images/loading-shape.gif'
       mutate(({ tasks }) => ({
         tasks: [
           {
             description,
-            img: '../assets/images/loading-shape.gif',
+            img,
             completed: false,
             id: `task-${date}`,
             createdAt: date,

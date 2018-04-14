@@ -4,4 +4,4 @@ rm -rf dist
 mkdir -p dist
 cp ./src/index.html ./dist/
 cp ./src/manifest.json ./dist/
-cp -a ./assets ./dist/
+cp -a ./src/assets ./dist/
