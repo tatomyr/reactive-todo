@@ -112,9 +112,21 @@ body, input, button {
 }
 .tasks-list .task.completed .image {
   -webkit-filter: grayscale(1);
+  opacity: 0.75;
 }
 
-
+/* Stlyles toolbox */
 .hidden {
   display: none;
+}
+
+button.invisible-button {
+  padding: 0;
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }

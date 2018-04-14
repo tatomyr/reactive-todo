@@ -1,7 +1,9 @@
 import { createStore } from './reactive-store'
+import imageAPI from './data/google-api'
 
 console.log('triggered store provider')
 
+// Task helpers
 const cashedTasks = localStorage.getItem('tasks') &&
   JSON.parse(localStorage.getItem('tasks'))
 
@@ -31,6 +33,7 @@ window.global.dispatch = (action, payload) => {
         tasks: [
           {
             description,
+            img: '../assets/images/loading-shape.gif',
             completed: false,
             id: `task-${date}`,
             createdAt: date,
@@ -41,9 +44,9 @@ window.global.dispatch = (action, payload) => {
       }), store => {
         updateTasks(store)
 
-        fetch(`https://www.googleapis.com/customsearch/v1/?q=${description}&num=1&key=AIzaSyCzOZT0KpisM7GOxnNm2IHoI9L8SFJN8UI&cx=006011215058077132006:oomzxe2ej2o&searchType=image`)
+        fetch(imageAPI(description))
           .then(res => res.json())
-          .then(doc => doc.items[0] && doc.items[0].link || undefinedTask)
+          .then(doc => doc && doc.items && doc.items[0] && doc.items[0].link || undefinedTask)
           .catch(err => {
             console.error(err);
             return undefinedTask
