@@ -1,4 +1,4 @@
-import { highlight } from './fakes'
+import { highlight } from '../fakes'
 import TasksList from './TasksList'
 import Filter from './Filter'
 import Header from './Header'
@@ -18,6 +18,7 @@ export default () => `
             name="newTask"
             placeholder="New Task..."
             required
+            maxlength="60"
             ${highlight('dark')}
           />
         </form>

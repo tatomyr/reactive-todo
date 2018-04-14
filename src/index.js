@@ -1,6 +1,6 @@
 import './reset.css'
 import './style.css'
-import App from './App'
+import App from './ui/App'
 
 // Render page
 const mount = app => {

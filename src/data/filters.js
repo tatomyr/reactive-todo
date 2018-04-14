@@ -1,5 +1,5 @@
 export default [
-  { id: 'all', caption: 'All' },
-  { id: 'active', caption: 'Active' },
-  { id: 'completed', caption: 'Completed' },
+  { id: 'all', title: 'All', caption: '*' },
+  { id: 'active', title: 'Active', caption: '!' },
+  { id: 'completed', title: 'Completed', caption: 'x' },
 ]

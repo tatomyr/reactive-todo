@@ -9,15 +9,15 @@ div {
   /* border: 1px dashed orange; */
 }
 
-@font-face {
+/* @font-face {
   font-family: 'SandNew';
   src: url('./assets/fonts/SandNew.ttf');
-}
+} */
 
 /* Declaring variables */
 body {
-  --controls-height: 60px;
-  --li-height: 60px;
+  --controls-height: 54px;
+  --li-height: 54px;
 }
 
 /* Fonts */
@@ -40,7 +40,6 @@ body, input, button {
   max-width: 600px;
   height: 100vh;
   max-height: 100vh;
-  /* font-size: 18px; */
 }
 
 /* Header */
@@ -61,12 +60,14 @@ body, input, button {
 .controls .row {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .controls button {
-  /* font-size: 18px; */
-  height: 100%;
-  width: 32.6%;
+  /* height: 100%;
+  width: 32.6%; */
+  height: var(--li-height);
+  width: var(--li-height);
+  border-radius: 50%;
 }
 .controls form {
   height: 100%;
@@ -77,11 +78,8 @@ body, input, button {
   height: 100%;
   background: black;
   color: white;
-  /* font-size: 18px; */
   padding: 0 10px;
 }
-
-
 
 /* TasksList style */
 .tasks-list {
@@ -91,22 +89,22 @@ body, input, button {
 }
 .tasks-list .task {
   height: var(--li-height);
-  display: flex;
-  align-items: center;
-}
-.tasks-list .task.completed {
-  text-decoration: line-through;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-gap: 10px;
+  border-radius: calc(var(--li-height) / 2);
 }
 .tasks-list .task .image {
   height: var(--li-height);
   width: var(--li-height);
-  min-width: var(--li-height);
+  line-height: var(--li-height);
+  text-align: center;
+  color: white;
   border-radius: 50%;
   display: inline-block;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-right: 8px;
 
   transition: 1s;
 }
@@ -114,8 +112,30 @@ body, input, button {
   -webkit-filter: grayscale(1);
   opacity: 0.75;
 }
+.tasks-list .task .description {
+  word-break: break-word;
+  cursor: pointer;
+  overflow: hidden;
+  background: linear-gradient(white, transparent, grey)
+}
+.tasks-list .task.completed .description {
+  text-decoration: line-through;
+}
+.tasks-list .task .button-column {
+  text-align: right;
+}
+.tasks-list .task .delete-button {
+  height: var(--li-height);
+  width: var(--li-height);
+  text-align: center;
+  color: white;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgba(200,80,90,0.75);
+}
 
-/* Stlyles toolbox */
+
+/* Toolbox */
 .hidden {
   display: none;
 }
