@@ -11,6 +11,10 @@ const filter =  ({
 const TasksList = ({ tasks, route }) => `
   <ul
     class="tasks-list"
+    ontouchstart="global.dispatch('TOUCH_START', { event: event })"
+    ontouchmove="global.dispatch('TOUCH_MOVE', { event: event })"
+    ontouchend="global.dispatch('TOUCH_END', { event: event })"
+    ontouchcancel="global.dispatch('TOUCH_CANCEL', { event: event })"
     ${highlight('light')}
   >
     ${tasks.filter(filter[route]).map(TaskItem).join('')}
