@@ -22,7 +22,7 @@ function getRandomColor(prefer = 'none') {
   return color;
 }
 
-export const highlight = prefer => `style="background-color: ${getRandomColor(prefer)};"`
+export const highlight = prefer => '' // `style="background-color: ${getRandomColor(prefer)};"`
 
 // Set of images
 export const images = [

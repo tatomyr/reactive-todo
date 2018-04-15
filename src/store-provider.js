@@ -14,11 +14,6 @@ const updateTasks = ({ tasks }) => {
 // Initialize store and export store methods
 export const { render, mutate } = createStore({
   tasks: cashedTasks || [],
-  move: {
-    // current: [0, 0],
-    // velocity: [0, 0],
-    diff: [0, 0],
-  },
   route: 'active',
 })
 
@@ -104,58 +99,6 @@ window.global.dispatch = (action, payload) => {
     case 'FILTER':
       console.log(action, payload)
       mutate(({ route }) => ({ route: payload.filter }))
-      return false
-
-    case 'TOUCH_START':
-      // payload.event.preventDefault()
-      console.log(action, payload)
-      var changes = payload.event.changedTouches[0]
-      var v1 = [changes.pageX, changes.pageY]
-
-      mutate(({ move }) => ({
-        move: {
-          // ...move
-          start: v1,
-          current: v1,
-          velocity: [0, 0],
-          diff: [0, 0],
-        }
-      }))
-      return false
-
-    case 'TOUCH_MOVE':
-      var changes = payload.event.changedTouches[0]
-      var v1 = [changes.pageX, changes.pageY]
-      // var v2 = [changes.screenX, changes.screenY]
-      mutate(({ move }) => ({ move: {
-        ...move,
-        current: v1,
-        velocity: [
-          v1[0] - move.current[0],
-          v1[1] - move.current[1],
-        ],
-        diff: [
-          v1[0] - move.start[0],
-          v1[1] - move.start[1],
-        ],
-      } }), ({ move }) => console.log('diff:',move.diff[0]))
-      return false
-
-    case 'TOUCH_END':
-    var changes = payload.event.changedTouches[0]
-    var v1 = [changes.pageX, changes.pageY]
-      console.log(action, payload)
-      mutate(({ move }) => ({ move: {
-        ...move,
-        diff: [
-          v1[0] - move.start[0],
-          v1[1] - move.start[1],
-        ],
-      } }), ({ move }) => console.log('diff::',Math.abs(move.diff[1]) / move.diff[0] * 100))
-      return false
-
-    case 'TOUCH_CANCEL':
-      console.log(action, payload)
       return false
 
     default:

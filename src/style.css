@@ -26,36 +26,28 @@ body, input, button {
 .container {
   position: relative;
   margin: 0 auto;
-  max-width: 600px;
+  /* max-width: 600px; */
   height: 100vh;
   max-height: 100vh;
 }
 
-/* Header */
+/* Header & Filter */
 #header {
-  overflow: hidden;
-}
-#header .plank {
   display: flex;
+  justify-content: space-evenly;
+  background: teal;
 }
-#header .plank .item {
-  height: 100%;
-
-  padding: 0 10px;
-  border: 1px dashed orange;
-
-}
-#header .plank .item h2 {
+#header .item {
   display: inline-block;
   white-space: nowrap;
   height: 100%;
   line-height: var(--controls-height);
   color: white;
-  background: gray;
   text-align: center;
   text-transform: uppercase;
+  padding: 0 5px;
 }
-#header .plank h2.active {
+#header .item.active {
   color: black;
 }
 
@@ -83,12 +75,15 @@ body, input, button {
   overflow-y: auto;
   height: calc(100% - 2 * var(--controls-height));
   max-height: calc(100% - 2 * var(--controls-height));
+  background: lightgrey;
 }
 .tasks-list .task {
   height: var(--li-height);
   display: flex;
   justify-content: space-between;
   border-radius: calc(var(--li-height) / 2);
+  background: white;
+  margin: 1px;
 }
 .tasks-list .task .image {
   height: var(--li-height);
@@ -111,8 +106,7 @@ body, input, button {
   word-break: break-word;
   cursor: pointer;
   overflow: hidden;
-  background: linear-gradient(white, transparent, grey);
-  /* line-height: var(--li-height); */
+  /* background: linear-gradient(white, transparent, grey); */
   margin: 0 10px;
 }
 .tasks-list .task.completed .description {
