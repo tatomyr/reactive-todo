@@ -17,6 +17,7 @@ export const { render, mutate } = createStore({
   move: {
     // current: [0, 0],
     // velocity: [0, 0],
+    diff: [0, 0],
   },
   route: 'active',
 })
@@ -117,7 +118,7 @@ window.global.dispatch = (action, payload) => {
           start: v1,
           current: v1,
           velocity: [0, 0],
-          diff: [undefined, undefined],
+          diff: [0, 0],
         }
       }))
       return false
@@ -133,8 +134,11 @@ window.global.dispatch = (action, payload) => {
           v1[0] - move.current[0],
           v1[1] - move.current[1],
         ],
-
-      } }), ({ move }) => console.table(move))
+        diff: [
+          v1[0] - move.start[0],
+          v1[1] - move.start[1],
+        ],
+      } }), ({ move }) => console.log('diff:',move.diff[0]))
       return false
 
     case 'TOUCH_END':
@@ -147,7 +151,7 @@ window.global.dispatch = (action, payload) => {
           v1[0] - move.start[0],
           v1[1] - move.start[1],
         ],
-      } }), ({ move }) => console.log(Math.abs(move.diff[1]) / move.diff[0] * 100))
+      } }), ({ move }) => console.log('diff::',Math.abs(move.diff[1]) / move.diff[0] * 100))
       return false
 
     case 'TOUCH_CANCEL':

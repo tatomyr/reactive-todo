@@ -28,7 +28,7 @@ export const createStore = defaults => {
         .filter(({ args }) => changedArgs.some(arg => args.includes(arg)))
         .forEach(component => {
           console.log('rerender:', component.name)
-          document.getElementById(component.id).outerHTML = wrapWithId(component)
+          document.querySelector(`[data-rsid="${component.id}"]`).outerHTML = wrapWithId(component)
         })
     },
   }
@@ -37,7 +37,7 @@ export const createStore = defaults => {
     const renderedComponent = component(store).trim()
     return component.id
       ? renderedComponent
-        .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} id="${component.id}">`)
+        .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} data-rsid="${component.id}">`)
       : renderedComponent
   }
 

@@ -4,7 +4,7 @@ import App from './ui/App'
 
 // Render page
 const mount = app => {
-  document.getElementById('root').innerHTML = app
+  document.querySelector('#root').innerHTML = app
   document.querySelector('input').focus() // XXX
 }
 

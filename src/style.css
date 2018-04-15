@@ -17,7 +17,7 @@ body, input, button {
 }
 
 /* Constant height components */
-.header, .controls > .row {
+#header, .controls {
   height: var(--controls-height);
   min-height: var(--controls-height);
 }
@@ -32,11 +32,31 @@ body, input, button {
 }
 
 /* Header */
-.header h2 {
-  text-transform: uppercase;
-  text-align: center;
+#header {
+  overflow: hidden;
+}
+#header .plank {
+  display: flex;
+}
+#header .plank .item {
   height: 100%;
-  line-height: var(--controls-height)
+
+  padding: 0 10px;
+  border: 1px dashed orange;
+
+}
+#header .plank .item h2 {
+  display: inline-block;
+  white-space: nowrap;
+  height: 100%;
+  line-height: var(--controls-height);
+  color: white;
+  background: gray;
+  text-align: center;
+  text-transform: uppercase;
+}
+#header .plank h2.active {
+  color: black;
 }
 
 /* Controls */
@@ -44,22 +64,13 @@ body, input, button {
   position: absolute;
   bottom: 0;
   width: 100%;
-}
-.controls .row {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-}
-.controls button {
-  height: var(--li-height);
-  width: var(--li-height);
-  border-radius: 50%;
+  height: var(--controls-height);
 }
 .controls form {
   height: 100%;
   width: 100%;
 }
-.controls .input {
+.controls form .input {
   width: 100%;
   height: 100%;
   background: black;
@@ -70,8 +81,8 @@ body, input, button {
 /* TasksList style */
 .tasks-list {
   overflow-y: auto;
-  height: calc(100% - 3 * var(--controls-height));
-  max-height: calc(100% - 3 * var(--controls-height));
+  height: calc(100% - 2 * var(--controls-height));
+  max-height: calc(100% - 2 * var(--controls-height));
 }
 .tasks-list .task {
   height: var(--li-height);
