@@ -4,16 +4,6 @@
   border: none;
 }
 
-/* Temporarly */
-div {
-  /* border: 1px dashed orange; */
-}
-
-/* @font-face {
-  font-family: 'SandNew';
-  src: url('./assets/fonts/SandNew.ttf');
-} */
-
 /* Declaring variables */
 body {
   --controls-height: 54px;
@@ -31,7 +21,6 @@ body, input, button {
   height: var(--controls-height);
   min-height: var(--controls-height);
 }
-
 
 /* Main container */
 .container {
@@ -55,7 +44,6 @@ body, input, button {
   position: absolute;
   bottom: 0;
   width: 100%;
-
 }
 .controls .row {
   display: flex;
@@ -63,8 +51,6 @@ body, input, button {
   justify-content: space-evenly;
 }
 .controls button {
-  /* height: 100%;
-  width: 32.6%; */
   height: var(--li-height);
   width: var(--li-height);
   border-radius: 50%;
@@ -89,17 +75,14 @@ body, input, button {
 }
 .tasks-list .task {
   height: var(--li-height);
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-gap: 10px;
+  display: flex;
+  justify-content: space-between;
   border-radius: calc(var(--li-height) / 2);
 }
 .tasks-list .task .image {
   height: var(--li-height);
   width: var(--li-height);
-  line-height: var(--li-height);
-  text-align: center;
-  color: white;
+  min-width: var(--li-height);
   border-radius: 50%;
   display: inline-block;
   background-position: center center;
@@ -113,28 +96,32 @@ body, input, button {
   opacity: 0.75;
 }
 .tasks-list .task .description {
+  width: 100%;
   word-break: break-word;
   cursor: pointer;
   overflow: hidden;
   background: linear-gradient(white, transparent, grey);
-  line-height: var(--li-height);
+  /* line-height: var(--li-height); */
+  margin: 0 10px;
 }
 .tasks-list .task.completed .description {
   text-decoration: line-through;
 }
-.tasks-list .task .button-column {
-  text-align: right;
-}
-.tasks-list .task .delete-button {
-  height: var(--li-height);
+.tasks-list .task .round {
+  display: inline-block;
   width: var(--li-height);
+  min-width: var(--li-height);
+  height: var(--li-height);
   text-align: center;
   color: white;
   border-radius: 50%;
-  display: inline-block;
+}
+.tasks-list .task .up-button {
+  background: rgba(90,200,80,0.75);
+}
+.tasks-list .task .delete-button {
   background: rgba(200,80,90,0.75);
 }
-
 
 /* Toolbox */
 .hidden {

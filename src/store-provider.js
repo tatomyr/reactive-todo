@@ -82,6 +82,17 @@ window.global.dispatch = (action, payload) => {
       }), updateTasks)
       return false
 
+    case 'UPDATE_TASK':
+      console.log(action, payload)
+      mutate(({ tasks }) => ({
+        tasks: tasks.map(task => (
+          task.id === payload.taskId
+            ? { ...task, updatedAt: Date.now() }
+            : task
+        )).sort((a, b) => b.updatedAt - a.updatedAt)
+      }), updateTasks)
+      return false
+
     case 'DELETE_TASK':
       console.log(action, payload)
       mutate(({ tasks }) => ({

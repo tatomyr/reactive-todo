@@ -11,20 +11,27 @@ export const TaskItem = task => `
       class="description"
       onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}' })"
     >
-      ${task.description}
+      <span>${task.description}</span>
     </div>
-    <div class="button-column">
-      ${task.completed
-        ? `
-          <button
-            class="invisible-button delete-button"
-            onclick="global.dispatch('DELETE_TASK', { taskId: '${task.id}' })"
-          >
-            X
-          </button>
-        `
-        : ''
-      }
-    </div>
+
+    ${task.completed
+      ? `
+        <button
+          class="invisible-button round delete-button"
+          onclick="global.dispatch('DELETE_TASK', { taskId: '${task.id}' })"
+        >
+          x
+        </button>
+      `
+      : `
+        <button
+          class="invisible-button round up-button"
+          onclick="global.dispatch('UPDATE_TASK', { taskId: '${task.id}' })"
+        >
+          ^
+        </button>
+      `
+    }
+
   </li>
 `
