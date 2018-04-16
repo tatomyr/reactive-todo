@@ -13,8 +13,8 @@ body {
 /* Fonts */
 body, input, button {
   font-family: SandNew;
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 28px;
+  /* font-weight: bold; */
 }
 
 /* Constant height components */
@@ -110,13 +110,11 @@ body, input, button {
   /* background: linear-gradient(white, transparent, grey); */
   margin: 0 10px;
 
-  /* display: flex;
-  margin-top: 0 auto;
-  margin-bottom: 0 auto; */
+  display: flex;
+  align-items: center;
 }
-.tasks-list .task .description span {
-  /* margin-top: 0 auto;
-  margin-bottom: 0 auto; */
+.tasks-list .task .description div {
+  max-height: var(--li-height);
 }
 .tasks-list .task.completed .description {
   text-decoration: line-through;

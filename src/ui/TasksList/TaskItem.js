@@ -11,7 +11,7 @@ export const TaskItem = task => `
       class="description"
       onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}' })"
     >
-      <span>${task.description}</span>
+      <div>${task.description}</div>
     </div>
 
     ${task.completed
@@ -28,7 +28,7 @@ export const TaskItem = task => `
           class="invisible-button round up-button"
           onclick="global.dispatch('UPDATE_TASK', { taskId: '${task.id}' })"
         >
-          ^
+          л
         </button>
       `
     }
