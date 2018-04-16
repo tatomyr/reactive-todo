@@ -15,7 +15,6 @@ body {
 body, input, button {
   font-family: SandNew;
   font-size: 28px;
-  /* font-weight: bold; */
 }
 
 /* Constant height components */
@@ -104,11 +103,10 @@ body, input, button {
   min-width: var(--li-height);
   border-radius: 50%;
   display: inline-block;
+
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-
-  transition: 1s;
 }
 .tasks-list .task.completed .image {
   -webkit-filter: grayscale(1);
@@ -119,7 +117,6 @@ body, input, button {
   word-break: break-word;
   cursor: pointer;
   overflow: hidden;
-  /* background: linear-gradient(white, transparent, grey); */
   margin: 0 var(--general-offset);
 
   display: flex;
@@ -133,9 +130,9 @@ body, input, button {
 }
 .tasks-list .task .round {
   display: inline-block;
+  height: var(--li-height);
   width: var(--li-height);
   min-width: var(--li-height);
-  height: var(--li-height);
   text-align: center;
   color: white;
   border-radius: 50%;
@@ -146,6 +143,24 @@ body, input, button {
 .tasks-list .task .delete-button {
   background: rgba(200,80,90,0.75);
 }
+
+/* Fullscreen image */
+.fullimage-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(100, 100, 100, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fullimage-container img {
+  max-width: calc(100vw - var(--general-offset));
+  max-height: calc(100vh - var(--general-offset));
+}
+
 
 /* Toolbox */
 .hidden {

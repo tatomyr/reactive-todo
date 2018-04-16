@@ -1,7 +1,7 @@
 import { highlight } from '../fakes'
 import TasksList from './TasksList'
-// import Filter from './Filter'
 import Header from './Header'
+import ImageToShow from './ImageToShow'
 
 // Main component (storeless)
 export default () => `
@@ -29,5 +29,7 @@ export default () => `
         </div>
       </form>
     </div>
+
+    ${ImageToShow()}
   </div>
 `

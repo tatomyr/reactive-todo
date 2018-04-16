@@ -15,6 +15,7 @@ const updateTasks = ({ tasks }) => {
 export const { render, mutate } = createStore({
   tasks: cashedTasks || [],
   route: 'active',
+  imageToShow: '',
 })
 
 // Set global handlers
@@ -104,7 +105,12 @@ window.global.dispatch = (action, payload) => {
 
     case 'FILTER':
       console.log(action, payload)
-      mutate(({ route }) => ({ route: payload.filter }))
+      mutate(() => ({ route: payload.filter }))
+      return false
+
+    case 'SHOW_IMAGE':
+      console.log(action, payload)
+      mutate(() => ({ imageToShow: payload.imageToShow }))
       return false
 
     default:
