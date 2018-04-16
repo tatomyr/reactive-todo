@@ -67,6 +67,12 @@ window.global.dispatch = (action, payload) => {
       })
       return false
 
+    case 'CLEAR_INPUT':
+      console.log(action, payload)
+      const input = document.querySelector(`#${payload.target}`)
+      input.value = ''
+      return false
+
     case 'TRIGGER_TASK':
       console.log(action, payload);
       mutate(({ tasks }) => ({

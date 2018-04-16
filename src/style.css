@@ -8,6 +8,7 @@
 body {
   --controls-height: 54px;
   --li-height: 54px;
+  --general-offset: 10px;
 }
 
 /* Fonts */
@@ -68,7 +69,18 @@ body, input, button {
   height: 100%;
   background: black;
   color: white;
-  padding: 0 10px;
+  padding: 0 var(--general-offset);
+}
+.controls #clear {
+  position: absolute;
+  height: calc(var(--controls-height) / 2);
+  width: calc(var(--controls-height) / 2);
+  top: calc(var(--controls-height) / 4);
+  right: var(--general-offset);
+  text-align: center;
+  line-height: calc(var(--controls-height) / 2);
+  background: rgba(200,200,200,0.5);
+  border-radius: 50%;
 }
 
 /* TasksList style */
@@ -108,7 +120,7 @@ body, input, button {
   cursor: pointer;
   overflow: hidden;
   /* background: linear-gradient(white, transparent, grey); */
-  margin: 0 10px;
+  margin: 0 var(--general-offset);
 
   display: flex;
   align-items: center;
