@@ -3,7 +3,7 @@
 Implementation of reactive global store for pure JavaScript applications.
 
 The concept is that every reactive data should be contained in one store
-which is accessible through methods `render` (for getting data) and `mutate`
+which is accessible through methods `connect` (for getting data) and `mutate`
 (for mutating data).
 
 Each store mutation triggers rerendering of components that directly rely on

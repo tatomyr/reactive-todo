@@ -10,7 +10,7 @@ export const createStore = defaults => {
   const store = { ...defaults }
   console.log('triggered store constructor:', store)
 
-  // Track each rendered component
+  // Track each connected component
   const tracker = {
     components: [],
     add: component => {
@@ -46,7 +46,7 @@ export const createStore = defaults => {
    * @param component - a function that retuns a string which represents a valid html tag with its content
    * @returns function to be invoked later on
    */
-  const render = (component) => {
+  const connect = (component) => {
     tracker.add(component)
     // TODO implement a method to wrap a component properly
     return () => wrapWithId(component)
@@ -66,10 +66,10 @@ export const createStore = defaults => {
     return 'TODO'
   }
 
-  return { render, mutate }
+  return { connect, mutate }
 }
 
 // TODO implement routing
-// TODO implement passing props through render method
+// TODO implement passing props through `connect` method
 // TODO implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
 // TODO prevent adding a same tracker twice

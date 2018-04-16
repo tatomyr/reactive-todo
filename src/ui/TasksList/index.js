@@ -1,4 +1,4 @@
-import { render } from '../../store-provider'
+import { connect } from '../../store-provider'
 import { highlight } from '../../fakes'
 import { TaskItem } from './TaskItem'
 
@@ -16,4 +16,4 @@ const TasksList = ({ tasks, route }) => `
 
 TasksList.args = ['tasks', 'route']
 
-export default render(TasksList)
+export default connect(TasksList)

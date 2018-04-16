@@ -1,4 +1,4 @@
-import { render } from '../../store-provider'
+import { connect } from '../../store-provider'
 import { highlight } from '../../fakes'
 
 const ImageToShow = ({ imageToShow }) => `
@@ -12,4 +12,4 @@ const ImageToShow = ({ imageToShow }) => `
 
 ImageToShow.args = ['imageToShow']
 
-export default render(ImageToShow)
+export default connect(ImageToShow)

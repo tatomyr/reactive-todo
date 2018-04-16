@@ -12,7 +12,7 @@ const updateTasks = ({ tasks }) => {
 }
 
 // Initialize store and export store methods
-export const { render, mutate } = createStore({
+export const { connect, mutate } = createStore({
   tasks: cashedTasks || [],
   route: 'active',
   imageToShow: '',

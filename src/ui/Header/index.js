@@ -1,4 +1,4 @@
-import { render } from '../../store-provider'
+import { connect } from '../../store-provider'
 import { highlight } from '../../fakes'
 import filters from '../../data/filters'
 
@@ -20,4 +20,4 @@ const Header = ({ route }) => `
 
 Header.args = ['route']
 
-export default render(Header)
+export default connect(Header)
