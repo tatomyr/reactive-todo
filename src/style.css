@@ -9,6 +9,7 @@ body {
   --controls-height: 54px;
   --li-height: 54px;
   --general-offset: 10px;
+  --light-color: #f5f5f5;
 }
 
 /* Fonts */
@@ -43,43 +44,13 @@ body, input, button {
   white-space: nowrap;
   height: 100%;
   line-height: var(--controls-height);
-  color: white;
+  color: #4a4a4a;
   text-align: center;
   text-transform: uppercase;
   padding: 0 5px;
 }
 #header .item.active {
-  color: black;
-}
-
-/* Controls */
-.controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: var(--controls-height);
-}
-.controls form {
-  height: 100%;
-  width: 100%;
-}
-.controls form .input {
-  width: 100%;
-  height: 100%;
-  background: black;
-  color: white;
-  padding: 0 var(--general-offset);
-}
-.controls #clear {
-  position: absolute;
-  height: calc(var(--controls-height) / 2);
-  width: calc(var(--controls-height) / 2);
-  top: calc(var(--controls-height) / 4);
-  right: var(--general-offset);
-  text-align: center;
-  line-height: calc(var(--controls-height) / 2);
-  background: rgba(200,200,200,0.5);
-  border-radius: 50%;
+  color: var(--light-color);
 }
 
 /* TasksList style */
@@ -94,7 +65,7 @@ body, input, button {
   display: flex;
   justify-content: space-between;
   border-radius: calc(var(--li-height) / 2);
-  background: white;
+  background: var(--light-color);
   margin: 1px;
 }
 .tasks-list .task .image {
@@ -134,14 +105,44 @@ body, input, button {
   width: var(--li-height);
   min-width: var(--li-height);
   text-align: center;
-  color: white;
+  color: var(--light-color);
   border-radius: 50%;
 }
 .tasks-list .task .up-button {
-  background: rgba(90,200,80,0.75);
+  background: #46b67f;
 }
 .tasks-list .task .delete-button {
-  background: rgba(200,80,90,0.75);
+  background: #c66169;
+}
+
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--controls-height);
+}
+.controls form {
+  height: 100%;
+  width: 100%;
+}
+.controls form .input {
+  width: 100%;
+  height: 100%;
+  background: #004b4b;
+  color: var(--light-color);
+  padding: 0 var(--general-offset);
+}
+.controls #clear {
+  position: absolute;
+  height: calc(var(--controls-height) / 2);
+  width: calc(var(--controls-height) / 2);
+  top: calc(var(--controls-height) / 4);
+  right: var(--general-offset);
+  text-align: center;
+  line-height: calc(var(--controls-height) / 2);
+  background: rgba(200,200,200,0.5);
+  border-radius: 50%;
 }
 
 /* Fullscreen image */
@@ -159,6 +160,7 @@ body, input, button {
 .fullimage-container img {
   max-width: calc(100vw - var(--general-offset));
   max-height: calc(100vh - var(--general-offset));
+  /* box-shadow: 0 0 10px 1px; */
 }
 
 
