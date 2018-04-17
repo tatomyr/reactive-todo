@@ -16,6 +16,11 @@ export const { connect, mutate } = createStore({
   tasks: cashedTasks || [],
   route: 'active',
   imageToShow: '',
+  notification: {
+    text: '',
+    id: undefined,
+    pageY: undefined,
+  },
 })
 
 // Set global handlers
@@ -76,12 +81,26 @@ window.global.dispatch = (action, payload) => {
 
     case 'TRIGGER_TASK':
       console.log(action, payload);
-      mutate(({ tasks }) => ({
+      mutate(({ tasks, notification }) => ({
         tasks: tasks.map(task => (
           task.id === payload.taskId
             ? { ...task, completed: !task.completed, updatedAt: Date.now() }
             : task
-        )).sort((a, b) => b.updatedAt - a.updatedAt)
+        )).sort((a, b) => b.updatedAt - a.updatedAt),
+        notification: {
+          text: tasks.find(({ id }) => id === payload.taskId).completed
+            ? 'Task now set active'
+            : 'Task marked completed',
+          id: (notification.id !== undefined) && clearTimeout(notification.id) ||
+            setTimeout(() => {
+              mutate(() => ({ notification: {
+                text: '',
+                id: undefined,
+                pageY: undefined,
+              } }))
+            }, 1000),
+          pageY: payload.pageY,
+        },
       }), updateTasks)
       return false
 

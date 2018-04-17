@@ -15,6 +15,8 @@ body {
 body, input, button {
   font-family: SandNew;
   font-size: 28px;
+  font-weight: bold;
+
 }
 
 /* Constant height components */
@@ -157,9 +159,15 @@ body, input, button {
   right: var(--general-offset);
   text-align: center;
   line-height: calc(var(--height) / 2);
-  background: rgba(200,200,200,0.5);
   border-radius: 50%;
+  background: rgba(200,200,200,0.5);
+  color: #004b4b;
+  display: none;
 }
+.form form input#newTask.input:valid + div#clear {
+  display: initial;
+}
+
 
 /* Fullscreen image */
 .fullimage-container {
@@ -177,6 +185,24 @@ body, input, button {
   max-width: calc(100vw - var(--general-offset));
   max-height: calc(100vh - var(--general-offset));
   /* box-shadow: 0 0 10px 1px; */
+}
+
+#notification {
+  position: fixed;
+  top: 30px; /* default value */
+  width: 100%;
+  height: var(--height);
+  line-height: var(--height);
+  text-align: center;
+}
+
+#notification .notification-text {
+  display: inline-block;
+  width: calc(100% - 1.5 * var(--height));
+  color: white;
+  background: rgba(80, 80, 80, 0.75);
+  border-radius: 15px;
+  box-shadow: 0 0 50px 5px rgba(80, 80, 80, 0.75);
 }
 
 

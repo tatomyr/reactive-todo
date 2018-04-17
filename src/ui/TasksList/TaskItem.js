@@ -13,7 +13,7 @@ export const TaskItem = task => `
     ></div>
     <div
       class="description"
-      onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}' })"
+      onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}', pageY: event.pageY })"
     >
       <div>${task.description}</div>
     </div>

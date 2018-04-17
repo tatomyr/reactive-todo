@@ -2,6 +2,7 @@ import { highlight } from '../fakes'
 import TasksList from './TasksList'
 import Header from './Header'
 import ImageToShow from './ImageToShow'
+import Notification from './Notification'
 
 // Main component (storeless)
 export default () => `
@@ -19,6 +20,7 @@ export default () => `
           placeholder="New Task..."
           required
           maxlength="60"
+          autocomplete="off"
           ${highlight('dark')}
         />
         <div
@@ -31,5 +33,7 @@ export default () => `
     </div>
 
     ${ImageToShow()}
+
+    ${Notification()}
   </div>
 `
