@@ -16,7 +16,6 @@ body, input, button {
   font-family: SandNew;
   font-size: 28px;
   font-weight: bold;
-
 }
 
 /* Constant height components */
@@ -29,7 +28,6 @@ body, input, button {
 .container {
   position: relative;
   margin: 0 auto;
-  /* max-width: 600px; */
   height: 100vh;
   max-height: 100vh;
 }
@@ -84,13 +82,14 @@ body, input, button {
   background: lightgrey;
 }
 .tasks-list .task {
-  --padding: 3px;
+  --margin: 3px;
+  --diameter: calc(var(--height) - 2 * var(--margin));
   height: var(--height);
   display: flex;
   justify-content: space-between;
   border-radius: calc(var(--height) / 2);
   background: var(--light-color);
-  margin: var(--padding);
+  margin: var(--margin);
 }
 .tasks-list .task.completed .image {
   -webkit-filter: grayscale(1);
@@ -114,25 +113,12 @@ body, input, button {
 }
 .tasks-list .task .up-button {
   background: #46b67f;
+  color: var(--light-color);
 }
 .tasks-list .task .delete-button {
   background: #c66169;
-}
-.round {
-  display: inline-block;
-  height: calc(var(--height) - 2 * var(--padding));
-  width: calc(var(--height) - 2 * var(--padding));
-  min-width: calc(var(--height) - 2 * var(--padding));
-  margin: var(--padding);
-  text-align: center;
   color: var(--light-color);
-  border-radius: 50%;
-
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
-
 
 /* Controls */
 .form {
@@ -152,14 +138,11 @@ body, input, button {
   padding: 0 var(--general-offset);
 }
 .form #clear {
+  --diameter: calc(var(--height) / 2);
   position: absolute;
-  height: calc(var(--height) / 2);
-  width: calc(var(--height) / 2);
   top: calc(var(--height) / 4);
   right: var(--general-offset);
-  text-align: center;
   line-height: calc(var(--height) / 2);
-  border-radius: 50%;
   background: rgba(200,200,200,0.5);
   color: #004b4b;
   display: none;
@@ -167,7 +150,6 @@ body, input, button {
 .form form input#newTask.input:valid + div#clear {
   display: initial;
 }
-
 
 /* Fullscreen image */
 .fullimage-container {
@@ -184,7 +166,6 @@ body, input, button {
 .fullimage-container img {
   max-width: calc(100vw - var(--general-offset));
   max-height: calc(100vh - var(--general-offset));
-  /* box-shadow: 0 0 10px 1px; */
 }
 
 #notification {
@@ -220,4 +201,18 @@ button.invisible-button {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+.round {
+  display: inline-block;
+  height: var(--diameter);
+  width: var(--diameter);
+  min-width: var(--diameter);
+  margin: var(--margin);
+  text-align: center;
+  border-radius: 50%;
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }

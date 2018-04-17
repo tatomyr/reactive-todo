@@ -25,6 +25,7 @@ export default () => `
         />
         <div
           id="clear"
+          class="round"
           onclick="global.dispatch('CLEAR_INPUT', { target: 'newTask' })"
         >
           x
