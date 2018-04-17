@@ -6,8 +6,7 @@
 
 /* Declaring variables */
 body {
-  --controls-height: 54px;
-  --li-height: 54px;
+  --height: 54px;
   --general-offset: 10px;
   --light-color: #f5f5f5;
 }
@@ -19,9 +18,9 @@ body, input, button {
 }
 
 /* Constant height components */
-#header, .controls {
-  height: var(--controls-height);
-  min-height: var(--controls-height);
+#header, .form {
+  height: var(--height);
+  min-height: var(--height);
 }
 
 /* Main container */
@@ -39,45 +38,57 @@ body, input, button {
   justify-content: space-evenly;
   background: teal;
 }
-#header .item {
+#header .controls-contaiter .item {
   display: inline-block;
   white-space: nowrap;
   height: 100%;
-  line-height: var(--controls-height);
+  line-height: var(--height);
   color: #4a4a4a;
   text-align: center;
   text-transform: uppercase;
   padding: 0 5px;
 }
-#header .item.active {
+#header .controls-contaiter.active .item {
+  color: var(--light-color);
+}
+#header .controls-contaiter {
+  position: relative;
+}
+#header .controls-contaiter .counter {
+  --diameter: 20px;
+  display: inline-block;
+  width: var(--diameter);
+  height: var(--diameter);
+  background: #d9900a;
+  text-align: center;
+  line-height: var(--diameter);
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  font-size: 0.75em;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+#header .controls-contaiter.active .counter {
   color: var(--light-color);
 }
 
 /* TasksList style */
 .tasks-list {
   overflow-y: auto;
-  height: calc(100% - 2 * var(--controls-height));
-  max-height: calc(100% - 2 * var(--controls-height));
+  height: calc(100% - 2 * var(--height));
+  max-height: calc(100% - 2 * var(--height));
   background: lightgrey;
 }
 .tasks-list .task {
-  height: var(--li-height);
+  --padding: 3px;
+  height: var(--height);
   display: flex;
   justify-content: space-between;
-  border-radius: calc(var(--li-height) / 2);
+  border-radius: calc(var(--height) / 2);
   background: var(--light-color);
-  margin: 1px;
-}
-.tasks-list .task .image {
-  height: var(--li-height);
-  width: var(--li-height);
-  min-width: var(--li-height);
-  border-radius: 50%;
-  display: inline-block;
-
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  margin: var(--padding);
 }
 .tasks-list .task.completed .image {
   -webkit-filter: grayscale(1);
@@ -94,19 +105,10 @@ body, input, button {
   align-items: center;
 }
 .tasks-list .task .description div {
-  max-height: var(--li-height);
+  max-height: var(--height);
 }
 .tasks-list .task.completed .description {
   text-decoration: line-through;
-}
-.tasks-list .task .round {
-  display: inline-block;
-  height: var(--li-height);
-  width: var(--li-height);
-  min-width: var(--li-height);
-  text-align: center;
-  color: var(--light-color);
-  border-radius: 50%;
 }
 .tasks-list .task .up-button {
   background: #46b67f;
@@ -114,33 +116,47 @@ body, input, button {
 .tasks-list .task .delete-button {
   background: #c66169;
 }
+.round {
+  display: inline-block;
+  height: calc(var(--height) - 2 * var(--padding));
+  width: calc(var(--height) - 2 * var(--padding));
+  min-width: calc(var(--height) - 2 * var(--padding));
+  margin: var(--padding);
+  text-align: center;
+  color: var(--light-color);
+  border-radius: 50%;
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 
 /* Controls */
-.controls {
+.form {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: var(--controls-height);
 }
-.controls form {
+.form form {
   height: 100%;
   width: 100%;
 }
-.controls form .input {
+.form form .input {
   width: 100%;
   height: 100%;
   background: #004b4b;
   color: var(--light-color);
   padding: 0 var(--general-offset);
 }
-.controls #clear {
+.form #clear {
   position: absolute;
-  height: calc(var(--controls-height) / 2);
-  width: calc(var(--controls-height) / 2);
-  top: calc(var(--controls-height) / 4);
+  height: calc(var(--height) / 2);
+  width: calc(var(--height) / 2);
+  top: calc(var(--height) / 4);
   right: var(--general-offset);
   text-align: center;
-  line-height: calc(var(--controls-height) / 2);
+  line-height: calc(var(--height) / 2);
   background: rgba(200,200,200,0.5);
   border-radius: 50%;
 }

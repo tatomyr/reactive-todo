@@ -1,5 +1,5 @@
 export default [
-  { id: 'all', title: 'All' },
-  { id: 'active', title: 'Active' },
-  { id: 'completed', title: 'Completed' },
+  { id: 'all', title: 'All', counter: () => true },
+  { id: 'active', title: 'Active', counter: ({ completed }) => !completed },
+  { id: 'completed', title: 'Completed', counter: ({ completed }) => completed },
 ]

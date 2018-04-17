@@ -7,7 +7,7 @@ export const TaskItem = task => `
     class="task ${task.completed ? 'completed' : ''}"
   >
     <div
-      class="image"
+      class="image round"
       style="background-image: url(${task.img})"
       onclick="global.dispatch('SHOW_IMAGE', { imageToShow: '${task.img}' })"
     ></div>

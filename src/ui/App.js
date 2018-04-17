@@ -10,7 +10,7 @@ export default () => `
 
     ${TasksList()}
 
-    <div class="controls">
+    <div class="form">
       <form onSubmit="global.dispatch('ADD_TASK', { event: event })">
         <input
           class="input"
