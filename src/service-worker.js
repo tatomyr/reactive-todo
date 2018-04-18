@@ -1,5 +1,5 @@
 const dev = location.hostname == 'localhost'
-console.log('0.0.46', dev ? 'development mode' : 'production mode')
+console.log('0.0.51', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 

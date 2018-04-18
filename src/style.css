@@ -16,6 +16,7 @@ body, input, button {
   font-family: SandNew;
   font-size: 28px;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 /* Constant height components */
@@ -158,7 +159,7 @@ body, input, button {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(100, 100, 100, 0.75);
+  background: rgba(255, 255, 255, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,6 +167,19 @@ body, input, button {
 .fullimage-container img {
   max-width: calc(100vw - var(--general-offset));
   max-height: calc(100vh - var(--general-offset));
+}
+.fullimage-container .change-image {
+  --diameter: calc(var(--height) - var(--general-offset));
+  position: absolute;
+  bottom: calc(var(--general-offset) / 2);
+  background: yellow;
+  color: teal;
+}
+.fullimage-container .change-image.next {
+  right: calc(var(--general-offset) / 2);
+}
+.fullimage-container .change-image.prev {
+  left: calc(var(--general-offset) / 2);
 }
 
 #notification {

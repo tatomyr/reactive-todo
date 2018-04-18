@@ -8,8 +8,8 @@ export const TaskItem = task => `
   >
     <div
       class="image round"
-      style="background-image: url(${task.img})"
-      onclick="global.dispatch('SHOW_IMAGE', { imageToShow: '${task.img}' })"
+      style="background-image: url(${task.images && task.images[0]})"
+      onclick="global.dispatch('SHOW_IMAGE', { taskToShowImage: '${task.id}' })"
     ></div>
     <div
       class="description"

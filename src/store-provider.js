@@ -11,11 +11,23 @@ const updateTasks = ({ tasks }) => {
   localStorage.setItem('tasks', JSON.stringify(tasks))
 }
 
+const shiftArray = arr => direction => {
+  switch (direction) {
+    case 'next':
+      const [first, ...rest] = arr
+      return [...rest, first]
+    case 'prev':
+      const last = arr[arr.length - 1]
+      const start = arr.slice(0, -1)
+      return [last, ...start]
+  }
+}
+
 // Initialize store and export store methods
 export const { connect, mutate } = createStore({
   tasks: cashedTasks || [],
   route: 'active',
-  imageToShow: '',
+  taskToShowImage: '',
   notification: {
     text: '',
     id: undefined,
@@ -35,12 +47,12 @@ window.global.dispatch = (action, payload) => {
       payload.event.target.newTask.blur()
       const date = Date.now()
       const undefinedTask = './assets/images/undefined-task.jpg'
-      const img = './assets/images/loading-shape.gif'
+      const images = ['./assets/images/loading-shape.gif']
       mutate(({ tasks }) => ({
         tasks: [
           {
             description,
-            img,
+            images,
             completed: false,
             id: `task-${date}`,
             createdAt: date,
@@ -54,20 +66,20 @@ window.global.dispatch = (action, payload) => {
         fetch(imageAPI(description))
           .then(res => res.json())
           .then(({ items }) => {
-            const imgOverHttps = items
+            const imagesOverHttps = items
               .map(({ link }) => link)
-              .find(link => link.startsWith('https://'))
-            return imgOverHttps || undefinedTask
+              .filter(link => link.startsWith('https://'))
+            return imagesOverHttps || [undefinedTask]
           })
           .catch(err => {
             console.error(err);
-            return undefinedTask
+            return [undefinedTask]
           })
-          .then(img => {
-            console.log(img);
+          .then(images => {
+            console.log(images);
             mutate(({ tasks }) => ({
               tasks: tasks
-                .map(task => task.createdAt === date ? ({ ...task, img }) : task)
+                .map(task => task.createdAt === date ? ({ ...task, images }) : task)
             }), updateTasks)
           })
       })
@@ -129,10 +141,20 @@ window.global.dispatch = (action, payload) => {
 
     case 'SHOW_IMAGE':
       console.log(action, payload)
-      mutate(() => ({ imageToShow: payload.imageToShow }))
+      mutate(() => ({ taskToShowImage: payload.taskToShowImage }))
+      return false
+
+    case 'CHANGE_IMAGE':
+      console.log(action, payload)
+      mutate(({ tasks }) => ({ tasks: tasks.map(task => (
+        task.id === payload.taskId
+          ? { ...task, images: shiftArray(task.images)(payload.direction) }
+          : task
+      )) }), updateTasks)
       return false
 
     default:
+      console.log(action, payload)
       return false
   }
 }

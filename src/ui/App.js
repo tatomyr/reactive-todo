@@ -1,7 +1,7 @@
 import { highlight } from '../fakes'
 import TasksList from './TasksList'
 import Header from './Header'
-import ImageToShow from './ImageToShow'
+import FullscreenImage from './FullscreenImage'
 import Notification from './Notification'
 
 // Main component (storeless)
@@ -33,7 +33,7 @@ export default () => `
       </form>
     </div>
 
-    ${ImageToShow()}
+    ${FullscreenImage()}
 
     ${Notification()}
   </div>
