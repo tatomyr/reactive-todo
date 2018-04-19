@@ -33,6 +33,7 @@ export const { connect, mutate } = createStore({
     id: undefined,
     pageY: undefined,
   },
+  input: '',
 })
 
 // Set global handlers
@@ -59,7 +60,8 @@ window.global.dispatch = (action, payload) => {
             updatedAt: date,
           },
           ...tasks,
-        ]
+        ],
+        input: '',
       }), store => {
         updateTasks(store)
 
@@ -89,6 +91,7 @@ window.global.dispatch = (action, payload) => {
       console.log(action, payload)
       const input = document.querySelector(`#${payload.target}`)
       input.value = ''
+      mutate(() => ({ input: '' }))
       return false
 
     case 'TRIGGER_TASK':
@@ -137,6 +140,11 @@ window.global.dispatch = (action, payload) => {
     case 'FILTER':
       console.log(action, payload)
       mutate(() => ({ route: payload.filter }))
+      return false
+
+    case 'CHANGE_INPUT':
+      console.log(action, payload)
+      mutate(() => ({ input: payload.input }))
       return false
 
     case 'SHOW_IMAGE':

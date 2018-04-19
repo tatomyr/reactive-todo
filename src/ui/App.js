@@ -22,6 +22,7 @@ export default () => `
           maxlength="60"
           autocomplete="off"
           ${highlight('dark')}
+          onkeyup="global.dispatch('CHANGE_INPUT', { input: event.target.value })"
         />
         <div
           id="clear"

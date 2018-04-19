@@ -1,8 +1,9 @@
 import { connect } from '../../store-provider'
 import { highlight } from '../../fakes'
 import filters from '../../data/filters'
+import { filterByInput } from '../TasksList'
 
-const Header = ({ route, tasks }) => `
+const Header = ({ route, tasks, input }) => `
   <div id="header" ${highlight('light')}>
     ${filters.map(item => `
         <div class="controls-contaiter ${item.id === route ? 'active' : ''}">
@@ -17,13 +18,16 @@ const Header = ({ route, tasks }) => `
           </button>
 
           <div class="counter">
-            ${tasks.filter(item.counter).length}
+            ${tasks
+              .filter(item.filterByStatus)
+              .filter(filterByInput(input))
+              .length}
           </div>
         </div>
     `).join('')}
   </div>
 `
 
-Header.args = ['route', 'tasks']
+Header.args = ['route', 'tasks', 'input']
 
 export default connect(Header)

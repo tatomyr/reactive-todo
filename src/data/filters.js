@@ -1,5 +1,5 @@
 export default [
-  { id: 'all', title: 'All', counter: () => true },
-  { id: 'active', title: 'Active', counter: ({ completed }) => !completed },
-  { id: 'completed', title: 'Completed', counter: ({ completed }) => completed },
+  { id: 'all', title: 'All', filterByStatus: () => true },
+  { id: 'active', title: 'Active', filterByStatus: ({ completed }) => !completed },
+  { id: 'completed', title: 'Completed', filterByStatus: ({ completed }) => completed },
 ]
