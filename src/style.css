@@ -9,6 +9,7 @@ body {
   --height: 54px;
   --general-offset: 10px;
   --light-color: #f5f5f5;
+  user-select: none;
 }
 
 /* Fonts */
@@ -113,7 +114,7 @@ body, input, button {
   text-decoration: line-through;
 }
 .tasks-list .task .up-button {
-  background: #46b67f;
+  background: #468fb6;
   color: var(--light-color);
 }
 .tasks-list .task .delete-button {
@@ -172,7 +173,7 @@ body, input, button {
   --diameter: calc(var(--height) - var(--general-offset));
   position: absolute;
   bottom: calc(var(--general-offset) / 2);
-  background: yellow;
+  background: #f3df34;
   color: teal;
 }
 .fullimage-container .change-image.next {
