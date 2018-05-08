@@ -4,7 +4,7 @@ const google = {
   customSearchId: '006011215058077132006:oomzxe2ej2o',
   apiPath: 'https://www.googleapis.com/customsearch/v1/',
   apiUrl: query =>
-    `${google.apiPath}?q=${query}&searchType=image&key=${google.apiKey}&cx=${google.customSearchId}`,
+    `${google.apiPath}?q=${encodeURIComponent(query)}&searchType=image&key=${google.apiKey}&cx=${google.customSearchId}`,
 }
 
 export default google.apiUrl;
