@@ -29,4 +29,5 @@ To start dev server run `npm start`. Your app will be accessible at
 http://localhost:1234/index.html.
 
 To deploy use `npm run build && npm run deploy`.
+Don't forget to change the app version in `src/service-worker.js` to enable PWA autoupdate!
 Make sure that a branch you're deploying to (e.g. `master`) isn't protected.
