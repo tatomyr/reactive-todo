@@ -1,5 +1,5 @@
 const dev = location.hostname == 'localhost'
-console.log('0.0.60', dev ? 'development mode' : 'production mode')
+console.log('0.0.61', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
@@ -10,7 +10,6 @@ const filesToCache = dev
     '/index.html',
     '/index.js',
     '/index.css',
-    '/assets/fonts/SandNew.ttf',
     '/assets/images/undefined-task.jpg',
     '/assets/images/loading-shape.gif',
   ]

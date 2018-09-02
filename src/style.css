@@ -1,7 +1,13 @@
 /* Reset */
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   border: none;
+}
+
+/* Import font */
+@font-face {
+  font-family: 'Unisource';
+  src: url('https://raw.githubusercontent.com/tatomyr/unisource/master/unisource.ttf');
 }
 
 /* Declaring variables */
@@ -14,7 +20,7 @@ body {
 
 /* Fonts */
 body, input, button {
-  font-family: SandNew;
+  font-family: Unisource, sans-serif;
   font-size: 28px;
   font-weight: bold;
   letter-spacing: 1px;
