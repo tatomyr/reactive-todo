@@ -1,25 +1,25 @@
-import { connect } from '../../store-provider'
-import { highlight } from '../../fakes'
-import filters from '../../data/filters'
-import { filterByInput } from '../TasksList'
+import { connect } from '@store-provider'
+import { filters, filterByInput } from '@services'
 
 const Header = ({ route, tasks, input }) => `
-  <div id="header" ${highlight('light')}>
-    ${filters.map(item => `
-        <div class="controls-contaiter ${item.id === route ? 'active' : ''}">
+  <div id="header">
+    ${filters.map(({ id, title, filterByStatus }) => `
+        <div class="controls-contaiter ${id === route ? 'active' : ''}">
           <button
             class="invisible-button item"
-            id="${item.id}"
-            ${item.id !== route
-              ? `onclick="global.dispatch('FILTER', { filter: '${item.id}' })"`
-              : ''}
+            id="${id}"
+            ${
+              id !== route
+              ? `onclick="global.dispatch({ type: 'FILTER', filter: '${id}' })"`
+              : ''
+            }
           >
-            ${item.title}
+            ${title}
           </button>
 
           <div class="counter">
             ${tasks
-              .filter(item.filterByStatus)
+              .filter(filterByStatus)
               .filter(filterByInput(input))
               .length}
           </div>

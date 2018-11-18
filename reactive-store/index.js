@@ -1,14 +1,16 @@
-console.log('triggered reactive store file')
+// TODO: move to the separate module
+
+console.log('• triggered reactive store file')
 
 /**
- * Store module constructor that should be invoked once to create a singleton with reactive data
+ * Store module constructor that should be invoked once to create a single store with reactive state
  * @param defaults - an object that should contain init values for the store
  * @returns an object that contains public methods to manage the store created
  */
-export const createStore = defaults => {
-  // Store
-  const store = { ...defaults }
-  console.log('triggered store constructor:', store)
+export const createStore = (handler) => {
+  // State
+  const state = handler(undefined, { type: 'INIT' })
+  console.log('• triggered state constructor:', state, handler)
 
   // Track each connected component
   const tracker = {
@@ -19,7 +21,7 @@ export const createStore = defaults => {
       }
       const id = tracker.components.unshift(component)
       tracker.components[0].id = `$${component.name}-${id}`
-      console.warn('added tracker:', component.name, tracker.components)
+      console.warn('• added tracker:', component.name, tracker.components)
       return 'TODO'
     },
     rerender: changes => {
@@ -27,14 +29,14 @@ export const createStore = defaults => {
       tracker.components
         .filter(({ args }) => changedArgs.some(arg => args.includes(arg)))
         .forEach(component => {
-          console.log('rerender:', component.name)
+          console.log('    • rerender:', component.name)
           document.querySelector(`[data-rsid="${component.id}"]`).outerHTML = wrapWithId(component)
         })
     },
   }
 
   const wrapWithId = component => {
-    const renderedComponent = component(store).trim()
+    const renderedComponent = component(state).trim()
     return component.id
       ? renderedComponent
         .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} data-rsid="${component.id}">`)
@@ -48,28 +50,24 @@ export const createStore = defaults => {
    */
   const connect = (component) => {
     tracker.add(component)
-    // TODO implement a method to wrap a component properly
+    // TODO: implement a method to wrap a component properly
     return () => wrapWithId(component)
   }
 
-  /**
-   * Store mutation method
-   * @param callback - a callback function that will take the store as a single argunent and retuns an object that represents store changes
-   * @param after - an optional callback function that takes the store as a single argunent and run after the store is updated
-   */
-  const mutate = (callback, after = () => undefined) => {
-    const changes = callback(store)
-    Object.assign(store, changes)
-    console.log('store changes:', changes)
+  const logger = ({ type, ...rest }) => console.log('• action:',type, rest)
+
+  const dispatch = action => {
+    logger(action)
+    const changes = handler(state, action, dispatch)
+    Object.assign(state, changes)
     tracker.rerender(changes)
-    after(store)
-    return 'TODO'
+    return state
   }
 
-  return { connect, mutate }
+  return { connect, dispatch }
 }
 
-// TODO implement routing
-// TODO implement passing props through `connect` method
-// TODO implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
-// TODO prevent adding a same tracker twice
+// TODO: implement routing
+// TODO: implement passing props through `connect` method
+// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload)) !! Symbol()
+// TODO: prevent adding a same tracker twice

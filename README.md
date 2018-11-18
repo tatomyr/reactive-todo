@@ -1,10 +1,17 @@
+<!-- FIXME: update readme -->
+
 # Reactive Store
 
 Implementation of reactive global store for pure JavaScript applications.
 
 The concept is that every reactive data should be contained in one store
-which is accessible through methods `connect` (for getting data) and `mutate`
-(for mutating data).
+which is accessible through methods `connect` (for getting data) and `dispatch`
+(for dispatching an syncronous or asyncronous action).
+
+You have to declare a handler, where should be at least one case of type 'INIT'
+to return a default state.
+Basically, each case should return a `state` changes.
+If there's no changes, it should return an empty object.
 
 Each store mutation triggers rerendering of components that directly rely on
 the changed fields.

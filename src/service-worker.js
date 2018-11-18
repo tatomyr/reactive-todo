@@ -1,5 +1,5 @@
-const dev = location.hostname == 'localhost'
-console.log('0.0.61', dev ? 'development mode' : 'production mode')
+const dev = window.location.hostname === 'localhost'
+console.log('0.2.0', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
@@ -25,21 +25,21 @@ self.addEventListener('install', e => {
 })
 
 self.addEventListener('activate', e => {
-  console.log('[ServiceWorker] Activate');
+  console.log('[ServiceWorker] Activate')
   e.waitUntil(
     caches.keys().then(keyList => Promise.all(keyList.map(key => {
       if (key !== cacheName) {
-        console.log('[ServiceWorker] Removing old cache', key);
-        return caches.delete(key);
+        console.log('[ServiceWorker] Removing old cache', key)
+        return caches.delete(key)
       }
     })))
-  );
-  return self.clients.claim();
-});
+  )
+  return self.clients.claim()
+})
 
 self.addEventListener('fetch', e => {
-  console.log('[Service Worker] Fetch', e.request.url);
+  console.log('[Service Worker] Fetch', e.request.url)
   e.respondWith(
     caches.match(e.request).then(res => res || fetch(e.request))
-  );
-});
+  )
+})

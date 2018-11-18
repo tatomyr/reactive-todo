@@ -1,19 +1,16 @@
-import { highlight } from '../../fakes'
-
 export const TaskItem = task => `
   <li
-    ${highlight('light')}
     id="${task.id}"
     class="task ${task.completed ? 'completed' : ''}"
   >
     <div
       class="image round"
       style="background-image: url(${task.images && task.images[0]})"
-      onclick="global.dispatch('SHOW_IMAGE', { taskToShowImage: '${task.id}' })"
+      onclick="global.dispatch({ type: 'SHOW_IMAGE', taskToShowImage: '${task.id}' })"
     ></div>
     <div
       class="description"
-      onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}', pageY: event.pageY })"
+      onclick="global.dispatch({ type: '@TRIGGER_TASK', id: '${task.id}', pageY: event.pageY })"
     >
       <div>${task.description}</div>
     </div>
@@ -22,7 +19,7 @@ export const TaskItem = task => `
       ? `
         <button
           class="invisible-button round delete-button"
-          onclick="global.dispatch('DELETE_TASK', { taskId: '${task.id}' })"
+          onclick="global.dispatch({ type: '@DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
         >
           x
         </button>
@@ -30,7 +27,7 @@ export const TaskItem = task => `
       : `
         <button
           class="invisible-button round up-button"
-          onclick="global.dispatch('UPDATE_TASK', { taskId: '${task.id}' })"
+          onclick="global.dispatch({ type: '@UPDATE_TASK', task: { id: '${task.id}' } })"
         >
           л
         </button>
