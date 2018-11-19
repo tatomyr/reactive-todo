@@ -7,6 +7,7 @@
     "start": "bash ./tools/prepare.sh && parcel ./src/index.js --public-url /",
     "build": "bash ./tools/prepare.sh && parcel build ./src/index.js --public-url /",
     "deploy": "bash ./tools/deploy.sh",
+    "predeploy": "npm run build",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
