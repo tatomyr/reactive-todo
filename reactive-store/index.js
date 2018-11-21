@@ -7,10 +7,20 @@ console.log('• triggered reactive store file')
  * @param defaults - an object that should contain init values for the store
  * @returns an object that contains public methods to manage the store created
  */
-export const createStore = (handler) => {
+export const createStore = handler => {
   // State
   const state = handler(undefined, { type: 'INIT' })
-  console.log('• triggered state constructor:', state, handler)
+  console.log('• triggered state constructor:', state)
+
+  // Auxiliary wrapper
+  // TODO: try to implement unique ids via Symbol()
+  const wrapWithId = component => {
+    const renderedComponent = component(state).trim()
+    return component.id
+      ? renderedComponent
+        .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} data-rsid="${component.id}">`)
+      : renderedComponent
+  }
 
   // Track each connected component
   const tracker = {
@@ -35,26 +45,18 @@ export const createStore = (handler) => {
     },
   }
 
-  const wrapWithId = component => {
-    const renderedComponent = component(state).trim()
-    return component.id
-      ? renderedComponent
-        .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} data-rsid="${component.id}">`)
-      : renderedComponent
-  }
-
   /**
    * Returns funcion to be invoked
    * @param component - a function that retuns a string which represents a valid html tag with its content
    * @returns function to be invoked later on
    */
-  const connect = (component) => {
+  const connect = component => {
     tracker.add(component)
     // TODO: implement a method to wrap a component properly
     return () => wrapWithId(component)
   }
 
-  const logger = ({ type, ...rest }) => console.log('• action:',type, rest)
+  const logger = ({ type, ...rest }) => console.log('• action:', type, rest)
 
   const dispatch = action => {
     logger(action)
@@ -64,7 +66,9 @@ export const createStore = (handler) => {
     return state
   }
 
-  return { connect, dispatch }
+  const getState = () => state
+
+  return { connect, dispatch, getState }
 }
 
 // TODO: implement routing

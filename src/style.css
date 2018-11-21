@@ -81,6 +81,9 @@ body, input, button {
 #header .controls-contaiter.active .counter {
   color: var(--light-color);
 }
+#header .controls-contaiter .counter[data-count="0"] {
+  display: none;
+}
 
 /* TasksList style */
 .tasks-list {
@@ -98,6 +101,7 @@ body, input, button {
   border-radius: calc(var(--height) / 2);
   background: var(--light-color);
   margin: var(--margin);
+  position: relative;
 }
 .tasks-list .task.completed .image {
   filter: grayscale(1);

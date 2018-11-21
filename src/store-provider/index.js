@@ -3,7 +3,7 @@ import { handler } from './handler'
 
 console.log('triggered store provider')
 
-export const { connect, dispatch } = createStore(handler)
+export const { connect, dispatch, getState } = createStore(handler)
 
 // FIXME: try to do this in a cleaner way
-window.global = { dispatch }
+window.global = { dispatch, getState }
