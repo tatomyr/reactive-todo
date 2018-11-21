@@ -1,21 +1,33 @@
 {
   "name": "reactive-todo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "bash ./tools/prepare.sh && parcel ./src/index.js --public-url /",
     "build": "bash ./tools/prepare.sh && parcel build ./src/index.js --public-url /",
     "deploy": "bash ./tools/deploy.sh",
+    "predeploy": "npm run build",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "alias": {
+    "reactive-store": "./reactive-store",
+    "@services": "./src/services",
+    "@store-provider": "./src/store-provider"
+  },
+  "author": "tatomyr",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "parcel-bundler": "^1.8.1"
+  },
+  "dependencies": {
+    "nanoid": "^2.0.0"
   }
 }

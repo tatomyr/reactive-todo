@@ -1,41 +1,36 @@
-import { highlight } from '../../fakes'
-
 export const TaskItem = task => `
-  <li
-    ${highlight('light')}
-    id="${task.id}"
-    class="task ${task.completed ? 'completed' : ''}"
-  >
+  <li id="${task.id}">
     <div
-      class="image round"
-      style="background-image: url(${task.images && task.images[0]})"
-      onclick="global.dispatch('SHOW_IMAGE', { taskToShowImage: '${task.id}' })"
-    ></div>
-    <div
-      class="description"
-      onclick="global.dispatch('TRIGGER_TASK', { taskId: '${task.id}', pageY: event.pageY })"
+      class="task ${task.completed ? 'completed' : ''}"
+      ontouchstart="global.dispatch({ type: '@TOUCH_START', id: '${task.id}', event })"
     >
-      <div>${task.description}</div>
-    </div>
+      <div
+        class="image round"
+        style="background-image: url(${task.images && task.images[0]})"
+        onclick="global.dispatch({ type: 'SHOW_IMAGE', taskToShowImage: '${task.id}' })"
+      ></div>
+      <div
+        class="description"
+        ondblclick="global.dispatch({ type: '@TRIGGER_TASK', id: '${task.id}', pageY: event.pageY })"
+      >
+        <div>${task.description}</div>
+      </div>
 
-    ${task.completed
-      ? `
+      ${task.completed ? `
         <button
           class="invisible-button round delete-button"
-          onclick="global.dispatch('DELETE_TASK', { taskId: '${task.id}' })"
+          onclick="global.dispatch({ type: '@DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
         >
           x
         </button>
-      `
-      : `
+      ` : `
         <button
           class="invisible-button round up-button"
-          onclick="global.dispatch('UPDATE_TASK', { taskId: '${task.id}' })"
+          onclick="global.dispatch({ type: '@UPDATE_TASK', task: { id: '${task.id}' } })"
         >
           л
         </button>
-      `
-    }
-
+      `}
+    </div>
   </li>
 `

@@ -1,6 +1,4 @@
-import { connect } from '../../store-provider'
-import { highlight } from '../../fakes'
-import filters from '../../data/filters'
+import { connect } from '@store-provider'
 
 const Notification = ({ notification }) => `
   <div
