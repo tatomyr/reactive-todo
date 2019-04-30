@@ -17,8 +17,10 @@ export const createStore = handler => {
   const wrapWithId = component => {
     const renderedComponent = component(state).trim()
     return component.id
-      ? renderedComponent
-        .replace(/<[A-z]+(.|\n)*?>/, match => `${match.slice(0, -1)} data-rsid="${component.id}">`)
+      ? renderedComponent.replace(
+        /<[A-z]+(.|\n)*?>/,
+        match => `${match.slice(0, -1)} data-rsid="${component.id}">`
+      )
       : renderedComponent
   }
 
@@ -27,7 +29,9 @@ export const createStore = handler => {
     components: [],
     add: component => {
       if (!component.args) {
-        throw new Error('Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].')
+        throw new Error(
+          'Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].'
+        )
       }
       const id = tracker.components.unshift(component)
       tracker.components[0].id = `$${component.name}-${id}`
@@ -75,3 +79,30 @@ export const createStore = handler => {
 // TODO: implement passing props through `connect` method
 // TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload)) !! Symbol()
 // TODO: prevent adding a same tracker twice
+
+// TODO: implement JSX templator analogue | SEEMS NOT WORKING PROPERLY
+// export const re = (strings, ...args) => {
+//   console.log(strings, args)
+//   let response = ''
+//   for (let i = 0; i < strings.length; i++) {
+//     response += strings[i]
+//       .replace(/<([A-Z]\w+)\s.*?/gm, (x, y) => `\${${y}(`)
+//       .replace(/\/>/gm, (x, y) => ')}')
+
+//     // const f = () => args[i]
+//     const stringifyCallback = (key, value) => {
+//       console.log(key, '≈', value)
+//       if (typeof value === 'function') {
+//         return `#${value}#` // .toString();
+//       }
+//       return value
+//     }
+//     response += args[i]
+//       ? JSON.stringify(args[i], stringifyCallback)
+//         .replace(/"#/gm, '')
+//         .replace(/#"/gm, '') // f.toString().replace('() =>', '') // JSON.stringify(args[i])
+//       : ''
+//   }
+//   console.log(`\${${response}}`)
+//   return response
+// }

@@ -1,9 +1,6 @@
 import nanoid from 'nanoid'
 import {
-  cashedTasks,
-  updateTasks,
-  shiftArray,
-  fetchImages,
+  cashedTasks, updateTasks, shiftArray, fetchImages,
 } from '@services'
 import { types, asyncTypes } from './action-types'
 
@@ -92,15 +89,15 @@ export const handler = (state = defaults, action = {}, dispatch) => {
       return {}
     case types.UPDATE_TASK:
       return {
-        tasks: state.tasks.map(task => (
-          task.id === action.task.id
-            ? ({
+        tasks: state.tasks
+          .map(task => (task.id === action.task.id
+            ? {
               ...task,
               ...action.task,
               updatedAt: Date.now(),
-            })
-            : task
-        )).sort((a, b) => b.updatedAt - a.updatedAt),
+            }
+            : task))
+          .sort((a, b) => b.updatedAt - a.updatedAt),
       }
     case asyncTypes.TRIGGER_TASK: {
       const newState = dispatch({ type: types.TRIGGER_TASK, ...pass(action) })
@@ -115,30 +112,27 @@ export const handler = (state = defaults, action = {}, dispatch) => {
     }
     case types.TRIGGER_TASK:
       return {
-        tasks: state.tasks.map(task => (
-          task.id === action.id
-            ? ({
+        tasks: state.tasks
+          .map(task => (task.id === action.id
+            ? {
               ...task,
               completed: !task.completed,
               updatedAt: Date.now(),
-            })
-            : task
-        )).sort((a, b) => b.updatedAt - a.updatedAt),
+            }
+            : task))
+          .sort((a, b) => b.updatedAt - a.updatedAt),
       }
     case asyncTypes.NOTIFY: {
-      const notificationId = (
-        state.notification.notificationId
-        && clearTimeout(state.notification.notificationId)
-      ) || (
-        action.text && setTimeout(() => {
-          dispatch({
-            type: asyncTypes.NOTIFY,
-            text: '',
-            pageY: undefined,
-            notificationId: undefined,
-          })
-        }, 2000) // FIXME: move to config
-      )
+      const notificationId = (state.notification.notificationId && clearTimeout(state.notification.notificationId))
+        || (action.text
+          && setTimeout(() => {
+            dispatch({
+              type: asyncTypes.NOTIFY,
+              text: '',
+              pageY: undefined,
+              notificationId: undefined,
+            })
+          }, 2000)) // FIXME: move to config
       dispatch({ type: types.NOTIFY, ...pass(action), notificationId })
       return {}
     }
@@ -158,20 +152,20 @@ export const handler = (state = defaults, action = {}, dispatch) => {
       return {}
     case types.CHANGE_IMAGE:
       return {
-        tasks: state.tasks.map(task => (
-          task.id === action.taskId
-            ? { ...task, images: shiftArray(task.images)(action.direction) }
-            : task
-        )),
+        tasks: state.tasks.map(task => (task.id === action.taskId
+          ? { ...task, images: shiftArray(task.images)(action.direction) }
+          : task)),
       }
     case types.SUBSTITUTE_ROUTE:
-      return action.input ? ({
-        route: 'all',
-        _backupRoute: state._backupRoute || state.route,
-      }) : ({
-        route: state._backupRoute || state.route,
-        _backupRoute: undefined,
-      })
+      return action.input
+        ? {
+          route: 'all',
+          _backupRoute: state._backupRoute || state.route,
+        }
+        : {
+          route: state._backupRoute || state.route,
+          _backupRoute: undefined,
+        }
     case asyncTypes.CHANGE_INPUT:
       dispatch({ type: types.SUBSTITUTE_ROUTE, ...pass(action) })
       dispatch({ type: types.CHANGE_INPUT, ...pass(action) })
@@ -222,19 +216,21 @@ export const handler = (state = defaults, action = {}, dispatch) => {
         const positionX = getPosition()
         const duration = 500 // FIXME: should depend on positionX
         currentTarget.style.transition = `left ${duration}ms`
-        if ((
-          positionX > window.screen.width * 0.33 && !taskCompleted
-        ) || (
-          positionX < -window.screen.width * 0.33 && taskCompleted
-        )) {
+        if (
+          (positionX > window.screen.width * 0.33 && !taskCompleted)
+          || (positionX < -window.screen.width * 0.33 && taskCompleted)
+        ) {
           // Go away.
           // TODO: Try to save scroll Y position
           currentTarget.style.left = `${getDirection()}${window.screen.width}px`
-          setTimeout(() => dispatch({
-            type: asyncTypes.TRIGGER_TASK,
-            id: action.id,
-            pageY: changedTouches[0].clientY,
-          }), duration)
+          setTimeout(
+            () => dispatch({
+              type: asyncTypes.TRIGGER_TASK,
+              id: action.id,
+              pageY: changedTouches[0].clientY,
+            }),
+            duration,
+          )
         } else {
           // Get back.
           currentTarget.style.left = 0
@@ -250,3 +246,9 @@ export const handler = (state = defaults, action = {}, dispatch) => {
       return {}
   }
 }
+
+/* TODO:
+  Implement 2 separated kinds of action handlers:
+  - state processor (reducer)
+  - effects processor (sagas [desirably on generators])
+*/
