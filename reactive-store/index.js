@@ -64,6 +64,7 @@ export const createStore = handler => {
 
   const dispatch = action => {
     logger(action)
+    // TODO: don't pass the dispatch: separate sync and async handlers
     const changes = handler(state, action, dispatch)
     Object.assign(state, changes)
     tracker.rerender(changes)

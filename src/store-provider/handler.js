@@ -229,7 +229,7 @@ export const handler = (state = defaults, action = {}, dispatch) => {
               id: action.id,
               pageY: changedTouches[0].clientY,
             }),
-            duration,
+            duration
           )
         } else {
           // Get back.
