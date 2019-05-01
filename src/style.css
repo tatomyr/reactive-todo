@@ -1,5 +1,7 @@
 /* Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   border: none;
 }
@@ -19,7 +21,9 @@ body {
 }
 
 /* Fonts */
-body, input, button {
+body,
+input,
+button {
   font-family: Unisource, sans-serif;
   font-size: 28px;
   font-weight: bold;
@@ -27,7 +31,8 @@ body, input, button {
 }
 
 /* Constant height components */
-#header, .form {
+#header,
+.form {
   height: var(--height);
   min-height: var(--height);
 }
@@ -81,7 +86,7 @@ body, input, button {
 #header .controls-contaiter.active .counter {
   color: var(--light-color);
 }
-#header .controls-contaiter .counter[data-count="0"] {
+#header .controls-contaiter .counter[data-count='0'] {
   display: none;
 }
 
@@ -91,6 +96,8 @@ body, input, button {
   height: calc(100% - 2 * var(--height));
   max-height: calc(100% - 2 * var(--height));
   background: lightgrey;
+
+  /* TODO: box-shadow: inset 0px 8px 5px -5px grey; */
 }
 .tasks-list .task {
   --margin: 3px;
@@ -102,6 +109,8 @@ body, input, button {
   background: var(--light-color);
   margin: var(--margin);
   position: relative;
+
+  box-shadow: 0px 0px 5px 0px grey;
 }
 .tasks-list .task.completed .image {
   filter: grayscale(1);
@@ -156,7 +165,7 @@ body, input, button {
   top: calc(var(--height) / 4);
   right: var(--general-offset);
   line-height: calc(var(--height) / 2);
-  background: rgba(200,200,200,0.5);
+  background: rgba(200, 200, 200, 0.5);
   color: #004b4b;
   display: none;
 }
@@ -211,7 +220,6 @@ body, input, button {
   border-radius: 15px;
   box-shadow: 0 0 50px 5px rgba(80, 80, 80, 0.75);
 }
-
 
 /* Toolbox */
 .hidden {

@@ -7,9 +7,9 @@ console.log('• triggered reactive store file')
  * @param defaults - an object that should contain init values for the store
  * @returns an object that contains public methods to manage the store created
  */
-export const createStore = handler => {
+export const createStore = (stateHandler, asyncHandler) => {
   // State
-  const state = handler(undefined, { type: 'INIT' })
+  const state = stateHandler(undefined, { type: 'INIT' })
   console.log('• triggered state constructor:', state)
 
   // Auxiliary wrapper
@@ -64,10 +64,10 @@ export const createStore = handler => {
 
   const dispatch = action => {
     logger(action)
-    // TODO: don't pass the dispatch: separate sync and async handlers
-    const changes = handler(state, action, dispatch)
+    const changes = stateHandler(state, action)
     Object.assign(state, changes)
     tracker.rerender(changes)
+    asyncHandler(action, state, dispatch)
     return state
   }
 

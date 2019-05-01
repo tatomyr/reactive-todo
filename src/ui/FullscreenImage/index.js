@@ -10,15 +10,15 @@ const FullscreenImage = ({ taskToShowImage, tasks }) => `
     />
     <button
       class="invisible-button round change-image prev"
-      onclick="event.stopPropagation(); dispatch({ type: '@CHANGE_IMAGE', direction: 'prev', taskId: '${taskToShowImage}' })"
+      onclick="event.stopPropagation(); dispatch({ type: 'CHANGE_IMAGE', direction: 'prev', taskId: '${taskToShowImage}' })"
     >
-      <
+      ◂
     </button>
     <button
       class="invisible-button round change-image next"
-      onclick="event.stopPropagation(); dispatch({ type: '@CHANGE_IMAGE', direction: 'next', taskId: '${taskToShowImage}' })"
+      onclick="event.stopPropagation(); dispatch({ type: 'CHANGE_IMAGE', direction: 'next', taskId: '${taskToShowImage}' })"
     >
-      >
+      ▸
     </button>
   </div>
 `

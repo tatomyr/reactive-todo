@@ -1,8 +1,9 @@
 import { createStore } from 'reactive-store'
-import { handler } from './handler'
+import { stateHandler } from './state-handler'
+import { asyncHandler } from './async-handler'
 
 console.log('triggered store provider')
 
-export const { connect, dispatch } = createStore(handler)
+export const { connect, dispatch } = createStore(stateHandler, asyncHandler)
 
 window.dispatch = dispatch

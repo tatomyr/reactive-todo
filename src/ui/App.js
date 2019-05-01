@@ -11,7 +11,12 @@ export default () => `
     ${TasksList()}
 
     <div class="form">
-      <form onSubmit="dispatch({ type: '@ADD_TASK', event })">
+      <form
+        onSubmit="
+          event.preventDefault()
+          dispatch({ type: 'CREATE_TASK', event })
+        "
+      >
         <input
           class="input"
           id="newTask"
@@ -20,12 +25,12 @@ export default () => `
           required
           maxlength="60"
           autocomplete="off"
-          onkeyup="dispatch({ type: '@CHANGE_INPUT', input: event.target.value })"
+          onkeyup="dispatch({ type: 'CHANGE_INPUT', input: event.target.value })"
         />
         <div
           id="clear"
           class="round"
-          onclick="dispatch({ type: '@CLEAR_INPUT', target: 'newTask' })"
+          onclick="dispatch({ type: 'CLEAN_INPUT', target: 'newTask' })"
         >
           x
         </div>

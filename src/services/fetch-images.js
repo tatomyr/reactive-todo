@@ -19,9 +19,7 @@ export const fetchImages = description => fetch(imageAPI(description))
     return res.json()
   })
   .then(({ items }) => {
-    const imagesOverHttps = items
-      .map(({ link }) => link)
-      .filter(link => link.startsWith('https://'))
+    const imagesOverHttps = items && items.map(({ link }) => link).filter(link => link.startsWith('https://'))
     return {
       images: imagesOverHttps || [undefinedTask],
     }

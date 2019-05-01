@@ -2,7 +2,7 @@ export const TaskItem = task => `
   <li id="${task.id}">
     <div
       class="task ${task.completed ? 'completed' : ''}"
-      ontouchstart="dispatch({ type: '@TOUCH_START', id: '${task.id}', event })"
+      ontouchstart="dispatch({ type: 'MOVE_TASK', id: '${task.id}', event })"
     >
       <div
         class="image round"
@@ -11,7 +11,7 @@ export const TaskItem = task => `
       ></div>
       <div
         class="description"
-        ondblclick="dispatch({ type: '@TRIGGER_TASK', id: '${task.id}', pageY: event.pageY })"
+        ondblclick="dispatch({ type: 'TRIGGER_TASK', id: '${task.id}', pageY: event.pageY })"
       >
         <div>${task.description}</div>
       </div>
@@ -21,7 +21,7 @@ export const TaskItem = task => `
     ? `
         <button
           class="invisible-button round delete-button"
-          onclick="dispatch({ type: '@DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
+          onclick="dispatch({ type: 'DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
         >
           x
         </button>
@@ -29,9 +29,9 @@ export const TaskItem = task => `
     : `
         <button
           class="invisible-button round up-button"
-          onclick="dispatch({ type: '@UPDATE_TASK', task: { id: '${task.id}' } })"
+          onclick="dispatch({ type: 'UPDATE_TASK', task: { id: '${task.id}' } })"
         >
-          л
+          ▴
         </button>
       `
 }
