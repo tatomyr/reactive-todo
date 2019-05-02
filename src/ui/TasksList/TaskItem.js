@@ -23,7 +23,7 @@ export const TaskItem = task => `
           class="invisible-button round delete-button"
           onclick="dispatch({ type: 'DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
         >
-          x
+          ✗
         </button>
       `
     : `

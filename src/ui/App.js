@@ -7,9 +7,7 @@ import Notification from './Notification'
 export default () => `
   <div class="container">
     ${Header()}
-
     ${TasksList()}
-
     <div class="form">
       <form
         onSubmit="
@@ -32,13 +30,11 @@ export default () => `
           class="round"
           onclick="dispatch({ type: 'CLEAN_INPUT', target: 'newTask' })"
         >
-          x
+          ✗
         </div>
       </form>
     </div>
-
     ${FullscreenImage()}
-
     ${Notification()}
   </div>
 `

@@ -18,6 +18,7 @@ async function createTask(action, state, dispatch) {
   const id = nanoid()
   target.reset()
   target.newTask.blur()
+  dispatch({ type: types.FILTER, filter: 'active' })
   dispatch({
     type: types.ADD_TASK,
     description,
@@ -27,7 +28,6 @@ async function createTask(action, state, dispatch) {
   const { images, error } = await fetchImages(description)
   dispatch({ type: types.UPDATE_TASK, task: { id, images } })
   dispatch({ type: types.NOTIFY, text: error })
-  dispatch({ type: types.FILTER, filter: 'active' })
 }
 
 export function deleteTask(action, state, dispatch) {
@@ -54,7 +54,7 @@ export function notify(action, state, dispatch) {
   const notificationId = !!action.text
     && setTimeout(() => {
       dispatch({ type: types.NOTIFICATION_HIDE })
-    }, 7000)
+    }, 2000)
   dispatch({ type: types.NOTIFICATION_SHOW, ...pass(action), notificationId })
 }
 
