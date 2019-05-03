@@ -16,3 +16,5 @@ export const types = {
   MOVE_TASK: 'MOVE_TASK',
   INIT: 'INIT',
 }
+
+// TODO: implement patching tasks on long press or smthg

@@ -1,7 +1,7 @@
 import nanoid from 'nanoid'
 import { types } from './action-types'
 import {
-  saveTasks, fetchImages, filterImagesOverHttps, undefinedTaskImage,
+  saveTasks, fetchImages, filterImages, undefinedTaskImage,
 } from '@services'
 
 function triggerTask(action, state, dispatch) {
@@ -29,9 +29,10 @@ async function createTask(action, state, dispatch) {
   })
   try {
     const { items } = await fetchImages(description)
+    const images = await filterImages(items)
     dispatch({
       type: types.UPDATE_TASK,
-      task: { id, images: filterImagesOverHttps(items) },
+      task: { id, images },
     })
   } catch (err) {
     console.error(err)

@@ -26,3 +26,5 @@ const FullscreenImage = ({ taskToShowImage, tasks }) => `
 FullscreenImage.args = ['taskToShowImage', 'tasks']
 
 export default connect(FullscreenImage)
+
+// TODO: implement some nice visual effect when onening an image

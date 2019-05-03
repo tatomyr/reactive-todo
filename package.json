@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "bash ./tools/prepare.sh && parcel ./src/index.js --public-url /",
-    "build": "bash ./tools/prepare.sh && parcel build ./src/index.js --public-url /",
-    "deploy": "bash ./tools/deploy.sh",
+    "start": "bash ./bin/prepare.sh && parcel ./src/index.js --public-url /",
+    "build": "bash ./bin/prepare.sh && parcel build ./src/index.js --public-url /",
+    "deploy": "bash ./bin/deploy.sh",
     "predeploy": "npm run build",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ngrok": "ngrok http 1234"
   },
   "alias": {
     "reactive-store": "./reactive-store",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "nanoid": "^2.0.0"
+    "nanoid": "^2.0.0",
+    "ngrok": "^3.1.1"
   }
 }
