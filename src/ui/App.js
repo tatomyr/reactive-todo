@@ -19,7 +19,7 @@ export default () => `
           class="input"
           id="newTask"
           name="newTask"
-          placeholder="New Task..."
+          placeholder="New task..."
           required
           maxlength="60"
           autocomplete="off"

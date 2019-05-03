@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-console.log('0.2.9', dev ? 'development mode' : 'production mode')
+console.log('0.2.11', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
