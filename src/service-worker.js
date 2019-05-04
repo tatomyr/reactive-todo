@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-console.log('0.2.11', dev ? 'development mode' : 'production mode')
+console.log('0.2.13', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
@@ -12,8 +12,8 @@ const filesToCache = dev
     '/index.html',
     '/index.js',
     '/index.css',
-    '/assets/images/undefined-task.jpg',
     '/assets/images/loading-shape.gif',
+    '/assets/images/undefined-task.jpg',
   ]
 
 self.addEventListener('install', e => {

@@ -5,9 +5,9 @@ export const TaskItem = task => `
       ontouchstart="dispatch({ type: 'MOVE_TASK', id: '${task.id}', event })"
     >
       <div
-        class="image round"
+        class="image round bg"
         style="background-image: url(${task.images && task.images[0]})"
-        onclick="dispatch({ type: 'SHOW_IMAGE', taskToShowImage: '${task.id}' })"
+        onclick="dispatch({ type: 'SHOW_IMAGE', taskToShowImage: '${task.id}', event })"
       ></div>
       <div
         class="description"

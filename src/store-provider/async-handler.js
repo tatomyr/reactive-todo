@@ -131,6 +131,44 @@ export function moveTask(action, state, dispatch) {
   }
 }
 
+async function showImage(action, state, dispatch) {
+  if (action.event) {
+    const fullImg = document.getElementById('fullscreen-image')
+    const fullImgStyle = fullImg.getBoundingClientRect()
+    const targetStyle = action.event.target.getBoundingClientRect()
+    document.getElementById('applied-styles').innerHTML = `
+      #fullscreen-image.start {
+        height: ${targetStyle.height}px;
+        width: ${targetStyle.width}px;
+        left: ${targetStyle.left}px;
+        top: ${targetStyle.top}px;
+        border-radius: 50%;
+        transition: 0s;
+      }
+      #fullscreen-image.end {
+        height: ${fullImgStyle.height}px;
+        width: ${fullImgStyle.width}px;
+        left: ${fullImgStyle.left}px;
+        top: ${fullImgStyle.top}px;
+        border-radius: 0%;
+      }
+      #fullscreen-image.smooth {
+        transition: all 0.2s ease-in;
+      }
+    `
+    fullImg.classList.remove('smooth')
+    fullImg.classList.remove('end')
+    fullImg.classList.add('start')
+    setTimeout(() => {
+      fullImg.classList.add('smooth')
+      fullImg.classList.add('end')
+      fullImg.classList.remove('start')
+    }, 500)
+  }
+}
+
+async function hideImage(action, state, dispatch) {}
+
 // Watcher for async actions to handle Side Effects
 export function asyncHandler(action, state, dispatch) {
   switch (action.type) {
@@ -151,6 +189,10 @@ export function asyncHandler(action, state, dispatch) {
       return notify(action, state, dispatch)
     case types.MOVE_TASK:
       return moveTask(action, state, dispatch)
+    case types.SHOW_IMAGE:
+      return showImage(action, state, dispatch)
+    case types.HIDE_IMAGE:
+      return hideImage(action, state, dispatch)
     default:
       return undefined
   }

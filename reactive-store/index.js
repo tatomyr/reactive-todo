@@ -14,8 +14,9 @@ export const createStore = (stateHandler, asyncHandler) => {
 
   // Auxiliary wrapper
   // TODO: try to implement unique ids via Symbol()
+  // TODO: how to properly pass the dispatch function to a wrapped component?
   const wrapWithId = component => {
-    const renderedComponent = component(state).trim()
+    const renderedComponent = component(state /* , dispatch */).trim()
     return component.id
       ? renderedComponent.replace(
         /<[A-z]+(.|\n)*?>/,
@@ -62,13 +63,13 @@ export const createStore = (stateHandler, asyncHandler) => {
 
   const logger = ({ type, ...rest }) => console.log('• action:', type, rest)
 
-  const dispatch = action => {
+  function dispatch(action) {
     logger(action)
     const changes = stateHandler(state, action)
     Object.assign(state, changes)
     tracker.rerender(changes)
     asyncHandler(action, state, dispatch)
-    return state
+    // return state // FIXME: do we need this return?
   }
 
   const getState = () => state
