@@ -1,4 +1,4 @@
-import { connect } from '@store-provider'
+import { connect } from '/store-provider/index.js'
 
 const Notification = ({ notification }) => `
   <div

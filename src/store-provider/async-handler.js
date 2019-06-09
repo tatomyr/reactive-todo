@@ -1,8 +1,7 @@
-import nanoid from 'nanoid'
-import { types } from './action-types'
+import { types } from './action-types.js'
 import {
   saveTasks, fetchImages, filterImages, undefinedTaskImage,
-} from '@services'
+} from '/services/index.js'
 
 function triggerTask(action, state, dispatch) {
   saveTasks(state)
@@ -17,7 +16,7 @@ async function createTask(action, state, dispatch) {
   } = action
   const description = target.newTask.value
   const date = Date.now()
-  const id = nanoid()
+  const id = `${Math.random()}`
   target.reset()
   target.newTask.blur()
   dispatch({ type: types.FILTER, filter: 'active' })

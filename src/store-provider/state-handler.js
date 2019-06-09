@@ -1,5 +1,5 @@
-import { cashedTasks, shiftArray } from '@services'
-import { types } from './action-types'
+import { cashedTasks, shiftArray } from '/services/index.js'
+import { types } from './action-types.js'
 
 // Default Application state
 const defaults = {

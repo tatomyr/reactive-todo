@@ -1,4 +1,4 @@
-import imageAPI from './google-api'
+import imageAPI from './google-api.js'
 
 export const undefinedTaskImage = '/assets/images/undefined-task.jpg'
 

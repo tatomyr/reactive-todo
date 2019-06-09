@@ -1,38 +1,22 @@
 {
   "name": "reactive-todo",
-  "version": "2.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "3.0.0",
   "scripts": {
-    "start": "bash ./bin/prepare.sh && parcel ./src/index.js --public-url /",
+    "start": "cd src && npx static-server -p 8080",
+    "reactive-store": "cd src/reactive-store && npx static-server -p 8081 -c '*'",
+    "ngrok": "cd src && npx ngrok http 8080",
     "build": "bash ./bin/prepare.sh && parcel build ./src/index.js --public-url /",
     "deploy": "bash ./bin/deploy.sh",
     "predeploy": "npm run build",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "ngrok": "ngrok http 1234"
-  },
-  "alias": {
-    "reactive-store": "./reactive-store",
-    "@services": "./src/services",
-    "@store-provider": "./src/store-provider"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "tatomyr",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "parcel-bundler": "^1.12.3"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.4.4",
-    "nanoid": "^2.0.0",
-    "ngrok": "^3.1.1"
+    "eslint-plugin-import": "^2.14.0"
   }
 }

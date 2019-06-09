@@ -1,20 +1,30 @@
 /* eslint-disable no-restricted-globals */
 
+// eslint-disable-next-line no-var
+var srcFiles
+
 const dev = location.hostname === 'localhost'
-console.log('0.2.13', dev ? 'development mode' : 'production mode')
+console.log('3.0.0', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
-const filesToCache = dev
+let filesToCache = dev
   ? []
   : [
     '/',
     '/index.html',
     '/index.js',
-    '/index.css',
+    '/manifest.json',
+    '/reset.css',
+    '/style.css',
     '/assets/images/loading-shape.gif',
     '/assets/images/undefined-task.jpg',
   ]
+
+if (srcFiles) {
+  console.log(srcFiles)
+  filesToCache = [...filesToCache, ...srcFiles]
+}
 
 self.addEventListener('install', e => {
   console.log('[ServiceWorker] Install')
