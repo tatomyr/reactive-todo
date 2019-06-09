@@ -85,6 +85,8 @@ export const stateHandler = (state = defaults, action = {}) => {
       }
     case types.SHOW_IMAGE:
       return { taskToShowImage: action.taskToShowImage }
+    case types.HIDE_IMAGE:
+      return { taskToShowImage: '' }
     case types.CHANGE_IMAGE:
       return {
         tasks: state.tasks.map(task => (task.id === action.taskId
