@@ -1,12 +1,11 @@
 /* eslint-disable no-restricted-globals */
 
-// eslint-disable-next-line no-var
-var srcFiles
-
 const dev = location.hostname === 'localhost'
 console.log('3.0.0', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
+
+let srcFiles
 
 let filesToCache = dev
   ? []
