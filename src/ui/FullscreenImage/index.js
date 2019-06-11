@@ -29,6 +29,4 @@ const FullscreenImage = ({ taskToShowImage, tasks }) => `
   </div>
 `
 
-FullscreenImage.args = ['taskToShowImage', 'tasks']
-
 export default connect(FullscreenImage)
