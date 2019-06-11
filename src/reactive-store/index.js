@@ -31,6 +31,8 @@ export const createStore = (stateHandler, asyncHandler) => {
     add: component => {
       // Identifying the component args
       const str = component.toString()
+      // TODO: handle case when there's no destruction, e.g.:
+      // … const Component = props => `<button onclick="dispatch({foo, bar})">…</button>`
       const start = str.indexOf('({')
       const end = str.indexOf('})')
       const argsString = str.slice(start + 2, end)
@@ -60,8 +62,11 @@ export const createStore = (stateHandler, asyncHandler) => {
       tracker.components
         .filter(({ args }) => changedArgs.some(arg => args.includes(arg)))
         .forEach(component => {
-          console.log('    • rerender:', component.name)
-          document.querySelector(`[data-rsid="${component.id}"]`).outerHTML = wrapWithId(component)
+          const element = document.querySelector(`[data-rsid="${component.id}"]`)
+          console.log('    • rerender:', component.name, element)
+          if (element) {
+            element.outerHTML = wrapWithId(component)
+          }
         })
     },
   }

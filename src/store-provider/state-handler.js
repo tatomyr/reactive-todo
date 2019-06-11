@@ -106,6 +106,9 @@ export const stateHandler = (state = defaults, action = {}) => {
         }
     case types.CHANGE_INPUT:
       return { input: action.input }
+    case types.SHOW_INFO:
+      return { route: 'show-info' }
+
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:
       return state

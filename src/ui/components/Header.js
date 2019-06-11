@@ -1,7 +1,8 @@
 import { connect } from '/store-provider/index.js'
 import { filters, filterByInput } from '/services/index.js'
-import { Bubble } from './Bubble.js'
+import { HeaderBubble } from './HeaderBubble.js'
 
+// TODO: merge state with ownProps and extract map function into separate component
 const Header = ({ route, tasks, input }) => `
   <div id="header">
     ${filters
@@ -15,11 +16,17 @@ const Header = ({ route, tasks, input }) => `
           >
             ${title}
           </button>
-          ${Bubble(tasks.filter(filterByStatus).filter(filterByInput(input)).length)}
+          ${HeaderBubble(tasks.filter(filterByStatus).filter(filterByInput(input)).length)}
         </div>
       `
     )
     .join('')}
+    <button 
+      class="controls-contaiter ${route === 'show-info' ? 'active' : ''}"
+      onclick="dispatch({ type: 'SHOW_INFO' })"
+    >
+      (i)
+    </button>
   </div>
 `
 

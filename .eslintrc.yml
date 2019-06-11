@@ -18,6 +18,7 @@ rules:
     - off
   import/no-unresolved:
     - warning
+    - always
   no-unused-vars:
     - off
   comma-dangle:
