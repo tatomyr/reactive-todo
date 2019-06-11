@@ -16,6 +16,10 @@ rules:
     - never
   import/no-absolute-path:
     - off
+  import/no-unresolved:
+    - warning
+  no-unused-vars:
+    - off
   comma-dangle:
     - error
     - arrays: always-multiline

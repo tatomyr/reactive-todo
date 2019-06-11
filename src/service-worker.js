@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-console.log('3.0.1', dev ? 'development mode' : 'production mode')
+console.log('3.0.2', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
@@ -44,6 +44,7 @@ self.addEventListener('activate', e => {
           console.log('[ServiceWorker] Removing old cache', key)
           return caches.delete(key)
         }
+        return undefined
       })
     ))
   )

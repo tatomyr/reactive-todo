@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { cashedTasks, shiftArray } from '/services/index.js'
 import { types } from './action-types.js'
 
