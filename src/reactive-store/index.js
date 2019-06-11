@@ -29,14 +29,30 @@ export const createStore = (stateHandler, asyncHandler) => {
   const tracker = {
     components: [],
     add: component => {
-      if (!component.args) {
-        throw new Error(
-          'Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].'
+      // Identifying the component args
+      const str = component.toString()
+      const start = str.indexOf('({')
+      const end = str.indexOf('})')
+      const argsString = str.slice(start + 2, end)
+      const args = argsString
+        .replace(/(:\s*{[^}]+})/g, '')
+        .split(',')
+        .map(
+          item => item
+            .trim()
+            .split(/\W/)
+            .filter(Boolean)[0]
+        )
+      if (!args || start === -1 || end === -1) {
+        throw new SyntaxError(
+          'Rendered component should relay on some arguments. Use first-level destruction to access state elements: `({ foo, bar }) => …`'
         )
       }
+      // Adding the component to tracker
       const id = tracker.components.unshift(component)
       tracker.components[0].id = `$${component.name}-${id}`
-      console.warn('• added tracker:', component.name, tracker.components)
+      tracker.components[0].args = args
+      console.warn('• added tracker:', id, component.name, args, tracker.components)
       return 'TODO'
     },
     rerender: changes => {

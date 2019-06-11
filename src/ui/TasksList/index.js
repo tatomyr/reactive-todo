@@ -12,6 +12,4 @@ const TasksList = ({ tasks, route, input }) => `
   </ul>
 `
 
-TasksList.args = ['tasks', 'route', 'input']
-
 export default connect(TasksList)

@@ -72,7 +72,7 @@ export const stateHandler = (state = defaults, action = {}) => {
       return {
         notification: {
           text: action.text,
-          pageY: action.pageY || '10px',
+          pageY: action.pageY,
           notificationId: action.notificationId,
         },
       }

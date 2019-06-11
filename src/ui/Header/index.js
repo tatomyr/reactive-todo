@@ -23,6 +23,4 @@ const Header = ({ route, tasks, input }) => `
   </div>
 `
 
-Header.args = ['route', 'tasks', 'input']
-
 export default connect(Header)
