@@ -1,20 +1,29 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-console.log('0.2.13', dev ? 'development mode' : 'production mode')
+console.log('3.0.2', dev ? 'development mode' : 'production mode')
 
 const cacheName = 'reactive-todo-app'
 
-const filesToCache = dev
+let srcFiles
+
+let filesToCache = dev
   ? []
   : [
     '/',
     '/index.html',
     '/index.js',
-    '/index.css',
+    '/manifest.json',
+    '/reset.css',
+    '/style.css',
     '/assets/images/loading-shape.gif',
     '/assets/images/undefined-task.jpg',
   ]
+
+if (srcFiles) {
+  console.log(srcFiles)
+  filesToCache = [...filesToCache, ...srcFiles]
+}
 
 self.addEventListener('install', e => {
   console.log('[ServiceWorker] Install')
@@ -35,6 +44,7 @@ self.addEventListener('activate', e => {
           console.log('[ServiceWorker] Removing old cache', key)
           return caches.delete(key)
         }
+        return undefined
       })
     ))
   )

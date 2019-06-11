@@ -1,8 +1,7 @@
-import nanoid from 'nanoid'
-import { types } from './action-types'
+import { types } from './action-types.js'
 import {
   saveTasks, fetchImages, filterImages, undefinedTaskImage,
-} from '@services'
+} from '/services/index.js'
 
 function triggerTask(action, state, dispatch) {
   saveTasks(state)
@@ -17,7 +16,7 @@ async function createTask(action, state, dispatch) {
   } = action
   const description = target.newTask.value
   const date = Date.now()
-  const id = nanoid()
+  const id = `${Math.random()}`
   target.reset()
   target.newTask.blur()
   dispatch({ type: types.FILTER, filter: 'active' })
@@ -70,7 +69,9 @@ export function notify(action, state, dispatch) {
 }
 
 export function moveTask(action, state, dispatch) {
-  // TODO: try to move to a separate file. Basically we should be able to describe helpers separately and then assemble them in a root one. Common sense hints us that it should be separated files for each root field in the State.
+  // TODO: try to move to a separate file. Basically we should be able
+  // … to describe helpers separately and then assemble them in a root one.
+  // … Common sense hints us that it should be separated files for each root field in the State.
   const { currentTarget, changedTouches } = action.event
   // Position helpers
   const getPosition = () => parseFloat(currentTarget.style.left || 0, 10)
@@ -131,6 +132,7 @@ export function moveTask(action, state, dispatch) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function showImage(action, state, dispatch) {
   if (action.event) {
     const fullImg = document.getElementById('fullscreen-image')
@@ -167,8 +169,6 @@ async function showImage(action, state, dispatch) {
   }
 }
 
-async function hideImage(action, state, dispatch) {}
-
 // Watcher for async actions to handle Side Effects
 export function asyncHandler(action, state, dispatch) {
   switch (action.type) {
@@ -191,8 +191,6 @@ export function asyncHandler(action, state, dispatch) {
       return moveTask(action, state, dispatch)
     case types.SHOW_IMAGE:
       return showImage(action, state, dispatch)
-    case types.HIDE_IMAGE:
-      return hideImage(action, state, dispatch)
     default:
       return undefined
   }

@@ -32,8 +32,8 @@ To set up store for your application you have to implement a provider via
 
 # Reactive ToDo Application
 
-To start dev server run `npm start`. Your app will be accessible at
-http://localhost:1234/index.html.
+To start dev server run `npm start` or `bash bin/start.sh`. Your app will be accessible at
+http://localhost:8080.
 
 To deploy use `npm run build && npm run deploy`.
 Don't forget to change the app version in `src/service-worker.js` to enable PWA autoupdate!

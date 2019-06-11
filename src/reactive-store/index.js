@@ -52,7 +52,8 @@ export const createStore = (stateHandler, asyncHandler) => {
 
   /**
    * Returns funcion to be invoked
-   * @param component - a function that retuns a string which represents a valid html tag with its content
+   * @param component -
+   *    a function that retuns a string which represents a valid html tag with its content
    * @returns function to be invoked later on
    */
   const connect = component => {
@@ -69,7 +70,6 @@ export const createStore = (stateHandler, asyncHandler) => {
     Object.assign(state, changes)
     tracker.rerender(changes)
     asyncHandler(action, state, dispatch)
-    // return state // FIXME: do we need this return?
   }
 
   const getState = () => state
@@ -79,7 +79,8 @@ export const createStore = (stateHandler, asyncHandler) => {
 
 // TODO: implement routing
 // TODO: implement passing props through `connect` method
-// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload)) !! Symbol()
+// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
+// … !! Symbol()
 // TODO: prevent adding a same tracker twice
 
 // TODO: implement JSX templator analogue | SEEMS NOT WORKING PROPERLY

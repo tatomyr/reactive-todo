@@ -1,4 +1,4 @@
-import imageAPI from './google-api'
+import imageAPI from './google-api.js'
 
 export const undefinedTaskImage = '/assets/images/undefined-task.jpg'
 
@@ -34,6 +34,7 @@ const testImage = url => new Promise(resolve => {
       resolve(undefined)
     }, timeout)
   )
+  // eslint-disable-next-line no-multi-assign
   img.onerror = img.onabort = send(undefined)
   img.onload = send(url)
   img.src = url

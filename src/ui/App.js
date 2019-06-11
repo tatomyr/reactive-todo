@@ -1,7 +1,7 @@
-import TasksList from './TasksList'
-import Header from './Header'
-import FullscreenImage from './FullscreenImage'
-import Notification from './Notification'
+import TasksList from './TasksList/index.js'
+import Header from './Header/index.js'
+import FullscreenImage from './FullscreenImage/index.js'
+import Notification from './Notification/index.js'
 
 // Main component (stateless)
 export default () => `
