@@ -1,16 +1,13 @@
+import { mount } from './store-provider/index.js'
 import App from './ui/App.js'
 
 // Render page
-const mount = app => {
-  document.querySelector('#root').innerHTML = app
-  document.querySelector('input').focus() // XXX
-};
-(() => {
-  mount(App())
-})()
+mount(document.getElementById('root'), App)
 
 // Registering service worker
-if ('serviceWorker' in navigator) {
+const dev = location.hostname === 'localhost'
+console.log(`dev=${dev}`)
+if ('serviceWorker' in navigator && !dev) {
   navigator.serviceWorker.register('./service-worker.js').then(() => {
     console.log('Service Worker Registered')
   })

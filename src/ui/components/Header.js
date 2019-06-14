@@ -8,10 +8,9 @@ const Header = ({ route, tasks, input }) => `
     ${filters
     .map(
       ({ id, title, filterByStatus }) => `
-        <div class="controls-contaiter ${id === route ? 'active' : ''}">
+        <div id="${id}" class="controls-contaiter ${id === route ? 'active' : ''}">
           <button
-            class="invisible-button item"
-            id="${id}"
+            class="invisible-button item"  
             onclick="dispatch({ type: 'FILTER', filter: '${id}' })"
           >
             ${title}

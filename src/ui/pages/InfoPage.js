@@ -1,5 +1,5 @@
 const InfoPage = () => `
-  <div>
+  <div id="info-page">
     <p>
       Info
     </p>
