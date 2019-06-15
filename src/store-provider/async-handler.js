@@ -6,7 +6,7 @@ import {
 function triggerTask(action, state, dispatch) {
   saveTasks(state)
   const { completed } = state.tasks.find(task => task.id === action.id)
-  const text = completed ? 'Task marked completed' : 'Task now set active'
+  const text = completed ? 'Task has been completed' : 'Task has been set active'
   dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
 }
 

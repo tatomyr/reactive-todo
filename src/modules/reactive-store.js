@@ -11,8 +11,7 @@ export const createStore = (stateHandler, asyncWatcher) => {
   const state = stateHandler(undefined, { type: 'INIT' })
   console.log('• triggered state constructor:', state)
 
-  // TODO: implement passing props through `connect` method
-  const connect = component => () => component(state)
+  const connect = component => ownProps => component({ ...state, ...ownProps })
 
   let rootComponent
   let domElements

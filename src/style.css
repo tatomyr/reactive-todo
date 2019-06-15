@@ -14,10 +14,13 @@
 
 /* Declaring variables */
 body {
+  user-select: none;
   --height: 54px;
   --general-offset: 10px;
+  /* Palette */
+  --accent: teal;
+  --auxiliary: #468fb6;
   --light-color: #f5f5f5;
-  user-select: none;
 }
 
 /* Fonts */
@@ -31,7 +34,7 @@ button {
 }
 
 /* Constant height components */
-#header,
+.nav-list,
 .form {
   height: var(--height);
   min-height: var(--height);
@@ -45,13 +48,13 @@ button {
   max-height: 100vh;
 }
 
-/* Header & Filter */
-#header {
+/* NavBar & Filter */
+.nav-list {
   display: flex;
   justify-content: space-evenly;
-  background: teal;
+  background: var(--accent);
 }
-#header .controls-contaiter .item {
+.nav-list .controls-contaiter .item {
   display: inline-block;
   white-space: nowrap;
   height: 100%;
@@ -61,13 +64,13 @@ button {
   text-transform: uppercase;
   padding: 0 5px;
 }
-#header .controls-contaiter.active .item {
+.nav-list .controls-contaiter.isActive .item {
   color: var(--light-color);
 }
-#header .controls-contaiter {
+.nav-list .controls-contaiter {
   position: relative;
 }
-#header .controls-contaiter .counter {
+.nav-list .controls-contaiter .counter {
   --diameter: 20px;
   display: inline-block;
   width: var(--diameter);
@@ -78,15 +81,15 @@ button {
   border-radius: 50%;
   position: absolute;
   top: 5px;
-  right: -15px;
+  right: -10px;
   font-size: 0.75em;
   font-weight: bold;
   color: #4a4a4a;
 }
-#header .controls-contaiter.active .counter {
+.nav-list .controls-contaiter.isActive .counter {
   color: var(--light-color);
 }
-#header .controls-contaiter .counter[data-count='0'] {
+.nav-list .controls-contaiter .counter[data-count='0'] {
   display: none;
 }
 
@@ -134,7 +137,7 @@ button {
   text-decoration: line-through;
 }
 .tasks-list .task .up-button {
-  background: #468fb6;
+  background: var(--auxiliary);
   color: var(--light-color);
 }
 .tasks-list .task .delete-button {
@@ -191,7 +194,7 @@ button {
   position: absolute;
   bottom: calc(var(--general-offset) / 2);
   background: #f3df34;
-  color: teal;
+  color: var(--accent);
 }
 
 .fullimage-container .change-image.next {
@@ -227,7 +230,7 @@ button {
 #notification .notification-text {
   display: inline-block;
   width: calc(100% - 1.5 * var(--height));
-  color: white;
+  color: var(--light-color);
   background: rgba(80, 80, 80, 0.75);
   border-radius: 15px;
   box-shadow: 0 0 50px 5px rgba(80, 80, 80, 0.75);
@@ -263,4 +266,15 @@ button.invisible-button {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+/* Miscellaneous */
+
+.info-question-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--auxiliary);
+  color: var(--light-color);
+  line-height: 30px;
 }

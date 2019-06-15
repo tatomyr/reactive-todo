@@ -3,13 +3,13 @@ import { filters, filterByInput } from '/services/index.js'
 import { TaskItem } from './TaskItem.js'
 
 const TasksList = ({ tasks, route, input }) => `
-  <ul id="tasks-list" class="tasks-list">
+  <ol id="tasks-list" class="tasks-list">
     ${tasks
     .filter(filters.find(({ id }) => id === route).filterByStatus)
     .filter(filterByInput(input))
     .map(TaskItem)
     .join('')}
-  </ul>
+  </ol>
 `
 
 export default connect(TasksList)

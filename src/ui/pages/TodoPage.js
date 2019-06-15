@@ -1,10 +1,10 @@
 import {
-  Header, TasksList, FullscreenImage, Notification,
+  NavBar, TasksList, FullscreenImage, Notification,
 } from '../components/index.js'
 
 const TodoPage = () => `
   <div id="todo-page" class="container">
-    ${Header()}
+    ${NavBar()}
     ${TasksList()}
     <div class="form">
       <form
