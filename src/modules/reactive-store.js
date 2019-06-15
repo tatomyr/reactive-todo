@@ -3,10 +3,10 @@ console.log('• triggered reactive store file')
 /**
  * Store module factory that should be invoked once to create a single store with reactive state
  * @param stateHandler - a synchronous reducer callback
- * @param asyncHandler - an asynchronous action handler callback
+ * @param asyncWatcher - an asynchronous action handler callback
  * @returns an object that contains public methods to manage the store created
  */
-export const createStore = (stateHandler, asyncHandler) => {
+export const createStore = (stateHandler, asyncWatcher) => {
   // State
   const state = stateHandler(undefined, { type: 'INIT' })
   console.log('• triggered state constructor:', state)
@@ -77,7 +77,7 @@ export const createStore = (stateHandler, asyncHandler) => {
     const changes = stateHandler(state, action)
     Object.assign(state, changes)
     rerender(changes)
-    asyncHandler(action, state, dispatch)
+    asyncWatcher(action, state, dispatch)
   }
 
   const getState = () => state

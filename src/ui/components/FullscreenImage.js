@@ -3,7 +3,9 @@ import { connect } from '/store-provider/index.js'
 const selectTaskImages = (tasks, id) => id && tasks.find(task => task.id === id).images
 
 const FullscreenImage = ({ taskToShowImage, tasks }) => `
-  <div class="fullimage-container ${!taskToShowImage ? 'hidden' : ''}">
+  <div id="fullscreen-image-container" class="fullimage-container ${
+  !taskToShowImage ? 'hidden' : ''
+}">
     <div
       id="fullscreen-image"
       class="bg"

@@ -170,7 +170,7 @@ async function showImage(action, state, dispatch) {
 }
 
 // Watcher for async actions to handle Side Effects
-export function asyncHandler(action, state, dispatch) {
+export function asyncWatcher(action, state, dispatch) {
   switch (action.type) {
     case types.TRIGGER_TASK:
       return triggerTask(action, state, dispatch)
