@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-const version = '4.0.7'
+const version = '4.0.8'
 console.log(version, dev ? 'development mode' : 'production mode')
 
 if (!dev) {

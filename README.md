@@ -56,8 +56,7 @@ export const { connect, dispatch, mount } = createStore(
 )
 // The last step you have to mount your dispatch function somwhere
 // … to be able to access it in components
-// One of the options is obviously window object
-// TODO: try to pass the dispatch function somehow without using window!
+// One of the options apparently is window object
 window.dispatch = dispatch
 ```
 

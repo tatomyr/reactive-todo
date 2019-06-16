@@ -17,15 +17,3 @@ const App = ({ route }) => `
 export default connect(App)
 
 // TODO: implement state viewer for testing purposes in dev environment
-
-/* TODO: SEEMS NOT WORKING PROPERLY
-Implement such syntax:
-```
-const Component = () => `
-  <div class="container">
-    <AnotherComponent prop={something} />
-  </div>
-`
-```
-where `<AnotherComponent />` will be transformed into `${AnotherComponent({ prop: something })}`
-*/

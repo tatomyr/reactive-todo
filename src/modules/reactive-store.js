@@ -95,31 +95,3 @@ export const createStore = (stateHandler, asyncWatcher) => {
 }
 
 // TODO: implement routing
-// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
-// … !! Symbol()
-// TODO: implement JSX templator analogue | SEEMS NOT WORKING PROPERLY
-// export const re = (strings, ...args) => {
-//   console.log(strings, args)
-//   let response = ''
-//   for (let i = 0; i < strings.length; i++) {
-//     response += strings[i]
-//       .replace(/<([A-Z]\w+)\s.*?/gm, (x, y) => `\${${y}(`)
-//       .replace(/\/>/gm, (x, y) => ')}')
-
-//     // const f = () => args[i]
-//     const stringifyCallback = (key, value) => {
-//       console.log(key, '≈', value)
-//       if (typeof value === 'function') {
-//         return `#${value}#` // .toString();
-//       }
-//       return value
-//     }
-//     response += args[i]
-//       ? JSON.stringify(args[i], stringifyCallback)
-//         .replace(/"#/gm, '')
-//         .replace(/#"/gm, '') // f.toString().replace('() =>', '') // JSON.stringify(args[i])
-//       : ''
-//   }
-//   console.log(`\${${response}}`)
-//   return response
-// }
