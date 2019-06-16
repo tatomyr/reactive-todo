@@ -13,5 +13,3 @@ const TasksList = ({ tasks, route, input }) => `
 `
 
 export default connect(TasksList)
-
-// TODO: only make height of compleated/active task of zero to preserve list structure everywhere!

@@ -37,6 +37,10 @@ Bare in mind, each changable component or a part of a component
 should have an unique id attribute defined.
 This allows the DOM updater to decouple changed elements
 and replase only them.
+Ideally, you'd always wrap your component in some wrapper tag with an `id` and not change its tags on the spot.
+Use a `static wrapper` around your component, you may say.
+Your top-level component must always have an id defined on its wrapper.
+Otherwise rerender may run inconsistently.
 
 To set up store for your application you have to implement a provider via
 `createStore` method.

@@ -115,7 +115,6 @@ export function moveTask(action, state, dispatch) {
       || (positionX < -window.screen.width * 0.33 && taskCompleted)
     ) {
       // Go away.
-      // TODO: Try to save scroll Y position
       currentTarget.style.left = `${getDirection()}${window.screen.width}px`
       setTimeout(
         () => dispatch({

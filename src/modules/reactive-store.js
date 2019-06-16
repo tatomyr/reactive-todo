@@ -18,27 +18,29 @@ export const createStore = (stateHandler, asyncWatcher) => {
 
   const parseHTML = html => {
     const doc = new DOMParser().parseFromString(html, 'text/html')
-    const o = {}
+    const objElements = {}
     // eslint-disable-next-line no-restricted-syntax
     for (const $el of doc.querySelectorAll('*[id]')) {
-      o[$el.id] = { shallow: $el.cloneNode(true), element: $el }
+      objElements[$el.id] = {
+        element: $el,
+        shallow: $el.cloneNode(true),
+        wrapperHTML: $el.cloneNode(false).outerHTML,
+      }
     }
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
-    for (const id in o) {
+    for (const id in objElements) {
       // eslint-disable-next-line no-restricted-syntax
-      for (const $el of o[id].shallow.querySelectorAll('*[id]')) {
-        if (id === $el.id) continue
-        $el.outerHTML = `<template data-key="${$el.id}" />`
+      for (const $el of objElements[id].shallow.querySelectorAll('*[id]')) {
+        $el.outerHTML = `<template data-key="${$el.id}"></template>`
       }
-      o[id].outerHTML = o[id].shallow.outerHTML
+      objElements[id].html = objElements[id].shallow.outerHTML
     }
-    return o
+    return objElements
   }
 
   function mount(rootParent, f) {
     // Root component should always have an id
     rootComponent = f
-    // TODO: investigate why replacing innerHTML with outerHTML causes rerendering issues
     // eslint-disable-next-line no-param-reassign
     rootParent.innerHTML = rootComponent(state)
     domElements = parseHTML(rootParent.innerHTML)
@@ -49,17 +51,20 @@ export const createStore = (stateHandler, asyncWatcher) => {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const id in domElements) {
-      if (domElements[id].outerHTML !== (newElements[id] && newElements[id].outerHTML)) {
-        console.log(
-          id,
-          domElements[id].outerHTML,
-          '-->',
-          newElements[id] && newElements[id].outerHTML
-        )
+      if (domElements[id].html !== (newElements[id] && newElements[id].html)) {
+        console.log(`@${id}:`)
 
         const elementById = document.getElementById(id)
         if (elementById) {
-          elementById.replaceWith(newElements[id].element)
+          if (domElements[id].wrapperHTML === (newElements[id] && newElements[id].wrapperHTML)) {
+            console.log('└─ change')
+            elementById.innerHTML = newElements[id].element.innerHTML
+          } else {
+            console.log('└─ replace')
+            elementById.replaceWith(newElements[id].element)
+          }
+        } else {
+          console.log('└─ ✗')
         }
       }
     }
@@ -89,8 +94,6 @@ export const createStore = (stateHandler, asyncWatcher) => {
   }
 }
 
-// TODO: implement different handler for lists:
-// … add & delete changed elements without touching other items
 // TODO: implement routing
 // TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
 // … !! Symbol()
