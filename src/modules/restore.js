@@ -4,67 +4,56 @@
  * @param asyncWatcher - an asynchronous action handler callback
  * @returns an object that contains public methods to manage the store created
  */
-export const createStore = (stateHandler, asyncWatcher) => {
-  // State
+export const createStore = (stateHandler, asyncWatcher = () => {}) => {
   const state = stateHandler(undefined, { type: 'INIT' })
 
-  const connect = component => ownProps => component({ ...state, ...ownProps })
-
   let rootComponent
-  let domElements
+
+  let domElementsMap
 
   const parseHTML = html => {
-    const $doc = new DOMParser().parseFromString(html, 'text/html')
-    const objElements = {}
+    const virtualDocument = new DOMParser().parseFromString(html, 'text/html')
+    const elementsMap = new Map()
     // eslint-disable-next-line no-restricted-syntax
-    for (const $el of $doc.querySelectorAll('*[id]')) {
-      objElements[$el.id] = {
-        element: $el,
-        shallow: $el.cloneNode(true),
-        wrapperHTML: $el.cloneNode(false).outerHTML,
-      }
-    }
-    // TODO: refactor this
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
-    for (const id in objElements) {
+    for (const element of virtualDocument.querySelectorAll('*[id]')) {
+      const shallow = element.cloneNode(true)
       // eslint-disable-next-line no-restricted-syntax
-      for (const $el of objElements[id].shallow.querySelectorAll('*[id]')) {
-        $el.outerHTML = `<template data-key="${$el.id}"></template>`
+      for (const innerElement of shallow.querySelectorAll('*[id]')) {
+        innerElement.outerHTML = `<template data-key="${innerElement.id}"></template>`
       }
-      objElements[id].html = objElements[id].shallow.outerHTML
+      elementsMap.set(element.id, {
+        element,
+        shallow,
+        wrapperHTML: shallow.cloneNode(false).outerHTML,
+      })
     }
-    return objElements
+    return elementsMap
   }
 
-  function mount(f, rootParent) {
-    // Root component should always have an id
+  function mount(f) {
     rootComponent = f
-    /* *
-    // eslint-disable-next-line no-param-reassign
-    domElements = parseHTML((rootParent.innerHTML = rootComponent()))
-    /* TODO: check performance of both approaches */
-    domElements = parseHTML(rootComponent())
-    // In this case rootParent.id should be the same as App.id
-    rootParent.replaceWith(domElements[rootParent.id].element)
-    /* */
+    domElementsMap = parseHTML(rootComponent())
+    // Top-level component should always have an id equal to parent element's id
+    const rootId = domElementsMap.keys().next().value
+    document.getElementById(rootId).replaceWith(domElementsMap.get(rootId).element)
   }
 
   function rerender() {
-    const newElements = parseHTML(rootComponent())
-
+    const newElementsMap = parseHTML(rootComponent())
     // eslint-disable-next-line no-restricted-syntax
-    for (const id in domElements) {
-      if (domElements[id].html !== (newElements[id] && newElements[id].html)) {
+    for (const [id, domEl] of domElementsMap) {
+      const newEl = newElementsMap.get(id)
+      if (domEl.shallow.outerHTML !== (newEl && newEl.shallow.outerHTML)) {
         console.log(`@${id}:`)
 
         const elementById = document.getElementById(id)
         if (elementById) {
-          if (domElements[id].wrapperHTML === (newElements[id] && newElements[id].wrapperHTML)) {
+          if (domEl.wrapperHTML === (newEl && newEl.wrapperHTML)) {
             console.log('└─ change')
-            elementById.innerHTML = newElements[id].element.innerHTML
+            elementById.innerHTML = newEl.element.innerHTML
           } else {
             console.log('└─ replace')
-            elementById.replaceWith(newElements[id].element)
+            elementById.replaceWith(newEl.element)
           }
         } else {
           console.log('└─ ✗')
@@ -72,7 +61,7 @@ export const createStore = (stateHandler, asyncWatcher) => {
       }
     }
 
-    domElements = newElements
+    domElementsMap = newElementsMap
   }
 
   function logger({ type, ...rest }) {
@@ -86,6 +75,8 @@ export const createStore = (stateHandler, asyncWatcher) => {
     rerender()
     asyncWatcher(action, state, dispatch)
   }
+
+  const connect = component => ownProps => component({ ...state, ...ownProps })
 
   const getState = () => state
 
