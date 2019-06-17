@@ -1,5 +1,3 @@
-console.log('• triggered reactive store file')
-
 /**
  * Store module factory that should be invoked once to create a single store with reactive state
  * @param stateHandler - a synchronous reducer callback
@@ -9,7 +7,6 @@ console.log('• triggered reactive store file')
 export const createStore = (stateHandler, asyncWatcher) => {
   // State
   const state = stateHandler(undefined, { type: 'INIT' })
-  console.log('• triggered state constructor:', state)
 
   const connect = component => ownProps => component({ ...state, ...ownProps })
 
@@ -17,16 +14,17 @@ export const createStore = (stateHandler, asyncWatcher) => {
   let domElements
 
   const parseHTML = html => {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
+    const $doc = new DOMParser().parseFromString(html, 'text/html')
     const objElements = {}
     // eslint-disable-next-line no-restricted-syntax
-    for (const $el of doc.querySelectorAll('*[id]')) {
+    for (const $el of $doc.querySelectorAll('*[id]')) {
       objElements[$el.id] = {
         element: $el,
         shallow: $el.cloneNode(true),
         wrapperHTML: $el.cloneNode(false).outerHTML,
       }
     }
+    // TODO: refactor this
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const id in objElements) {
       // eslint-disable-next-line no-restricted-syntax
@@ -38,7 +36,7 @@ export const createStore = (stateHandler, asyncWatcher) => {
     return objElements
   }
 
-  function mount(rootParent, f) {
+  function mount(f, rootParent) {
     // Root component should always have an id
     rootComponent = f
     /* *
@@ -98,5 +96,3 @@ export const createStore = (stateHandler, asyncWatcher) => {
     getState,
   }
 }
-
-// TODO: implement routing

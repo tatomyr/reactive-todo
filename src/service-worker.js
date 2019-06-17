@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 const dev = location.hostname === 'localhost'
-const version = '4.0.8'
+const version = '4.1.0'
 console.log(version, dev ? 'development mode' : 'production mode')
 
 if (!dev) {
@@ -14,7 +14,6 @@ if (!dev) {
     : [
       '/',
       '/index.html',
-      '/index.js',
       '/manifest.json',
       '/reset.css',
       '/style.css',

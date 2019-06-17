@@ -2,7 +2,7 @@ import { mount } from './store-provider/index.js'
 import { App } from './ui/App.js'
 
 // Render page
-mount(document.getElementById('root'), App)
+mount(App, document.getElementById('root'))
 
 // TODO: implement config files for different environments and use them on build / dev
 const dev = location.hostname === 'localhost'

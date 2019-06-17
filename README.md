@@ -1,4 +1,4 @@
-# Reactive Store
+# Reactive Store (Restore)
 
 Implementation of reactive global store for pure JavaScript applications.
 
@@ -46,7 +46,7 @@ To set up store for your application you have to implement a provider via
 `createStore` method.
 
 ```javascript
-import { createStore } from '/reactive-store.js'
+import { createStore } from '/restore.js'
 import { stateHandler } from './state-handler.js'
 import { asyncWatcher } from './async-handler.js'
 
