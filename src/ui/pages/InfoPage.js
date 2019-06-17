@@ -1,4 +1,4 @@
-const InfoPage = () => `
+export const InfoPage = () => `
   <div id="info-page">
     <h1>
       Info
@@ -9,5 +9,3 @@ const InfoPage = () => `
     <button onclick="dispatch({ type: 'FILTER', filter: 'active' })">Back</button>
   </div>
 `
-
-export default InfoPage

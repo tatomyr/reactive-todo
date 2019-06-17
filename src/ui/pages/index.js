@@ -1,2 +1,2 @@
-export { default as TodoPage } from './TodoPage.js'
-export { default as InfoPage } from './InfoPage.js'
+export { TodoPage } from './TodoPage.js'
+export { InfoPage } from './InfoPage.js'

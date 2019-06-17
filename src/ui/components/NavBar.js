@@ -1,6 +1,6 @@
 import { jsx } from '/modules/jsx.js' // FIXME: use or remove
 import { filters } from '/services/index.js'
-import NavItem from './NavItem.js'
+import { NavItem } from './NavItem.js'
 
 const AboutLink = () => `
   <li id="info-link" class="controls-contaiter">
@@ -13,7 +13,7 @@ const AboutLink = () => `
   </li>
 `
 
-const NavBar = () => jsx`
+export const NavBar = () => jsx`
   <nav id="nav-bar">
     <ul class="nav-list">
       ${filters.map(NavItem).join('')}
@@ -21,5 +21,3 @@ const NavBar = () => jsx`
     </ul>
   </nav>
 `
-
-export default NavBar

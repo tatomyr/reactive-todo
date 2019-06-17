@@ -2,7 +2,7 @@ import {
   NavBar, TasksList, FullscreenImage, Notification,
 } from '../components/index.js'
 
-const TodoPage = () => `
+export const TodoPage = () => `
   <div id="todo-page" class="container">
     ${NavBar()}
     ${TasksList()}
@@ -36,5 +36,3 @@ const TodoPage = () => `
     ${Notification()}
   </div>
 `
-
-export default TodoPage

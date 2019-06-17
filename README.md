@@ -97,6 +97,12 @@ function asyncWatcher(action, state, dispatch) {
 }
 ```
 
+# Tips
+
+- Use uncontrolled text inputs and put them wisely, so they won't be rerendered when the input value has been changed.
+- Wrap every component that you want to be rerendered independently with a static wrapper (this one has to have an unique id and its attributes do not rely on state changes).
+- Root component must have the same id as the html element you want to mount your components to. (Depends on the algorithm we're using for mounting.)
+
 # Reactive ToDo Application
 
 To start dev server run `npm start` or `bash bin/start.sh`. Your app will be accessible at

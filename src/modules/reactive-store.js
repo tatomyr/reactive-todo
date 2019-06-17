@@ -41,13 +41,18 @@ export const createStore = (stateHandler, asyncWatcher) => {
   function mount(rootParent, f) {
     // Root component should always have an id
     rootComponent = f
+    /* *
     // eslint-disable-next-line no-param-reassign
-    rootParent.innerHTML = rootComponent(state)
-    domElements = parseHTML(rootParent.innerHTML)
+    domElements = parseHTML((rootParent.innerHTML = rootComponent()))
+    /* TODO: check performance of both approaches */
+    domElements = parseHTML(rootComponent())
+    // In this case rootParent.id should be the same as App.id
+    rootParent.replaceWith(domElements[rootParent.id].element)
+    /* */
   }
 
   function rerender() {
-    const newElements = parseHTML(rootComponent(state))
+    const newElements = parseHTML(rootComponent())
 
     // eslint-disable-next-line no-restricted-syntax
     for (const id in domElements) {
@@ -80,17 +85,17 @@ export const createStore = (stateHandler, asyncWatcher) => {
     logger(action)
     const changes = stateHandler(state, action)
     Object.assign(state, changes)
-    rerender(changes)
+    rerender()
     asyncWatcher(action, state, dispatch)
   }
 
   const getState = () => state
 
   return {
+    mount,
     connect,
     dispatch,
     getState,
-    mount,
   }
 }
 

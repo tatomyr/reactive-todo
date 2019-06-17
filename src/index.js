@@ -1,5 +1,5 @@
 import { mount } from './store-provider/index.js'
-import App from './ui/App.js'
+import { App } from './ui/App.js'
 
 // Render page
 mount(document.getElementById('root'), App)
