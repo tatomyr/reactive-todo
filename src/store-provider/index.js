@@ -1,9 +1,7 @@
-import { createStore } from '/reactive-store/index.js'
+import { createStore } from '/modules/restore.js'
 import { stateHandler } from './state-handler.js'
-import { asyncHandler } from './async-handler.js'
+import { asyncWatcher } from './async-handler.js'
 
-console.log('triggered store provider')
-
-export const { connect, dispatch } = createStore(stateHandler, asyncHandler)
+export const { mount, connect, dispatch } = createStore(stateHandler, asyncWatcher)
 
 window.dispatch = dispatch

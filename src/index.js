@@ -1,16 +1,14 @@
-import App from './ui/App.js'
+import { mount } from './store-provider/index.js'
+import { App } from './ui/App.js'
 
 // Render page
-const mount = app => {
-  document.querySelector('#root').innerHTML = app
-  document.querySelector('input').focus() // XXX
-};
-(() => {
-  mount(App())
-})()
+mount(App)
 
 // Registering service worker
-if ('serviceWorker' in navigator) {
+// eslint-disable-next-line no-restricted-globals
+const stage = location.hostname === 'localhost' ? 'DEV' : 'PROD'
+console.log(stage, stage !== 'DEV', 'serviceWorker' in navigator)
+if (stage !== 'DEV' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js').then(() => {
     console.log('Service Worker Registered')
   })

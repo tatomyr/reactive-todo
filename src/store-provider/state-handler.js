@@ -5,7 +5,7 @@ import { types } from './action-types.js'
 // Default Application state
 const defaults = {
   tasks: cashedTasks || [],
-  route: 'active',
+  view: 'active',
   _backupRoute: undefined,
   taskToShowImage: '',
   notification: {
@@ -21,8 +21,8 @@ export const stateHandler = (state = defaults, action = {}) => {
   switch (action.type) {
     case types.FILTER:
       return {
-        route: action.filter,
-        // If we've intentionally changed route, perhaps we don't want go back.
+        view: action.view,
+        // If we've intentionally changed view, perhaps we don't want go back.
         _backupRoute: undefined,
       }
     case types.ADD_TASK:
@@ -97,15 +97,18 @@ export const stateHandler = (state = defaults, action = {}) => {
     case types.SUBSTITUTE_ROUTE:
       return action.hasInput
         ? {
-          route: 'all',
-          _backupRoute: state._backupRoute || state.route,
+          view: 'all',
+          _backupRoute: state._backupRoute || state.view,
         }
         : {
-          route: state._backupRoute || state.route,
+          view: state._backupRoute || state.view,
           _backupRoute: undefined,
         }
     case types.CHANGE_INPUT:
       return { input: action.input }
+    case types.SHOW_INFO:
+      return { view: 'show-info' }
+
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:
       return state

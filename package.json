@@ -1,9 +1,9 @@
 {
   "name": "reactive-todo",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "scripts": {
     "start": "bash bin/start.sh",
-    "reactive-store": "cd src/reactive-store && npx static-server -p 8081 -c '*'",
+    "modules": "cd src/modules && npx static-server -p 8081 -c '*'",
     "ngrok": "bash bin/ngrok.sh",
     "build": "bash bin/build.sh",
     "deploy": "bash bin/deploy.sh",

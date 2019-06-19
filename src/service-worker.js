@@ -1,24 +1,18 @@
 /* eslint-disable no-restricted-globals */
-
-const dev = location.hostname === 'localhost'
-console.log('3.0.4', dev ? 'development mode' : 'production mode')
-
-const cacheName = 'reactive-todo-app'
-
-let srcFiles
-
-let filesToCache = dev
-  ? []
-  : [
-    '/',
-    '/index.html',
-    '/index.js',
-    '/manifest.json',
-    '/reset.css',
-    '/style.css',
-    '/assets/images/loading-shape.gif',
-    '/assets/images/undefined-task.jpg',
-  ]
+const version = 'BUILD_DATE'
+const cacheName = version
+let srcFiles // Should come from bash script when building
+// FIXME:
+let filesToCache = [
+  '/',
+  '/index.html',
+  '/index.js',
+  '/manifest.json',
+  '/reset.css',
+  '/style.css',
+  '/assets/images/loading-shape.gif',
+  '/assets/images/undefined-task.jpg',
+]
 
 if (srcFiles) {
   console.log(srcFiles)

@@ -1,4 +1,5 @@
 export const types = {
+  INIT: 'INIT',
   FILTER: 'FILTER',
   CREATE_TASK: 'CREATE_TASK',
   ADD_TASK: 'ADD_TASK',
@@ -15,7 +16,7 @@ export const types = {
   CHANGE_INPUT: 'CHANGE_INPUT',
   CLEAN_INPUT: 'CLEAN_INPUT',
   MOVE_TASK: 'MOVE_TASK',
-  INIT: 'INIT',
+  SHOW_INFO: 'SHOW_INFO',
 }
 
 // TODO: implement patching tasks on long press or smthg

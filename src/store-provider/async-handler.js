@@ -6,7 +6,7 @@ import {
 function triggerTask(action, state, dispatch) {
   saveTasks(state)
   const { completed } = state.tasks.find(task => task.id === action.id)
-  const text = completed ? 'Task marked completed' : 'Task now set active'
+  const text = completed ? 'Task has been completed' : 'Task has been set active'
   dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
 }
 
@@ -19,7 +19,7 @@ async function createTask(action, state, dispatch) {
   const id = `${Math.random()}`
   target.reset()
   target.newTask.blur()
-  dispatch({ type: types.FILTER, filter: 'active' })
+  dispatch({ type: types.FILTER, view: 'active' })
   dispatch({
     type: types.ADD_TASK,
     description,
@@ -115,7 +115,6 @@ export function moveTask(action, state, dispatch) {
       || (positionX < -window.screen.width * 0.33 && taskCompleted)
     ) {
       // Go away.
-      // TODO: Try to save scroll Y position
       currentTarget.style.left = `${getDirection()}${window.screen.width}px`
       setTimeout(
         () => dispatch({
@@ -169,8 +168,14 @@ async function showImage(action, state, dispatch) {
   }
 }
 
+function logger({ type, ...rest }, state) {
+  console.log('• action:', type, rest)
+  console.table(state)
+}
+
 // Watcher for async actions to handle Side Effects
-export function asyncHandler(action, state, dispatch) {
+export function asyncWatcher(action, state, dispatch) {
+  logger(action, state)
   switch (action.type) {
     case types.TRIGGER_TASK:
       return triggerTask(action, state, dispatch)
