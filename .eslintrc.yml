@@ -11,6 +11,15 @@ rules:
   import/prefer-default-export:
     - warning
     - always
+  import/extensions:
+    - warning
+    - never
+  import/no-absolute-path:
+    - off
+  import/no-unresolved:
+    - warning
+  no-unused-vars:
+    - off
   comma-dangle:
     - error
     - arrays: always-multiline

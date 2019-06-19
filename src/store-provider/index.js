@@ -1,6 +1,6 @@
-import { createStore } from 'reactive-store'
-import { stateHandler } from './state-handler'
-import { asyncHandler } from './async-handler'
+import { createStore } from '/reactive-store/index.js'
+import { stateHandler } from './state-handler.js'
+import { asyncHandler } from './async-handler.js'
 
 console.log('triggered store provider')
 

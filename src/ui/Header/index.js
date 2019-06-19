@@ -1,6 +1,6 @@
-import { connect } from '@store-provider'
-import { filters, filterByInput } from '@services'
-import { Bubble } from './Bubble'
+import { connect } from '/store-provider/index.js'
+import { filters, filterByInput } from '/services/index.js'
+import { Bubble } from './Bubble.js'
 
 const Header = ({ route, tasks, input }) => `
   <div id="header">
@@ -22,7 +22,5 @@ const Header = ({ route, tasks, input }) => `
     .join('')}
   </div>
 `
-
-Header.args = ['route', 'tasks', 'input']
 
 export default connect(Header)

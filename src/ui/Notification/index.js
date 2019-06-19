@@ -1,15 +1,13 @@
-import { connect } from '@store-provider'
+import { connect } from '/store-provider/index.js'
 
-const Notification = ({ notification }) => `
+const Notification = ({ notification: { pageY = 70, text } }) => `
   <div
     id="notification"
-    ${notification.pageY ? `style="top: calc(${notification.pageY}px - 1.5em)"` : ''}
-    class="${notification.text ? '' : 'hidden'}"
+    style="top: calc(${pageY}px - 1.5em)"
+    class="${text ? '' : 'hidden'}"
   >
-    <div class="notification-text">${notification.text}</div>
+    <div class="notification-text">${text}</div>
   </div>
 `
-
-Notification.args = ['notification']
 
 export default connect(Notification)

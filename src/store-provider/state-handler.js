@@ -1,5 +1,6 @@
-import { cashedTasks, shiftArray } from '@services'
-import { types } from './action-types'
+/* eslint-disable no-underscore-dangle */
+import { cashedTasks, shiftArray } from '/services/index.js'
+import { types } from './action-types.js'
 
 // Default Application state
 const defaults = {
@@ -71,7 +72,7 @@ export const stateHandler = (state = defaults, action = {}) => {
       return {
         notification: {
           text: action.text,
-          pageY: action.pageY || '10px',
+          pageY: action.pageY,
           notificationId: action.notificationId,
         },
       }

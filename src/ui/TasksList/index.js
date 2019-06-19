@@ -1,6 +1,6 @@
-import { connect } from '@store-provider'
-import { filters, filterByInput } from '@services'
-import { TaskItem } from './TaskItem'
+import { connect } from '/store-provider/index.js'
+import { filters, filterByInput } from '/services/index.js'
+import { TaskItem } from './TaskItem.js'
 
 const TasksList = ({ tasks, route, input }) => `
   <ul class="tasks-list">
@@ -11,7 +11,5 @@ const TasksList = ({ tasks, route, input }) => `
     .join('')}
   </ul>
 `
-
-TasksList.args = ['tasks', 'route', 'input']
 
 export default connect(TasksList)

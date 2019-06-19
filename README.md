@@ -1,5 +1,3 @@
-<!-- FIXME: update readme -->
-
 # Reactive Store
 
 Implementation of reactive global store for pure JavaScript applications.
@@ -15,25 +13,27 @@ If there's no changes, it should return an empty object.
 
 Each store mutation triggers rerendering of components that directly rely on
 the changed fields.
-[!] As for now you have to **set the fields directly** in component
-by providing to its `args` property an array of field names component rely on.
-E. g.:
+To let the reactive-store know when a component should be rerendered please use first-level destruction of properties when declaring the component function:
 
 ```javascript
 const Component = ({ someFiled }) => `<div>${someField}</div>`
-Component.args = ['someFiled']
 ```
 
-Later on its possible to parse the argumets supplied to a component
-and add `.args` list under the hood.
+or
+
+```javascript
+function Component({ someField }) {
+  return `<div>${someField}</div>`
+}
+```
 
 To set up store for your application you have to implement a provider via
 `createStore` method.
 
 # Reactive ToDo Application
 
-To start dev server run `npm start`. Your app will be accessible at
-http://localhost:1234/index.html.
+To start dev server run `npm start` or `bash bin/start.sh`. Your app will be accessible at
+http://localhost:8080.
 
 To deploy use `npm run build && npm run deploy`.
 Don't forget to change the app version in `src/service-worker.js` to enable PWA autoupdate!

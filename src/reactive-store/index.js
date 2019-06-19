@@ -29,14 +29,30 @@ export const createStore = (stateHandler, asyncHandler) => {
   const tracker = {
     components: [],
     add: component => {
-      if (!component.args) {
-        throw new Error(
-          'Rendered component should relay on some arguments. Consider adding arguments list via <Component>.args = [<args>].'
+      // Identifying the component args
+      const str = component.toString()
+      const start = str.indexOf('({')
+      const end = str.indexOf('})')
+      const argsString = str.slice(start + 2, end)
+      const args = argsString
+        .replace(/(:\s*{[^}]+})/g, '')
+        .split(',')
+        .map(
+          item => item
+            .trim()
+            .split(/\W/)
+            .filter(Boolean)[0]
+        )
+      if (!args || start === -1 || end === -1) {
+        throw new SyntaxError(
+          'Rendered component should relay on some arguments. Use first-level destruction to access state elements: `({ foo, bar }) => …`'
         )
       }
+      // Adding the component to tracker
       const id = tracker.components.unshift(component)
       tracker.components[0].id = `$${component.name}-${id}`
-      console.warn('• added tracker:', component.name, tracker.components)
+      tracker.components[0].args = args
+      console.warn('• added tracker:', id, component.name, args, tracker.components)
       return 'TODO'
     },
     rerender: changes => {
@@ -52,7 +68,8 @@ export const createStore = (stateHandler, asyncHandler) => {
 
   /**
    * Returns funcion to be invoked
-   * @param component - a function that retuns a string which represents a valid html tag with its content
+   * @param component -
+   *    a function that retuns a string which represents a valid html tag with its content
    * @returns function to be invoked later on
    */
   const connect = component => {
@@ -69,7 +86,6 @@ export const createStore = (stateHandler, asyncHandler) => {
     Object.assign(state, changes)
     tracker.rerender(changes)
     asyncHandler(action, state, dispatch)
-    // return state // FIXME: do we need this return?
   }
 
   const getState = () => state
@@ -79,7 +95,8 @@ export const createStore = (stateHandler, asyncHandler) => {
 
 // TODO: implement routing
 // TODO: implement passing props through `connect` method
-// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload)) !! Symbol()
+// TODO: implement unique app identifier `app` (e.g. global[app].dispatch("ACTION", payload))
+// … !! Symbol()
 // TODO: prevent adding a same tracker twice
 
 // TODO: implement JSX templator analogue | SEEMS NOT WORKING PROPERLY
