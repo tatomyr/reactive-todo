@@ -21,7 +21,7 @@ export const stateHandler = (state = defaults, action = {}) => {
   switch (action.type) {
     case types.FILTER:
       return {
-        view: action.filter,
+        view: action.view,
         // If we've intentionally changed view, perhaps we don't want go back.
         _backupRoute: undefined,
       }

@@ -12,7 +12,7 @@ export const NavItem = connect(
     >
       <button
         class="invisible-button item"  
-        onclick="dispatch({ type: 'FILTER', filter: '${id}' })"
+        onclick="dispatch({ type: 'FILTER', view: '${id}' })"
       >
         ${title}
       </button>

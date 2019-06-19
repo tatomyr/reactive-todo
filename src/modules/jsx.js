@@ -1,7 +1,6 @@
 // FIXME: it doesn't know what the parsed name function refers to...
 
 export const jsx = (strings, ...args) => {
-  console.log('[JSX]', strings, args)
   let response = ''
   for (let i = 0; i < strings.length; i++) {
     response += strings[i].replace(/<([A-Z]\w+)\s(.*?)\/>/gm, (_, name, props) => {

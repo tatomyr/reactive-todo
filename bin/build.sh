@@ -19,4 +19,5 @@ srcFiles+=']'
 
 # Copying `service-worker` and substituting `srcFiles`
 file_content=`cat ./src/service-worker.js`
+file_content="${file_content/BUILD_DATE/$(date)}"
 echo "${file_content/srcFiles/$srcFiles}" > ./dist/service-worker.js

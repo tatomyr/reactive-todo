@@ -45,7 +45,6 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
       const newEl = newElementsMap.get(id)
       if (domEl.shallow.outerHTML !== (newEl && newEl.shallow.outerHTML)) {
         console.log(`@${id}:`)
-
         const elementById = document.getElementById(id)
         if (elementById) {
           if (domEl.wrapperHTML === (newEl && newEl.wrapperHTML)) {
@@ -64,12 +63,7 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
     domElementsMap = newElementsMap
   }
 
-  function logger({ type, ...rest }) {
-    console.log('• action:', type, rest)
-  }
-
   function dispatch(action) {
-    logger(action)
     const changes = stateHandler(state, action)
     Object.assign(state, changes)
     rerender()
@@ -78,12 +72,9 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
 
   const connect = component => ownProps => component({ ...state, ...ownProps })
 
-  const getState = () => state
-
   return {
     mount,
     connect,
     dispatch,
-    getState,
   }
 }

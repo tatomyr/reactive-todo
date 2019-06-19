@@ -4,11 +4,11 @@ import { App } from './ui/App.js'
 // Render page
 mount(App)
 
-// TODO: implement config files for different environments and use them on build / dev
-const dev = location.hostname === 'localhost'
 // Registering service worker
-console.log(`dev=${dev}`)
-if ('serviceWorker' in navigator && !dev) {
+// eslint-disable-next-line no-restricted-globals
+const stage = location.hostname === 'localhost' ? 'DEV' : 'PROD'
+console.log(stage, stage !== 'DEV', 'serviceWorker' in navigator)
+if (stage !== 'DEV' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js').then(() => {
     console.log('Service Worker Registered')
   })

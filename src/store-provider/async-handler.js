@@ -19,7 +19,7 @@ async function createTask(action, state, dispatch) {
   const id = `${Math.random()}`
   target.reset()
   target.newTask.blur()
-  dispatch({ type: types.FILTER, filter: 'active' })
+  dispatch({ type: types.FILTER, view: 'active' })
   dispatch({
     type: types.ADD_TASK,
     description,
@@ -168,8 +168,14 @@ async function showImage(action, state, dispatch) {
   }
 }
 
+function logger({ type, ...rest }, state) {
+  console.log('• action:', type, rest)
+  console.table(state)
+}
+
 // Watcher for async actions to handle Side Effects
 export function asyncWatcher(action, state, dispatch) {
+  logger(action, state)
   switch (action.type) {
     case types.TRIGGER_TASK:
       return triggerTask(action, state, dispatch)
