@@ -1,7 +1,7 @@
 import { connect } from '/store-provider/index.js'
 import { TodoPage, InfoPage } from './pages/index.js'
 
-// FIXME: do it nicely
+// FIXME: do routing nicely
 export const App = connect(
   ({ view }) => `
   <div id="root">
@@ -16,5 +16,3 @@ export const App = connect(
   </div>
 `
 )
-
-// TODO: implement state viewer for testing purposes in dev environment

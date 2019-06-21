@@ -24,6 +24,25 @@ const OtherComponent = () => `
 `
 ```
 
+> EXPERIMENTAL FEATURE
+> You can write JSX-like syntax by wrapping a string literal into `html(...Components)` tagged template.
+> The code above could be written like so:
+
+```javascript
+import { html } from '/modules/html.js'
+
+const OtherComponent = () => html(Component)`
+ <div>
+   ...
+   <Component text="Hello World!" />
+   ...
+ </div>
+`
+```
+
+> Please take into account that not all possible variants could be parsed at the moment.
+> E. g. so far we only support autoclosing components.
+
 Also you can use `connect` method to pass all the data from the shared application state like so:
 
 ```javascript

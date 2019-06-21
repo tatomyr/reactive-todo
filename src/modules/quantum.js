@@ -1,7 +1,7 @@
 /**
  * Store module factory that should be invoked once to create a single store with reactive state
- * @param stateHandler - a synchronous reducer callback
- * @param asyncWatcher - an asynchronous action handler callback
+ * @param {callback} stateHandler - a synchronous reducer
+ * @param {callback} asyncWatcher - function that registers asynchronous action handlers
  * @returns an object that contains public methods to manage the store created
  */
 export const createStore = (stateHandler, asyncWatcher = () => {}) => {
