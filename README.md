@@ -1,4 +1,4 @@
-# Reactive Store (Restore)
+# Reactive Store (Quantum)
 
 Implementation of reactive global store for pure JavaScript applications.
 
@@ -46,7 +46,7 @@ To set up store for your application you have to implement a provider via
 `createStore` method.
 
 ```javascript
-import { createStore } from '/restore.js'
+import { createStore } from '/quantum.js'
 import { stateHandler } from './state-handler.js'
 import { asyncWatcher } from './async-handler.js'
 
@@ -109,5 +109,4 @@ To start dev server run `npm start` or `bash bin/start.sh`. Your app will be acc
 http://localhost:8080.
 
 To deploy use `npm run build && npm run deploy`.
-Don't forget to change the app version in `src/service-worker.js` to enable PWA autoupdate!
 Make sure that a branch you're deploying to (e.g. `master`) isn't protected.

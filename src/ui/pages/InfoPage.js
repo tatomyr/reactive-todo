@@ -4,7 +4,7 @@ export const InfoPage = () => `
       Info
     </h1>
     <p>
-      App version: 4.2.2
+      App version: 4.2.3
     </p>
     <button onclick="dispatch({ type: 'FILTER', view: 'active' })">Back</button>
   </div>
