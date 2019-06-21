@@ -1,3 +1,4 @@
+import { html } from '/modules/html.js'
 import { connect } from '/store-provider/index.js'
 import { filterByInput } from '/services/index.js'
 import { Bubble } from './Bubble.js'
@@ -5,7 +6,7 @@ import { Bubble } from './Bubble.js'
 export const NavItem = connect(
   ({
     id, title, filterByStatus, view, tasks, input,
-  }) => `
+  }) => html(Bubble)`
     <li 
       id="${id}" 
       class="controls-contaiter ${id === view ? 'isActive' : ''}"
@@ -16,7 +17,7 @@ export const NavItem = connect(
       >
         ${title}
       </button>
-      ${Bubble(tasks.filter(filterByStatus).filter(filterByInput(input)).length)}
+      <Bubble count=${tasks.filter(filterByStatus).filter(filterByInput(input)).length} />
     </li>
   `
 )

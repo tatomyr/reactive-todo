@@ -1,4 +1,4 @@
-import { createStore } from '/modules/restore.js'
+import { createStore } from '/modules/quantum.js'
 import { stateHandler } from './state-handler.js'
 import { asyncWatcher } from './async-handler.js'
 
