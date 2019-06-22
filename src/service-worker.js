@@ -12,6 +12,11 @@ let filesToCache = [
   '/style.css',
   '/assets/images/loading-shape.gif',
   '/assets/images/undefined-task.jpg',
+  // Modules
+  'https://tatomyr.github.io/quantum/quantum.js',
+  'https://tatomyr.github.io/quantum/html.js',
+  // Font
+  'https://tatomyr.github.io/unisource/unisource.ttf',
 ]
 
 if (srcFiles) {
