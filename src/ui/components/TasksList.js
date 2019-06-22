@@ -1,5 +1,5 @@
+import { html } from '/modules/quantum.js'
 import { connect } from '/store-provider/index.js'
-import { html } from '/modules/html.js'
 import { filters, filterByInput } from '/services/index.js'
 import { TaskItem } from './TaskItem.js'
 
