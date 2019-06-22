@@ -6,7 +6,7 @@ import { NavAboutButton } from './NavAboutButton.js'
 export const NavBar = () => html(NavAboutButton)`
   <nav id="nav-bar">
     <ul class="nav-list">
-      ${filters.map(NavItem).join('')}
+      ${filters.map(NavItem)}
       <NavAboutButton caption="?" />
     </ul>
   </nav>

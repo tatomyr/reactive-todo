@@ -1,3 +1,11 @@
+const pipe = (...funcs) => x => funcs.reduce(($, f) => f($), x)
+const filterFalsy = x => (x === undefined || x === null ? '' : x)
+const joinIfArray = x => (Array.isArray(x) ? x.join('') : x)
+const process = x => pipe(
+  filterFalsy,
+  joinIfArray
+)(x)
+
 /**
  * [Experimental]
  *
@@ -8,11 +16,9 @@
  * and @returns a string that could be parsed as a valid HTML
  */
 
-const filterFalsy = x => (x === undefined || x === null ? '' : x)
-
 export const html = (...Components) => ([first, ...strings], ...args) => {
   console.log('[HTML]', Components, [first, ...strings], args)
-  const str = strings.reduce(($, item, i) => `${$}${filterFalsy(args[i])}${item}`, first)
+  const str = strings.reduce(($, item, i) => `${$}${process(args[i])}${item}`, first)
   console.log('[HTML]', str)
   const response = str.replace(/<([A-Z]\w+)\s(.*?)\/>/gm, (_, componentName, attrs) => {
     const propsStr = `{${attrs
