@@ -1,3 +1,4 @@
+// Helpers
 const pipe = (...funcs) => x => funcs.reduce(($, f) => f($), x)
 const filterFalsy = x => (x === undefined || x === null ? '' : x)
 const joinIfArray = x => (Array.isArray(x) ? x.join('') : x)
