@@ -25,6 +25,7 @@ const OtherComponent = () => `
 ```
 
 > EXPERIMENTAL FEATURE
+
 > You can write JSX-like syntax by wrapping a string literal into `html(...Components)` tagged template.
 > The code above could be written like so:
 
