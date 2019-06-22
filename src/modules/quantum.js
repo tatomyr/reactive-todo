@@ -19,11 +19,11 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
       const shallow = element.cloneNode(true)
       // eslint-disable-next-line no-restricted-syntax
       for (const innerElement of shallow.querySelectorAll('*[id]')) {
-        innerElement.outerHTML = `<template data-key="${innerElement.id}"></template>`
+        innerElement.outerHTML = `<!-- key="${innerElement.id}" -->`
       }
       elementsMap.set(element.id, {
         element,
-        shallow,
+        shallowHTML: shallow.outerHTML,
         wrapperHTML: shallow.cloneNode(false).outerHTML,
       })
     }
@@ -43,7 +43,7 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const [id, domEl] of domElementsMap) {
       const newEl = newElementsMap.get(id)
-      if (domEl.shallow.outerHTML !== (newEl && newEl.shallow.outerHTML)) {
+      if (domEl.shallowHTML !== (newEl && newEl.shallowHTML)) {
         console.log(`@${id}:`)
         const elementById = document.getElementById(id)
         if (elementById) {
@@ -59,7 +59,6 @@ export const createStore = (stateHandler, asyncWatcher = () => {}) => {
         }
       }
     }
-
     domElementsMap = newElementsMap
   }
 
