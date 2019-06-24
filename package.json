@@ -1,6 +1,5 @@
 {
-  "name": "reactive-todo",
-  "version": "5.0.0",
+  "name": "quantum-todo",
   "scripts": {
     "start": "bash bin/start.sh",
     "modules": "cd src/modules && npx static-server -p 8081 -c '*'",
