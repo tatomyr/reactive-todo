@@ -1,4 +1,4 @@
-import { html } from '/modules/quantum.js'
+import { html } from '/modules/purity.js'
 import { connect } from '/store-provider/index.js'
 import { filterByInput } from '/services/index.js'
 import { Bubble } from './Bubble.js'

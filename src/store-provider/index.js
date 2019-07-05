@@ -1,4 +1,4 @@
-import { createStore } from '/modules/quantum.js'
+import { createStore } from '/modules/purity.js'
 import { stateHandler } from './state-handler.js'
 import { asyncWatcher } from './async-handler.js'
 

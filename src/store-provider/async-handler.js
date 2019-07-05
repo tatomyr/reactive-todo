@@ -1,3 +1,4 @@
+import { md5 } from '/modules/md5.js'
 import { types } from './action-types.js'
 import {
   saveTasks, fetchImages, filterImages, undefinedTaskImage,
@@ -16,7 +17,13 @@ async function createTask(action, state, dispatch) {
   } = action
   const description = target.newTask.value
   const date = Date.now()
-  const id = `${Math.random()}`
+  // TODO: investigate impact
+  const id = `${md5(description)}`
+  // TODO: handle unique id case properly
+  if (state.tasks.some(task => task.id === id)) {
+    dispatch({ type: types.NOTIFY, text: 'There is already a task with this id' })
+    return
+  }
   target.reset()
   target.newTask.blur()
   dispatch({ type: types.FILTER, view: 'active' })

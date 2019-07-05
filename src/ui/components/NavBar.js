@@ -1,4 +1,4 @@
-import { html } from '/modules/quantum.js'
+import { html } from '/modules/purity.js'
 import { filters } from '/services/index.js'
 import { NavItem } from './NavItem.js'
 import { NavAboutButton } from './NavAboutButton.js'
