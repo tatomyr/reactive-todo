@@ -1,4 +1,4 @@
-import { html } from '/modules/quantum.js'
+import { html } from '/modules/purity.js'
 import { connect } from '/store-provider/index.js'
 import { filters, filterByInput } from '/services/index.js'
 import { TaskItem } from './TaskItem.js'

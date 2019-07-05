@@ -13,8 +13,9 @@ let filesToCache = [
   '/assets/images/loading-shape.gif',
   '/assets/images/undefined-task.jpg',
   // Modules
-  'https://tatomyr.github.io/quantum/quantum.js',
-  'https://tatomyr.github.io/quantum/html.js',
+  'https://tatomyr.github.io/purity/purity.js',
+  'https://tatomyr.github.io/purity/html.js',
+  'https://tatomyr.github.io/shared-modules/md5.js',
   // Font
   'https://tatomyr.github.io/unisource/unisource.ttf',
 ]

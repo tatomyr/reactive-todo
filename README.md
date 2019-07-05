@@ -1,6 +1,6 @@
-# Quantum ToDo Application
+# Purity ToDo Application
 
-The app is built using [Quantum](https://github.com/tatomyr/quantum) reactive store & rendering library
+The app is built using [Purity](https://github.com/tatomyr/purity) reactive store & rendering library
 and bare native ES modules.
 The aim is mostly proof of concept.
 
