@@ -6,7 +6,6 @@
     "ngrok": "bash bin/ngrok.sh",
     "build": "bash bin/build.sh",
     "deploy": "bash bin/deploy.sh",
-    "predeploy": "npm run build",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
     "test": "echo \"Error: no test specified\" && exit 1"

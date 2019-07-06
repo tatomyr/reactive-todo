@@ -1,11 +1,9 @@
 import { md5 } from '/modules/md5.js'
 import { types } from './action-types.js'
-import {
-  saveTasks, fetchImages, filterImages, undefinedTaskImage,
-} from '/services/index.js'
+import * as services from '/services/index.js'
 
 function triggerTask(action, state, dispatch) {
-  saveTasks(state)
+  services.saveTasks(state)
   const { completed } = state.tasks.find(task => task.id === action.id)
   const text = completed ? 'Task has been completed' : 'Task has been set active'
   dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
@@ -34,21 +32,30 @@ async function createTask(action, state, dispatch) {
     id,
   })
   try {
-    const { items } = await fetchImages(description)
-    const images = await filterImages(items)
+    const { items } = await services.fetchImages(description)
+    const images = await services.filterImages(items)
     dispatch({
       type: types.UPDATE_TASK,
       task: { id, images },
     })
   } catch (err) {
     console.error(err)
-    dispatch({ type: types.UPDATE_TASK, task: { id, images: [undefinedTaskImage] } })
+    dispatch({ type: types.UPDATE_TASK, task: { id, images: [services.undefinedTaskImage] } })
+    dispatch({ type: types.NOTIFY, text: err.message })
+  }
+}
+
+function saveTasks(action, state, dispatch) {
+  try {
+    services.saveTasks(state)
+  } catch (err) {
+    console.log({ err })
     dispatch({ type: types.NOTIFY, text: err.message })
   }
 }
 
 export function deleteTask(action, state, dispatch) {
-  saveTasks(state)
+  services.saveTasks(state)
   dispatch({
     type: types.NOTIFY,
     text: 'Task has been deleted',
@@ -175,6 +182,23 @@ async function showImage(action, state, dispatch) {
   }
 }
 
+async function capturePhoto(action, state, dispatch) {
+  try {
+    const [file] = action.files
+    const bigImg = await createImageBitmap(file)
+    const smallImg = await createImageBitmap(bigImg, {
+      ...services.keepRatio(bigImg)(300),
+      resizeQuality: 'high',
+    })
+    const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
+    const src = services.getImgSrc(croppedImg)
+    console.log(file, '------>', src)
+    dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 function logger({ type, ...rest }, state) {
   console.log('• action:', type, rest)
   console.table(state)
@@ -192,7 +216,8 @@ export function asyncWatcher(action, state, dispatch) {
       return deleteTask(action, state, dispatch)
     case types.UPDATE_TASK:
     case types.CHANGE_IMAGE:
-      return saveTasks(state)
+    case types.ADD_PHOTO:
+      return saveTasks(action, state, dispatch)
     case types.CHANGE_INPUT:
       return changeInput(action, state, dispatch)
     case types.CLEAN_INPUT:
@@ -203,6 +228,8 @@ export function asyncWatcher(action, state, dispatch) {
       return moveTask(action, state, dispatch)
     case types.SHOW_IMAGE:
       return showImage(action, state, dispatch)
+    case types.CAPTURE_PHOTO:
+      return capturePhoto(action, state, dispatch)
     default:
       return undefined
   }

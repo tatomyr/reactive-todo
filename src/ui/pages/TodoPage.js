@@ -1,5 +1,5 @@
 import {
-  NavBar, TasksList, InputForm, FullscreenImage, Notification,
+  NavBar, TasksList, InputForm, FullscreenImage,
 } from '../components/index.js'
 
 export const TodoPage = () => `
@@ -8,6 +8,5 @@ export const TodoPage = () => `
     ${TasksList()}
     ${InputForm()}
     ${FullscreenImage()}
-    ${Notification()}
   </div>
 `
