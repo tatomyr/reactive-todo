@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { cashedTasks, shiftArray } from '/services/index.js'
+import { cashedTasks, shiftArray, updateTaskImages } from '/services/index.js'
 import { types } from './action-types.js'
 
 // Default Application state
@@ -22,7 +22,7 @@ export const stateHandler = (state = defaults, action = {}) => {
     case types.FILTER:
       return {
         view: action.view,
-        // If we've intentionally changed view, perhaps we don't want go back.
+        // If we've intentionally changed view, apparently we don't want go back.
         _backupRoute: undefined,
       }
     case types.ADD_TASK:
@@ -89,11 +89,9 @@ export const stateHandler = (state = defaults, action = {}) => {
     case types.HIDE_IMAGE:
       return { taskToShowImage: '' }
     case types.CHANGE_IMAGE:
-      return {
-        tasks: state.tasks.map(task => (task.id === action.taskId
-          ? { ...task, images: shiftArray(task.images)(action.direction) }
-          : task)),
-      }
+      return updateTaskImages(state.tasks, action.taskId, images => shiftArray(images)(action.direction))
+    case types.ADD_PHOTO:
+      return updateTaskImages(state.tasks, action.taskId, images => [action.src, ...images])
     case types.SUBSTITUTE_ROUTE:
       return action.hasInput
         ? {

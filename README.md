@@ -11,5 +11,5 @@ http://localhost:8080.
 
 To deploy use `npm run build && npm run deploy` or `bash bin/build.sh && bash bin/deploy.sh`.
 This will deploy your code to [Netlify](https://reactive-todo-app.netlify.com/)
-throughout auxilliary repository git@gitlab.com:tatomyr/reactive-todo-app.git.
+throughout auxilliary repository at `git@gitlab.com:tatomyr/reactive-todo-app.git`.
 Make sure that a branch you're deploying to (e.g. `master`) isn't protected.

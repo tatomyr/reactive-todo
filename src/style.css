@@ -192,24 +192,31 @@ button {
   justify-content: center;
 }
 
-.fullimage-container .change-image {
-  --diameter: calc(var(--height) - var(--general-offset));
+.fullimage-container .image-controls {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
   position: absolute;
   bottom: calc(var(--general-offset) / 2);
+}
+
+.fullimage-container .change-image {
+  --diameter: calc(var(--height) - var(--general-offset));
   background: #f3df34;
   color: var(--accent);
 }
 
-.fullimage-container .change-image.next {
-  right: calc(var(--general-offset) / 2);
-}
-
-.fullimage-container .change-image.prev {
-  left: calc(var(--general-offset) / 2);
-}
-
 .fullimage-container .change-image:disabled {
   color: lightgrey;
+}
+
+.fullimage-container .change-image.capture {
+  background-image: url(/assets/images/capture-camera.png);
+  background-size: contain;
+}
+
+.fullimage-container .image-controls #capture {
+  display: none;
 }
 
 #fullscreen-image {
