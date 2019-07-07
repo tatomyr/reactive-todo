@@ -44,7 +44,7 @@ function resetInput(action, state, dispatch) {
 }
 
 function triggerTask(action, state, dispatch) {
-  services.saveTasks(state)
+  services.saveTasks(state.tasks)
   const { completed } = state.tasks.find(task => task.id === action.id)
   const text = completed ? 'Task has been completed' : 'Task has been set active'
   dispatch({ type: types.RESET_INPUT })
@@ -53,7 +53,7 @@ function triggerTask(action, state, dispatch) {
 
 function saveTasks(action, state, dispatch) {
   try {
-    services.saveTasks(state)
+    services.saveTasks(state.tasks)
   } catch (err) {
     console.log({ err })
     dispatch({ type: types.NOTIFY, text: err.message })
@@ -61,7 +61,7 @@ function saveTasks(action, state, dispatch) {
 }
 
 export function deleteTask(action, state, dispatch) {
-  services.saveTasks(state)
+  services.saveTasks(state.tasks)
   dispatch({
     type: types.NOTIFY,
     text: 'Task has been deleted',
@@ -205,6 +205,41 @@ async function capturePhoto(action, state, dispatch) {
   }
 }
 
+function downloadUserData(action, state, dispatch) {
+  try {
+    const fileName = `TODO-backup-${new Date().toDateString().replace(/[ /]/g, '_')}.json`
+    services.download(fileName, JSON.stringify(services.getCachedTasks()))
+    dispatch({
+      type: types.NOTIFY,
+      text: `Data has been successfully downloaded. Please find your backup in file ${fileName}`,
+    })
+  } catch (err) {
+    dispatch({ type: types.NOTIFY, text: err.message })
+  }
+}
+
+async function uploadUserData(action, state, dispatch) {
+  if (!action.file) return
+  try {
+    const text = await services.textFileReader(action.file)
+    const tasks = JSON.parse(text)
+    // TODO: check for correct format (changes)
+    if (
+      confirm(
+        `Are you sure you want to replace current tasks in your storage (${
+          services.getCachedTasks().length
+        } items) with new one (${tasks.length} items)?`
+      )
+    ) {
+      services.saveTasks(tasks)
+      dispatch({ type: 'FILTER', view: 'active' })
+      dispatch({ type: 'RESET_TASKS', tasks })
+    }
+  } catch (err) {
+    dispatch({ type: types.NOTIFY, text: err.message })
+  }
+}
+
 function logger({ type, ...rest }, state) {
   console.log('• action:', type, rest)
   console.table(state)
@@ -238,6 +273,10 @@ export function asyncWatcher(action, state, dispatch) {
       return showImage(action, state, dispatch)
     case types.CAPTURE_PHOTO:
       return capturePhoto(action, state, dispatch)
+    case types.DOWNLOAD_USER_DATA:
+      return downloadUserData(action, state, dispatch)
+    case types.UPLOAD_USER_DATA:
+      return uploadUserData(action, state, dispatch)
     default:
       return undefined
   }

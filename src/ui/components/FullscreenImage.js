@@ -20,9 +20,9 @@ export const ChangeImage = connect(
 
 export const CapturePhoto = connect(
   ({ taskToShowImage }) => html(Icon)`
-    <label for="capture" class="round change-image capture">
+    <label for="capture" class="round change-image">
       <Icon name="camera" />
-      <input 
+      <input
         type="file" 
         accept="image/*" 
         capture="environment" 

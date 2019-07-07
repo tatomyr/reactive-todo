@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { cashedTasks, shiftArray, updateTaskImages } from '/services/index.js'
+import { getCachedTasks, shiftArray, updateTaskImages } from '/services/index.js'
 import { types } from './action-types.js'
 
 // Default Application state
 const defaults = {
-  tasks: cashedTasks || [],
+  tasks: getCachedTasks(),
   view: 'active',
   _backupRoute: undefined,
   taskToShowImage: '',
@@ -107,6 +107,8 @@ export const stateHandler = (state = defaults, action = {}) => {
       return { input: action.input }
     case types.SHOW_INFO:
       return { view: 'show-info' }
+    case types.RESET_TASKS:
+      return { tasks: action.tasks }
 
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:

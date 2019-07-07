@@ -21,6 +21,9 @@ export const types = {
   CLEAN_INPUT: 'CLEAN_INPUT',
   MOVE_TASK: 'MOVE_TASK',
   SHOW_INFO: 'SHOW_INFO',
+  DOWNLOAD_USER_DATA: 'DOWNLOAD_USER_DATA',
+  UPLOAD_USER_DATA: 'UPLOAD_USER_DATA',
+  RESET_TASKS: 'RESET_TASKS',
 }
 
 // TODO: implement patching tasks on long press or smthg
