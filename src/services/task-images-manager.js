@@ -4,7 +4,7 @@ export const shiftArray = arr => direction => {
       const [first, ...rest] = arr
       return [...rest, first]
     }
-    case 'prev': {
+    case 'back': {
       const start = arr.slice(0, -1)
       const last = arr.slice(-1)[0]
       return [last, ...start]

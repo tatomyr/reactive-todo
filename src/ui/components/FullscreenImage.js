@@ -1,8 +1,10 @@
+import { html } from '/modules/purity.js'
 import { connect } from '/store-provider/index.js'
 import { selectTaskImages } from '/services/index.js'
+import { Icon } from './Icon.js'
 
 export const ChangeImage = connect(
-  ({ taskToShowImage, direction, disabled }) => `
+  ({ taskToShowImage, direction, disabled }) => html(Icon)`
     <button
       class="invisible-button round change-image ${direction}"
       onclick="
@@ -11,14 +13,15 @@ export const ChangeImage = connect(
         "
       ${disabled ? 'disabled' : ''}
     >
-      ${direction === 'prev' ? '◂' : '▸'}
+      <Icon name="${direction}", disabled=${disabled} />
     </button>
   `
 )
 
 export const CapturePhoto = connect(
-  ({ taskToShowImage }) => `
+  ({ taskToShowImage }) => html(Icon)`
     <label for="capture" class="round change-image capture">
+      <Icon name="camera" />
       <input 
         type="file" 
         accept="image/*" 
@@ -48,7 +51,7 @@ export const FullscreenImage = connect(({ taskToShowImage, tasks }) => {
         onclick="dispatch({ type: 'HIDE_IMAGE' })"
       ></div>
       <section class="image-controls">
-        ${ChangeImage({ direction: 'prev', disabled: !others.length })}
+        ${ChangeImage({ direction: 'back', disabled: !others.length })}
         ${CapturePhoto()}
         ${ChangeImage({ direction: 'next', disabled: !others.length })}
       </section>

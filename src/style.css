@@ -210,11 +210,6 @@ button {
   color: lightgrey;
 }
 
-.fullimage-container .change-image.capture {
-  background-image: url(/assets/images/capture-camera.png);
-  background-size: contain;
-}
-
 .fullimage-container .image-controls #capture {
   display: none;
 }
@@ -263,12 +258,13 @@ button.invisible-button {
 }
 
 .round {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  text-align: center;
   height: var(--diameter);
   width: var(--diameter);
   min-width: var(--diameter);
   margin: var(--margin);
-  text-align: center;
   border-radius: 50%;
 }
 
