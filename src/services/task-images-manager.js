@@ -17,3 +17,5 @@ export const shiftArray = arr => direction => {
 export const updateTaskImages = (tasks, taskId, applyChanges) => ({
   tasks: tasks.map(task => (task.id === taskId ? { ...task, images: applyChanges(task.images) } : task)),
 })
+
+export const selectTaskImages = (tasks, id) => (id && tasks.find(task => task.id === id).images) || []

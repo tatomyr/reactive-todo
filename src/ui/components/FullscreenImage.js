@@ -1,9 +1,42 @@
 import { connect } from '/store-provider/index.js'
+import { selectTaskImages } from '/services/index.js'
 
-const selectTaskImages = (tasks, id) => id && tasks.find(task => task.id === id).images
+export const ChangeImage = connect(
+  ({ taskToShowImage, direction, disabled }) => `
+    <button
+      class="invisible-button round change-image ${direction}"
+      onclick="
+          event.stopPropagation();
+          dispatch({ type: 'CHANGE_IMAGE', direction: '${direction}', taskId: '${taskToShowImage}' })
+        "
+      ${disabled ? 'disabled' : ''}
+    >
+      ${direction === 'prev' ? '◂' : '▸'}
+    </button>
+  `
+)
 
-export const FullscreenImage = connect(
-  ({ taskToShowImage, tasks }) => `
+export const CapturePhoto = connect(
+  ({ taskToShowImage }) => `
+    <label for="capture" class="round change-image capture">
+      <input 
+        type="file" 
+        accept="image/*" 
+        capture="environment" 
+        id="capture"
+        onchange="dispatch({ 
+          type: 'CAPTURE_PHOTO', 
+          files: event.target.files, 
+          taskId: '${taskToShowImage}' 
+        })"
+      />
+    </label>
+  `
+)
+
+export const FullscreenImage = connect(({ taskToShowImage, tasks }) => {
+  const [image, others = []] = selectTaskImages(tasks, taskToShowImage)
+  return `
     <div 
       id="fullscreen-image-container" 
       class="fullimage-container ${!taskToShowImage ? 'hidden' : ''}"
@@ -11,39 +44,14 @@ export const FullscreenImage = connect(
       <div
         id="fullscreen-image"
         class="bg"
-        style="background-image: url(${selectTaskImages(tasks, taskToShowImage)[0]})"
+        style="background-image: url(${image})"
         onclick="dispatch({ type: 'HIDE_IMAGE' })"
       ></div>
       <section class="image-controls">
-        <button
-          class="invisible-button round change-image prev"
-          onclick="
-            event.stopPropagation();
-            dispatch({ type: 'CHANGE_IMAGE', direction: 'prev', taskId: '${taskToShowImage}' })
-          "
-          ${selectTaskImages(tasks, taskToShowImage).length <= 1 ? 'disabled' : ''}
-        >◂</button>
-        <label
-          class=" round change-image capture"
-          for="capture"
-        >
-          <input 
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            id="capture"
-            onchange="dispatch({ type: 'CAPTURE_PHOTO', files: event.target.files, taskId: '${taskToShowImage}' })"
-          />
-        </label>
-        <button
-          class="invisible-button round change-image next"
-          onclick="
-            event.stopPropagation();
-            dispatch({ type: 'CHANGE_IMAGE', direction: 'next', taskId: '${taskToShowImage}' })
-          "
-          ${selectTaskImages(tasks, taskToShowImage).length <= 1 ? 'disabled' : ''}
-        >▸</button>      
+        ${ChangeImage({ direction: 'prev', disabled: !others.length })}
+        ${CapturePhoto()}
+        ${ChangeImage({ direction: 'next', disabled: !others.length })}
       </section>
     </div>
   `
-)
+})

@@ -38,8 +38,9 @@ export const stateHandler = (state = defaults, action = {}) => {
           },
           ...state.tasks,
         ],
-        input: '',
       }
+    case types.RESET_INPUT:
+      return { input: '' }
     case types.DELETE_TASK:
       return {
         tasks: state.tasks.filter(({ id }) => id !== action.id),

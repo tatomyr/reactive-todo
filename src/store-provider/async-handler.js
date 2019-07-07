@@ -2,13 +2,6 @@ import { md5 } from '/modules/md5.js'
 import { types } from './action-types.js'
 import * as services from '/services/index.js'
 
-function triggerTask(action, state, dispatch) {
-  services.saveTasks(state)
-  const { completed } = state.tasks.find(task => task.id === action.id)
-  const text = completed ? 'Task has been completed' : 'Task has been set active'
-  dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
-}
-
 async function createTask(action, state, dispatch) {
   const {
     event: { target },
@@ -22,15 +15,13 @@ async function createTask(action, state, dispatch) {
     dispatch({ type: types.NOTIFY, text: 'There is already a task with this id' })
     return
   }
-  target.reset()
-  target.newTask.blur()
-  dispatch({ type: types.FILTER, view: 'active' })
   dispatch({
     type: types.ADD_TASK,
     description,
     date,
     id,
   })
+  dispatch({ type: types.RESET_INPUT })
   try {
     const { items } = await services.fetchImages(description)
     const images = await services.filterImages(items)
@@ -43,6 +34,21 @@ async function createTask(action, state, dispatch) {
     dispatch({ type: types.UPDATE_TASK, task: { id, images: [services.undefinedTaskImage] } })
     dispatch({ type: types.NOTIFY, text: err.message })
   }
+}
+
+function resetInput(action, state, dispatch) {
+  const form = document.getElementById('newTask-form')
+  form.reset()
+  form.newTask.blur()
+  dispatch({ type: types.FILTER, view: 'active' })
+}
+
+function triggerTask(action, state, dispatch) {
+  services.saveTasks(state)
+  const { completed } = state.tasks.find(task => task.id === action.id)
+  const text = completed ? 'Task has been completed' : 'Task has been set active'
+  dispatch({ type: types.RESET_INPUT })
+  dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
 }
 
 function saveTasks(action, state, dispatch) {
@@ -208,10 +214,12 @@ function logger({ type, ...rest }, state) {
 export function asyncWatcher(action, state, dispatch) {
   logger(action, state)
   switch (action.type) {
-    case types.TRIGGER_TASK:
-      return triggerTask(action, state, dispatch)
     case types.CREATE_TASK:
       return createTask(action, state, dispatch)
+    case types.RESET_INPUT:
+      return resetInput(action, state, dispatch)
+    case types.TRIGGER_TASK:
+      return triggerTask(action, state, dispatch)
     case types.DELETE_TASK:
       return deleteTask(action, state, dispatch)
     case types.UPDATE_TASK:
