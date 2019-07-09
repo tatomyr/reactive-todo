@@ -1,14 +1,14 @@
 export function download(filename, text) {
-  const element = document.createElement('a')
-  element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`)
-  element.setAttribute('download', filename)
+  const a = document.createElement('a')
+  a.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`)
+  a.setAttribute('download', filename)
 
-  element.style.display = 'none'
-  document.body.appendChild(element)
+  a.style.display = 'none'
+  document.body.appendChild(a)
 
-  element.click()
+  a.click()
 
-  document.body.removeChild(element)
+  document.body.removeChild(a)
 }
 
 export const textFileReader = file => new Promise((resolve, reject) => {

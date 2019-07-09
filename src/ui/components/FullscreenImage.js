@@ -1,10 +1,10 @@
-import { html } from '/modules/purity.js'
+import { htmx } from '/modules/purity.js'
 import { connect } from '/store-provider/index.js'
 import { selectTaskImages } from '/services/index.js'
 import { Icon } from './Icon.js'
 
 export const ChangeImage = connect(
-  ({ taskToShowImage, direction, disabled }) => html(Icon)`
+  ({ taskToShowImage, direction, disabled }) => htmx(Icon)`
     <button
       class="invisible-button round change-image ${direction}"
       onclick="
@@ -13,15 +13,15 @@ export const ChangeImage = connect(
         "
       ${disabled ? 'disabled' : ''}
     >
-      <Icon name="${direction}", disabled=${disabled} />
+      <Icon name=${direction} disabled=${disabled} />
     </button>
   `
 )
 
 export const CapturePhoto = connect(
-  ({ taskToShowImage }) => html(Icon)`
+  ({ taskToShowImage }) => htmx(Icon)`
     <label for="capture" class="round change-image">
-      <Icon name="camera" />
+      <Icon name=${'camera'} />
       <input
         type="file" 
         accept="image/*" 
@@ -29,7 +29,7 @@ export const CapturePhoto = connect(
         id="capture"
         onchange="dispatch({ 
           type: 'CAPTURE_PHOTO', 
-          files: event.target.files, 
+          file: event.target.files[0], 
           taskId: '${taskToShowImage}' 
         })"
       />

@@ -151,7 +151,6 @@ export function moveTask(action, state, dispatch) {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
 async function showImage(action, state, dispatch) {
   if (action.event) {
     const fullImg = document.getElementById('fullscreen-image')
@@ -190,18 +189,18 @@ async function showImage(action, state, dispatch) {
 
 async function capturePhoto(action, state, dispatch) {
   try {
-    const [file] = action.files
-    const bigImg = await createImageBitmap(file)
-    const smallImg = await createImageBitmap(bigImg, {
-      ...services.keepRatio(bigImg)(300),
-      resizeQuality: 'high',
-    })
-    const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
-    const src = services.getImgSrc(croppedImg)
-    console.log(file, '------>', src)
-    dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+    if (action.file) {
+      const bigImg = await createImageBitmap(action.file)
+      const smallImg = await createImageBitmap(bigImg, {
+        ...services.keepRatio(bigImg)(300),
+        resizeQuality: 'high',
+      })
+      const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
+      const src = services.getImgSrc(croppedImg)
+      dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+    }
   } catch (err) {
-    console.log(err)
+    dispatch({ type: types.NOTIFY, text: err.message })
   }
 }
 
@@ -211,7 +210,7 @@ function downloadUserData(action, state, dispatch) {
     services.download(fileName, JSON.stringify(services.getCachedTasks()))
     dispatch({
       type: types.NOTIFY,
-      text: `Data has been successfully downloaded. Please find your backup in file ${fileName}`,
+      text: `Trying to download your backup in file ${fileName}`,
     })
   } catch (err) {
     dispatch({ type: types.NOTIFY, text: err.message })

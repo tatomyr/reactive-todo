@@ -1,13 +1,13 @@
-import { html } from '/modules/purity.js'
+import { htmx } from '/modules/purity.js'
 import { Icon } from '../components/index.js'
 
-export const InfoPage = () => html(Icon)`
+export const InfoPage = () => htmx(Icon)`
   <div id="info-page">
     <h1>
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 5.0.14
+      App version: 5.1.0
     </p>
     <p>
       Check out the repository:
@@ -24,13 +24,13 @@ export const InfoPage = () => html(Icon)`
           onclick="dispatch({ type: 'DOWNLOAD_USER_DATA' })"
           class="invisible-button"
         >
-          <Icon name="download" size="S" />
+          <Icon name=${'download'} size=${'S'} />
           <span class="user-action__description">backup your data</span>
         </button>
       </div>
       <div class="user-action">
         <label for="backup">
-          <Icon name="upload" size="S" />
+          <Icon name=${'upload'} size=${'S'} />
           <input 
             type="file" 
             accept=".json"

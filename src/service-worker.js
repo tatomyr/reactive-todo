@@ -14,7 +14,7 @@ let filesToCache = [
   '/assets/images/undefined-task.jpg',
   // Modules
   'https://tatomyr.github.io/purity/purity.js',
-  'https://tatomyr.github.io/purity/html.js',
+  'https://tatomyr.github.io/purity/htmx.js',
   'https://tatomyr.github.io/shared-modules/md5.js',
   // Font
   'https://tatomyr.github.io/unisource/unisource.ttf',
