@@ -191,7 +191,6 @@ button {
   align-items: center;
   justify-content: center;
 }
-
 .fullimage-container .image-controls {
   display: flex;
   width: 100%;
@@ -199,26 +198,14 @@ button {
   position: absolute;
   bottom: calc(var(--general-offset) / 2);
 }
-
 .fullimage-container .change-image {
   --diameter: calc(var(--height) - var(--general-offset));
   background: #f3df34;
   color: var(--accent);
 }
-
 .fullimage-container .change-image:disabled {
   color: lightgrey;
 }
-
-.fullimage-container .change-image.capture {
-  background-image: url(/assets/images/capture-camera.png);
-  background-size: contain;
-}
-
-.fullimage-container .image-controls #capture {
-  display: none;
-}
-
 #fullscreen-image {
   width: 90vw;
   max-width: 90vh;
@@ -236,7 +223,6 @@ button {
   line-height: var(--height);
   text-align: center;
 }
-
 #notification .notification-text {
   display: inline-block;
   width: calc(100% - 1.5 * var(--height));
@@ -244,6 +230,18 @@ button {
   background: rgba(80, 80, 80, 0.75);
   border-radius: 15px;
   box-shadow: 0 0 50px 5px rgba(80, 80, 80, 0.75);
+}
+
+/* InfoPage styles */
+.user-action {
+  padding: 3px;
+}
+.user-action > * {
+  display: flex;
+  cursor: pointer;
+}
+.user-action__description {
+  margin-left: 5px;
 }
 
 /* Toolbox */
@@ -263,12 +261,13 @@ button.invisible-button {
 }
 
 .round {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  text-align: center;
   height: var(--diameter);
   width: var(--diameter);
   min-width: var(--diameter);
   margin: var(--margin);
-  text-align: center;
   border-radius: 50%;
 }
 
@@ -279,7 +278,6 @@ button.invisible-button {
 }
 
 /* Miscellaneous */
-
 .info-question-mark {
   width: 30px;
   height: 30px;
@@ -287,4 +285,8 @@ button.invisible-button {
   background-color: var(--action);
   color: var(--light-color);
   line-height: 30px;
+}
+
+label input[type='file'] {
+  display: none;
 }

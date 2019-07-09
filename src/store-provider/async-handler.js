@@ -2,13 +2,6 @@ import { md5 } from '/modules/md5.js'
 import { types } from './action-types.js'
 import * as services from '/services/index.js'
 
-function triggerTask(action, state, dispatch) {
-  services.saveTasks(state)
-  const { completed } = state.tasks.find(task => task.id === action.id)
-  const text = completed ? 'Task has been completed' : 'Task has been set active'
-  dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
-}
-
 async function createTask(action, state, dispatch) {
   const {
     event: { target },
@@ -22,15 +15,13 @@ async function createTask(action, state, dispatch) {
     dispatch({ type: types.NOTIFY, text: 'There is already a task with this id' })
     return
   }
-  target.reset()
-  target.newTask.blur()
-  dispatch({ type: types.FILTER, view: 'active' })
   dispatch({
     type: types.ADD_TASK,
     description,
     date,
     id,
   })
+  dispatch({ type: types.RESET_INPUT })
   try {
     const { items } = await services.fetchImages(description)
     const images = await services.filterImages(items)
@@ -45,9 +36,24 @@ async function createTask(action, state, dispatch) {
   }
 }
 
+function resetInput(action, state, dispatch) {
+  const form = document.getElementById('newTask-form')
+  form.reset()
+  form.newTask.blur()
+  dispatch({ type: types.FILTER, view: 'active' })
+}
+
+function triggerTask(action, state, dispatch) {
+  services.saveTasks(state.tasks)
+  const { completed } = state.tasks.find(task => task.id === action.id)
+  const text = completed ? 'Task has been completed' : 'Task has been set active'
+  dispatch({ type: types.RESET_INPUT })
+  dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
+}
+
 function saveTasks(action, state, dispatch) {
   try {
-    services.saveTasks(state)
+    services.saveTasks(state.tasks)
   } catch (err) {
     console.log({ err })
     dispatch({ type: types.NOTIFY, text: err.message })
@@ -55,7 +61,7 @@ function saveTasks(action, state, dispatch) {
 }
 
 export function deleteTask(action, state, dispatch) {
-  services.saveTasks(state)
+  services.saveTasks(state.tasks)
   dispatch({
     type: types.NOTIFY,
     text: 'Task has been deleted',
@@ -145,7 +151,6 @@ export function moveTask(action, state, dispatch) {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
 async function showImage(action, state, dispatch) {
   if (action.event) {
     const fullImg = document.getElementById('fullscreen-image')
@@ -184,18 +189,53 @@ async function showImage(action, state, dispatch) {
 
 async function capturePhoto(action, state, dispatch) {
   try {
-    const [file] = action.files
-    const bigImg = await createImageBitmap(file)
-    const smallImg = await createImageBitmap(bigImg, {
-      ...services.keepRatio(bigImg)(300),
-      resizeQuality: 'high',
-    })
-    const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
-    const src = services.getImgSrc(croppedImg)
-    console.log(file, '------>', src)
-    dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+    if (action.file) {
+      const bigImg = await createImageBitmap(action.file)
+      const smallImg = await createImageBitmap(bigImg, {
+        ...services.keepRatio(bigImg)(300),
+        resizeQuality: 'high',
+      })
+      const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
+      const src = services.getImgSrc(croppedImg)
+      dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+    }
   } catch (err) {
-    console.log(err)
+    dispatch({ type: types.NOTIFY, text: err.message })
+  }
+}
+
+function downloadUserData(action, state, dispatch) {
+  try {
+    const fileName = `TODO-backup-${new Date().toDateString().replace(/[ /]/g, '_')}.json`
+    services.download(fileName, JSON.stringify(services.getCachedTasks()))
+    dispatch({
+      type: types.NOTIFY,
+      text: `Trying to download your backup in file ${fileName}`,
+    })
+  } catch (err) {
+    dispatch({ type: types.NOTIFY, text: err.message })
+  }
+}
+
+async function uploadUserData(action, state, dispatch) {
+  if (!action.file) return
+  try {
+    const text = await services.textFileReader(action.file)
+    const tasks = JSON.parse(text)
+    // TODO: check for correct format (changes)
+    if (
+      confirm(
+        `Are you sure you want to replace current tasks in your storage (${
+          services.getCachedTasks().length
+        } items) with new one (${tasks.length} items)?`
+      )
+    ) {
+      services.saveTasks(tasks)
+      dispatch({ type: 'FILTER', view: 'active' })
+      dispatch({ type: 'RESET_TASKS', tasks })
+    }
+  } catch (err) {
+    dispatch({ type: types.NOTIFY, text: err.message })
   }
 }
 
@@ -208,10 +248,12 @@ function logger({ type, ...rest }, state) {
 export function asyncWatcher(action, state, dispatch) {
   logger(action, state)
   switch (action.type) {
-    case types.TRIGGER_TASK:
-      return triggerTask(action, state, dispatch)
     case types.CREATE_TASK:
       return createTask(action, state, dispatch)
+    case types.RESET_INPUT:
+      return resetInput(action, state, dispatch)
+    case types.TRIGGER_TASK:
+      return triggerTask(action, state, dispatch)
     case types.DELETE_TASK:
       return deleteTask(action, state, dispatch)
     case types.UPDATE_TASK:
@@ -230,6 +272,10 @@ export function asyncWatcher(action, state, dispatch) {
       return showImage(action, state, dispatch)
     case types.CAPTURE_PHOTO:
       return capturePhoto(action, state, dispatch)
+    case types.DOWNLOAD_USER_DATA:
+      return downloadUserData(action, state, dispatch)
+    case types.UPLOAD_USER_DATA:
+      return uploadUserData(action, state, dispatch)
     default:
       return undefined
   }

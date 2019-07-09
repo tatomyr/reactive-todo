@@ -1,6 +1,7 @@
 export const InputForm = () => `
     <div class="form">
         <form
+            id="newTask-form"
             onSubmit="
                 event.preventDefault()
                 dispatch({ type: 'CREATE_TASK', event })
