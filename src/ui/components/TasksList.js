@@ -13,3 +13,5 @@ export const TasksList = connect(
     </ol>
   `
 )
+
+// TODO: render tasks chunk by chunk

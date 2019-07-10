@@ -1,12 +1,11 @@
-import {
-  NavBar, TasksList, InputForm, FullscreenImage,
-} from '../components/index.js'
+import { htmx } from '/modules/purity.js'
+import * as components from '../components/index.js'
 
-export const TodoPage = () => `
+export const TodoPage = () => htmx(components)`
   <div id="todo-page" class="container">
-    ${NavBar()}
-    ${TasksList()}
-    ${InputForm()}
-    ${FullscreenImage()}
+    <NavBar />
+    <TasksList />
+    <InputForm />
+    <FullscreenImage />
   </div>
 `

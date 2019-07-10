@@ -1,13 +1,13 @@
 import { htmx } from '/modules/purity.js'
 import { Icon } from '../components/index.js'
 
-export const InfoPage = () => htmx(Icon)`
+export const InfoPage = () => htmx({ Icon })`
   <div id="info-page">
     <h1>
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 5.1.0
+      App version: 5.2.0
     </p>
     <p>
       Check out the repository:
