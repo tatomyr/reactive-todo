@@ -7,7 +7,7 @@ export const InfoPage = () => htmx({ Icon })`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 5.2.0
+      App version: 5.3.0
     </p>
     <p>
       Check out the repository:
