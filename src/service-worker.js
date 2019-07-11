@@ -13,7 +13,7 @@ let filesToCache = [
   '/assets/images/loading-shape.gif',
   '/assets/images/undefined-task.jpg',
   // Modules
-  'https://tatomyr.github.io/purity/purity.js',
+  'https://tatomyr.github.io/purity/factory.js',
   'https://tatomyr.github.io/purity/htmx.js',
   'https://tatomyr.github.io/shared-modules/md5.js',
   // Font
