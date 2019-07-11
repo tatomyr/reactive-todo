@@ -6,7 +6,7 @@ import { Bubble } from './Bubble.js'
 export const NavItem = connect(
   ({
     id, title, filterByStatus, view, tasks, input,
-  }) => htmx(Bubble)`
+  }) => htmx({ Bubble })`
     <li 
       id="${id}" 
       class="controls-contaiter ${id === view ? 'isActive' : ''}"
