@@ -111,10 +111,10 @@ export function moveTask(action, state, dispatch) {
     const offsetX = e.changedTouches[0].clientX - changedTouches[0].clientX
     const offsetY = e.changedTouches[0].clientY - changedTouches[0].clientY
     if (checkOnce(Math.abs(offsetY / offsetX) > 1 / 2)) {
-      // A user wants to scroll.
+      // User wants to scroll.
       currentTarget.ontouchmove = null
     } else {
-      // A user wants to drag a task card. Preventing default scrolling.
+      // User wants to drag a task card. Preventing default scrolling.
       e.preventDefault()
       const positionX = initialOffset + offsetX
       currentTarget.style.left = `${positionX}px`
@@ -224,7 +224,8 @@ async function uploadUserData(action, state, dispatch) {
     const tasks = JSON.parse(text)
     // TODO: check for correct format (changes)
     if (
-      confirm(
+      // eslint-disable-next-line no-alert
+      window.confirm(
         `Are you sure you want to replace current tasks in your storage (${
           services.getCachedTasks().length
         } items) with new one (${tasks.length} items)?`
@@ -249,34 +250,48 @@ export function asyncWatcher(action, state, dispatch) {
   logger(action, state)
   switch (action.type) {
     case types.CREATE_TASK:
-      return createTask(action, state, dispatch)
+      createTask(action, state, dispatch)
+      break
     case types.RESET_INPUT:
-      return resetInput(action, state, dispatch)
+      resetInput(action, state, dispatch)
+      break
     case types.TRIGGER_TASK:
-      return triggerTask(action, state, dispatch)
+      triggerTask(action, state, dispatch)
+      break
     case types.DELETE_TASK:
-      return deleteTask(action, state, dispatch)
+      deleteTask(action, state, dispatch)
+      break
     case types.UPDATE_TASK:
     case types.CHANGE_IMAGE:
     case types.ADD_PHOTO:
-      return saveTasks(action, state, dispatch)
+      saveTasks(action, state, dispatch)
+      break
     case types.CHANGE_INPUT:
-      return changeInput(action, state, dispatch)
+      changeInput(action, state, dispatch)
+      break
     case types.CLEAN_INPUT:
-      return cleanInput(action, state, dispatch)
+      cleanInput(action, state, dispatch)
+      break
     case types.NOTIFY:
-      return notify(action, state, dispatch)
+      notify(action, state, dispatch)
+      break
     case types.MOVE_TASK:
-      return moveTask(action, state, dispatch)
+      moveTask(action, state, dispatch)
+      break
     case types.SHOW_IMAGE:
-      return showImage(action, state, dispatch)
+      showImage(action, state, dispatch)
+      break
     case types.CAPTURE_PHOTO:
-      return capturePhoto(action, state, dispatch)
+      capturePhoto(action, state, dispatch)
+      break
     case types.DOWNLOAD_USER_DATA:
-      return downloadUserData(action, state, dispatch)
+      downloadUserData(action, state, dispatch)
+      break
     case types.UPLOAD_USER_DATA:
-      return uploadUserData(action, state, dispatch)
+      uploadUserData(action, state, dispatch)
+      break
+
     default:
-      return undefined
+      break
   }
 }
