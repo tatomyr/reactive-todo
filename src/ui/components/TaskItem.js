@@ -2,16 +2,15 @@ export const TaskItem = task => `
   <li id="${task.id}">
     <div
       class="task ${task.completed ? 'completed' : ''}"
-      ontouchstart="dispatch({ type: 'MOVE_TASK', id: '${task.id}', event })"
+      ontouchstart="dispatch({ type: 'MOVE_TASK', taskId: '${task.id}', event })"
     >
       <div
         class="image round bg"
         style="background-image: url(${task.images && task.images[0]})"
-        onclick="dispatch({ type: 'SHOW_IMAGE', taskToShowImage: '${task.id}', event })"
       ></div>
       <div
         class="description"
-        ondblclick="dispatch({ type: 'TRIGGER_TASK', id: '${task.id}', pageY: event.pageY })"
+        onclick="dispatch({ type: 'SHOW_TASK_DETAILS', taskId: '${task.id}' })"
       >
         <div>${task.description}</div>
       </div>
@@ -21,15 +20,18 @@ export const TaskItem = task => `
     ? `
         <button
           class="invisible-button round delete-button"
-          onclick="dispatch({ type: 'DELETE_TASK', id: '${task.id}', pageY: event.pageY })"
+          onclick="dispatch({ type: 'DELETE_TASK', taskId: '${task.id}', pageY: event.pageY })"
         >
           ✗
         </button>
-      `
+      ` // TODO: refactor & move to TaskItemControls
     : `
         <button
           class="invisible-button round up-button"
-          onclick="dispatch({ type: 'UPDATE_TASK', task: { id: '${task.id}' } })"
+          onclick="dispatch({ 
+            type: 'UPDATE_TASK', 
+            task: { id: '${task.id}', updatedAt: Date.now() } 
+          })"
         >
           ▴
         </button>

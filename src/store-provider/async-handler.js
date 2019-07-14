@@ -44,9 +44,16 @@ function resetInput(action, state, dispatch) {
 }
 
 function triggerTask(action, state, dispatch) {
-  services.saveTasks(state.tasks)
-  const { completed } = state.tasks.find(task => task.id === action.id)
-  const text = completed ? 'Task has been completed' : 'Task has been set active'
+  const { completed } = services.selectTask(action.taskId)(state)
+  dispatch({
+    type: types.UPDATE_TASK,
+    task: {
+      id: action.taskId,
+      completed: !completed,
+      updatedAt: Date.now(),
+    },
+  })
+  const text = completed ? 'Task has been set active' : 'Task has been completed'
   dispatch({ type: types.RESET_INPUT })
   dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
 }
@@ -105,7 +112,7 @@ export function moveTask(action, state, dispatch) {
     return condition
   }
 
-  const taskCompleted = state.tasks.find(({ id }) => id === action.id).completed
+  const { completed } = services.selectTask(action.taskId)(state)
 
   currentTarget.ontouchmove = e => {
     const offsetX = e.changedTouches[0].clientX - changedTouches[0].clientX
@@ -118,7 +125,7 @@ export function moveTask(action, state, dispatch) {
       e.preventDefault()
       const positionX = initialOffset + offsetX
       currentTarget.style.left = `${positionX}px`
-      // dispatch({ type: types.TOUCH_MOVE, id: action.id, positionX })
+      // dispatch({ type: types.TOUCH_MOVE, id: action.taskId, positionX })
     }
   }
 
@@ -131,15 +138,15 @@ export function moveTask(action, state, dispatch) {
     const duration = 500 // FIXME: should depend on positionX
     currentTarget.style.transition = `left ${duration}ms`
     if (
-      (positionX > window.screen.width * 0.33 && !taskCompleted)
-      || (positionX < -window.screen.width * 0.33 && taskCompleted)
+      (positionX > window.screen.width * 0.33 && !completed)
+      || (positionX < -window.screen.width * 0.33 && completed)
     ) {
       // Go away.
       currentTarget.style.left = `${getDirection()}${window.screen.width}px`
       setTimeout(
         () => dispatch({
           type: types.TRIGGER_TASK,
-          id: action.id,
+          taskId: action.taskId,
           pageY: changedTouches[0].clientY,
         }),
         duration
@@ -151,40 +158,80 @@ export function moveTask(action, state, dispatch) {
   }
 }
 
-async function showImage(action, state, dispatch) {
-  if (action.event) {
-    const fullImg = document.getElementById('fullscreen-image')
-    const fullImgStyle = fullImg.getBoundingClientRect()
-    const targetStyle = action.event.target.getBoundingClientRect()
-    document.getElementById('applied-styles').innerHTML = `
-      #fullscreen-image.start {
-        height: ${targetStyle.height}px;
-        width: ${targetStyle.width}px;
-        left: ${targetStyle.left}px;
-        top: ${targetStyle.top}px;
-        border-radius: 50%;
-        transition: 0s;
-      }
-      #fullscreen-image.end {
-        height: ${fullImgStyle.height}px;
-        width: ${fullImgStyle.width}px;
-        left: ${fullImgStyle.left}px;
-        top: ${fullImgStyle.top}px;
-        border-radius: 0%;
-      }
-      #fullscreen-image.smooth {
-        transition: all 0.2s ease-in;
-      }
-    `
-    fullImg.classList.remove('smooth')
-    fullImg.classList.remove('end')
-    fullImg.classList.add('start')
-    setTimeout(() => {
-      fullImg.classList.add('smooth')
-      fullImg.classList.add('end')
-      fullImg.classList.remove('start')
-    }, 500)
+// ---------- Carouselle -------------
+// TODO: implement SWIPE_IMAGE action handling (WIP)
+export function swipeImage(action, state, dispatch) {
+  const { currentTarget, changedTouches } = action.event
+  // Position helpers
+  const getPosition = () => parseFloat(currentTarget.style.left || 0, 10)
+  const getDirection = () => (Math.sign(getPosition()) < 0 ? '-' : '')
+  const initialOffset = getPosition()
+
+  // Clear possible transition that would have intercepted with dragging.
+  currentTarget.style.transition = 'none'
+  // Enables to check once whether a user wants to scroll or to trigger a task.
+  // let checkOnce = condition => {
+  //   checkOnce = () => false
+  //   return condition
+  // }
+
+  // const completed = state.tasks.find(({ id }) => id === action.id).completed
+  console.info(currentTarget, initialOffset, getDirection())
+
+  currentTarget.ontouchmove = e => {
+    const offsetX = e.changedTouches[0].clientX - changedTouches[0].clientX
+    const offsetY = e.changedTouches[0].clientY - changedTouches[0].clientY
+    //   if (checkOnce(Math.abs(offsetY / offsetX) > 1 / 2)) {
+    //     // User wants to scroll.
+    //     currentTarget.ontouchmove = null
+    //   } else {
+    //     // User wants to drag a task card. Preventing default scrolling.
+    e.preventDefault()
+    const positionX = initialOffset + offsetX
+    currentTarget.style.left = `${positionX}px`
+    // dispatch({ type: types.TOUCH_MOVE, id: action.id, positionX })
+    //   }
   }
+
+  currentTarget.ontouchend = () => {
+    // Destroying attached events.
+    currentTarget.ontouchmove = null
+    currentTarget.ontouchend = null
+    // Animating task automovement.
+    const positionX = getPosition()
+    const duration = 500 // FIXME: should depend on positionX
+    currentTarget.style.transition = `left ${duration}ms`
+    //   if (
+    //     (positionX > window.screen.width * 0.33 && !completed)
+    //     || (positionX < -window.screen.width * 0.33 && completed)
+    //   ) {
+    //     // Go away.
+    //     currentTarget.style.left = `${getDirection()}${window.screen.width}px`
+    //     setTimeout(
+    //       () => dispatch({
+    //         type: types.TRIGGER_TASK,
+    //         id: action.id,
+    //         pageY: changedTouches[0].clientY,
+    //       }),
+    //       duration
+    //     )
+    //   } else {
+    //     // Get back.
+    currentTarget.style.left = initialOffset // FIXME: ?
+    //   }
+  }
+}
+// ---------- Carouselle -------------
+
+async function changeImage(action, state, dispatch) {
+  const { images } = services.selectTask(action.taskId)(state)
+  dispatch({
+    type: types.UPDATE_TASK,
+    task: {
+      id: action.taskId,
+      images: services.shiftImages(images)(action.direction),
+    },
+  })
 }
 
 async function capturePhoto(action, state, dispatch) {
@@ -197,7 +244,14 @@ async function capturePhoto(action, state, dispatch) {
       })
       const croppedImg = await createImageBitmap(smallImg, ...services.cropSquare(smallImg))
       const src = services.getImgSrc(croppedImg)
-      dispatch({ type: types.ADD_PHOTO, taskId: action.taskId, src })
+      const { images } = services.selectTask(action.taskId)(state)
+      dispatch({
+        type: types.UPDATE_TASK,
+        task: {
+          id: action.taskId,
+          images: [src, ...images],
+        },
+      })
     }
   } catch (err) {
     dispatch({ type: types.NOTIFY, text: err.message })
@@ -261,9 +315,10 @@ export function asyncWatcher(action, state, dispatch) {
     case types.DELETE_TASK:
       deleteTask(action, state, dispatch)
       break
-    case types.UPDATE_TASK:
     case types.CHANGE_IMAGE:
-    case types.ADD_PHOTO:
+      changeImage(action, state, dispatch)
+      break
+    case types.UPDATE_TASK:
       saveTasks(action, state, dispatch)
       break
     case types.CHANGE_INPUT:
@@ -278,9 +333,6 @@ export function asyncWatcher(action, state, dispatch) {
     case types.MOVE_TASK:
       moveTask(action, state, dispatch)
       break
-    case types.SHOW_IMAGE:
-      showImage(action, state, dispatch)
-      break
     case types.CAPTURE_PHOTO:
       capturePhoto(action, state, dispatch)
       break
@@ -289,6 +341,10 @@ export function asyncWatcher(action, state, dispatch) {
       break
     case types.UPLOAD_USER_DATA:
       uploadUserData(action, state, dispatch)
+      break
+
+    case 'SWIPE_IMAGE':
+      swipeImage(action, state, dispatch)
       break
 
     default:
