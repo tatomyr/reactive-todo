@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import { getCachedTasks, shiftArray, updateTaskImages } from '/services/index.js'
 import { types } from './action-types.js'
+import { getCachedTasks, shiftArray, updateTaskImages } from '/services/index.js'
 
 // Default Application state
 const defaults = {
