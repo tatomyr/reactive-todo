@@ -3,13 +3,13 @@ import { connect } from '/store-provider/index.js'
 import { Icon } from './Icon.js'
 
 export const ChangeImage = connect(
-  ({ taskToShowImage, direction, disabled }) => htmx({ Icon })`
+  ({ taskId, direction, disabled }) => htmx({ Icon })`
     <button
       class="invisible-button round change-image ${direction}"
       onclick="
-          event.stopPropagation();
-          dispatch({ type: 'CHANGE_IMAGE', direction: '${direction}', taskId: '${taskToShowImage}' })
-        "
+        event.stopPropagation();
+        dispatch({ type: 'CHANGE_IMAGE', direction: '${direction}', taskId: '${taskId}' })
+      "
       ${disabled ? 'disabled' : ''}
     >
       <Icon name=${direction} disabled=${disabled} />
@@ -18,7 +18,7 @@ export const ChangeImage = connect(
 )
 
 export const CapturePhoto = connect(
-  ({ taskToShowImage }) => htmx({ Icon })`
+  ({ taskId }) => htmx({ Icon })`
     <label for="capture" class="round change-image">
       <Icon name=${'camera'} />
       <input
@@ -29,7 +29,7 @@ export const CapturePhoto = connect(
         onchange="dispatch({ 
           type: 'CAPTURE_PHOTO', 
           file: event.target.files[0], 
-          taskId: '${taskToShowImage}' 
+          taskId: '${taskId}' 
         })"
       />
     </label>

@@ -6,7 +6,14 @@ import { Notification } from './components/index.js'
 export const App = connect(
   ({ view }) => `
     <div id="root">
-      ${view === 'show-info' ? InfoPage() : TodoPage()}
+      ${(() => {
+    switch (view) {
+      case 'show-info':
+        return InfoPage()
+      default:
+        return TodoPage()
+    }
+  })()}
       ${Notification()}
     </div>
   `

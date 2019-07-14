@@ -1,19 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import { types } from './action-types.js'
-import { getCachedTasks, shiftArray, updateTaskImages } from '/services/index.js'
+import { getCachedTasks } from '/services/index.js'
 
 // Default Application state
 const defaults = {
   tasks: getCachedTasks(),
   view: 'active',
   _backupRoute: undefined,
-  taskToShowImage: '',
   notification: {
     text: '',
     notificationId: undefined,
     pageY: undefined,
   },
   input: '',
+  taskId: undefined,
 }
 
 // Main syncronous Application handler. Handle all App state changes.
@@ -43,7 +43,7 @@ export const stateHandler = (state = defaults, action = {}) => {
       return { input: '' }
     case types.DELETE_TASK:
       return {
-        tasks: state.tasks.filter(({ id }) => id !== action.id),
+        tasks: state.tasks.filter(({ id }) => id !== action.taskId),
       }
     case types.UPDATE_TASK:
       return {
@@ -52,19 +52,6 @@ export const stateHandler = (state = defaults, action = {}) => {
             ? {
               ...task,
               ...action.task,
-              updatedAt: Date.now(),
-            }
-            : task))
-          .sort((a, b) => b.updatedAt - a.updatedAt),
-      }
-    case types.TRIGGER_TASK:
-      return {
-        tasks: state.tasks
-          .map(task => (task.id === action.id
-            ? {
-              ...task,
-              completed: !task.completed,
-              updatedAt: Date.now(),
             }
             : task))
           .sort((a, b) => b.updatedAt - a.updatedAt),
@@ -85,14 +72,6 @@ export const stateHandler = (state = defaults, action = {}) => {
           notificationId: undefined,
         },
       }
-    case types.SHOW_IMAGE:
-      return { taskToShowImage: action.taskToShowImage }
-    case types.HIDE_IMAGE:
-      return { taskToShowImage: '' }
-    case types.CHANGE_IMAGE:
-      return updateTaskImages(state.tasks, action.taskId, images => shiftArray(images)(action.direction))
-    case types.ADD_PHOTO:
-      return updateTaskImages(state.tasks, action.taskId, images => [action.src, ...images])
     case types.SUBSTITUTE_ROUTE:
       return action.hasInput
         ? {
@@ -109,6 +88,11 @@ export const stateHandler = (state = defaults, action = {}) => {
       return { view: 'show-info' }
     case types.RESET_TASKS:
       return { tasks: action.tasks }
+
+    case types.SHOW_TASK_DETAILS:
+      return { taskId: action.taskId }
+    case types.CLOSE_TASK_DETAILS:
+      return { taskId: undefined }
 
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:

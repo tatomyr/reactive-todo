@@ -1,4 +1,4 @@
-export * from './task-images-manager.js'
+export * from './tasks-manager.js'
 export * from './fetch-images.js'
 export * from './local-storage.js'
 export * from './filters.js'

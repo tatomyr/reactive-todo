@@ -6,6 +6,6 @@ export const TodoPage = () => htmx(components)`
     <NavBar />
     <TasksList />
     <InputForm />
-    <FullscreenImage />
+    <TaskDetails />
   </div>
 `

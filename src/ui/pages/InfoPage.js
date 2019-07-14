@@ -7,7 +7,7 @@ export const InfoPage = () => htmx({ Icon })`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 5.3.2
+      App version: 6.0.0
     </p>
     <p>
       Check out the repository:
@@ -15,7 +15,7 @@ export const InfoPage = () => htmx({ Icon })`
         github.com/tatomyr/reactive-todo
       </a>
     </p>
-    <button onclick="dispatch({ type: 'FILTER', view: 'active' })">Back</button>
+    
     <hr />
     <h2>Actions</h2>
     <section class="user-actions">
@@ -28,6 +28,7 @@ export const InfoPage = () => htmx({ Icon })`
           <span class="user-action__description">backup your data</span>
         </button>
       </div>
+
       <div class="user-action">
         <label for="backup">
           <Icon name=${'upload'} size=${'S'} />
@@ -40,6 +41,16 @@ export const InfoPage = () => htmx({ Icon })`
           <span class="user-action__description">restore ToDos from file</span>
         </label>
       </div>
+
+      <div class="user-action">
+      <button 
+        class="invisible-button"
+        onclick="dispatch({ type: 'FILTER', view: 'active' })"
+      >
+        <Icon name=${'home'} size=${'S'}/>
+        <span class="user-action__description">go back</span>
+      </button>
+    </div>
     </section>
     <hr />
     <h2>Credits</h2>
