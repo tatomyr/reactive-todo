@@ -58,7 +58,7 @@ function triggerTask(action, state, dispatch) {
   dispatch({ type: types.NOTIFY, text, pageY: action.pageY })
 }
 
-function saveTasks(action, state, dispatch) {
+async function saveTasks(action, state, dispatch) {
   try {
     services.saveTasks(state.tasks)
   } catch (err) {
@@ -295,8 +295,7 @@ async function uploadUserData(action, state, dispatch) {
 }
 
 function logger({ type, ...rest }, state) {
-  console.log('• action:', type, rest)
-  console.table(state)
+  console.info('•', type, rest)
 }
 
 // Watcher for async actions to handle Side Effects
