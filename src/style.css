@@ -1,15 +1,16 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+@font-face {
+  font-family: 'Unisource';
+  src: url('https://tatomyr.github.io/unisource/unisource.ttf');
+}
+
 /* Reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   border: none;
-}
-
-/* Import font */
-@font-face {
-  font-family: 'Unisource';
-  src: url('https://tatomyr.github.io/unisource/unisource.ttf');
 }
 
 /* Declaring variables */
@@ -29,11 +30,11 @@ body {
 /* Fonts */
 body,
 input,
-button {
-  font-family: Unisource, sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 1px;
+button,
+textarea {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 /* Constant height components */
@@ -85,7 +86,7 @@ button {
   position: absolute;
   top: 5px;
   right: -10px;
-  font-size: 0.75em;
+  font-size: 0.7em;
   font-weight: bold;
   color: #4a4a4a;
 }
@@ -221,8 +222,6 @@ button {
 .task-details__description textarea {
   width: 100%;
   height: 100%;
-  font-family: Unisource;
-  font-size: 1em;
   color: var(--accent);
   padding: 8px 6px;
   box-shadow: 0px 8px 10px -8px inset;
@@ -319,4 +318,10 @@ button.invisible-button {
 
 label input[type='file'] {
   display: none;
+}
+
+span.secondary-text {
+  font-weight: 200;
+  margin-right: 4px;
+  color: #999;
 }

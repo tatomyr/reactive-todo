@@ -6,7 +6,7 @@ import { getCachedTasks } from '/services/index.js'
 const defaults = {
   tasks: getCachedTasks(),
   view: 'active',
-  _backupRoute: undefined,
+  _backupRoute: undefined, // TODO: -> startedInputAt: [view]
   notification: {
     text: '',
     notificationId: undefined,
@@ -40,6 +40,7 @@ export const stateHandler = (state = defaults, action = {}) => {
         ],
       }
     case types.RESET_INPUT:
+      // TODO: combine with CHANGE_INPUT?
       return { input: '' }
     case types.DELETE_TASK:
       return {
@@ -72,6 +73,7 @@ export const stateHandler = (state = defaults, action = {}) => {
           notificationId: undefined,
         },
       }
+    // TODO: combine this with CHANGE_INPUT
     case types.SUBSTITUTE_ROUTE:
       return action.hasInput
         ? {
@@ -99,6 +101,6 @@ export const stateHandler = (state = defaults, action = {}) => {
       return state
     default:
       console.log('DEFAULT')
-      return {}
+      return null
   }
 }

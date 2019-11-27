@@ -1,5 +1,5 @@
 import { htmx } from '/modules/purity.js'
-import { connect } from '/store-provider/index.js'
+import { connect, dispatch } from '/store-provider/index.js'
 import { filterByInput } from '/services/index.js'
 import { Bubble } from './Bubble.js'
 
@@ -12,8 +12,9 @@ export const NavItem = connect(
       class="controls-contaiter ${id === view ? 'isActive' : ''}"
     >
       <button
+        id="nav-button-${id}"
         class="invisible-button item"  
-        onclick="dispatch({ type: 'FILTER', view: '${id}' })"
+        ::click=${() => dispatch({ type: 'FILTER', view: id })}
       >
         ${title}
       </button>

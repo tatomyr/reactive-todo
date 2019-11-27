@@ -1,12 +1,23 @@
-export const InputForm = () => `
+import { htmx } from '/modules/purity.js'
+import { debounce } from '/modules/debounce.js'
+import { dispatch } from '/store-provider/index.js'
+
+const onSubmit = event => {
+  event.preventDefault()
+  dispatch({ type: 'CREATE_TASK', event })
+}
+
+const onKeyUp = debounce(e => {
+  dispatch({ type: 'CHANGE_INPUT', input: e.target.value })
+}, -200)
+
+const cleanInput = () => {
+  dispatch({ type: 'CLEAN_INPUT', target: 'newTask' })
+}
+
+export const InputForm = () => htmx({})`
     <div class="form">
-        <form
-            id="newTask-form"
-            onSubmit="
-                event.preventDefault()
-                dispatch({ type: 'CREATE_TASK', event })
-            "
-        >
+        <form id="newTask-form" ::submit=${onSubmit}>
             <input
                 class="input"
                 id="newTask"
@@ -15,12 +26,12 @@ export const InputForm = () => `
                 required
                 maxlength="60"
                 autocomplete="off"
-                onkeyup="dispatch({ type: 'CHANGE_INPUT', input: event.target.value })"
+                ::keyup=${onKeyUp}
             />
             <div
                 id="clear"
                 class="round"
-                onclick="dispatch({ type: 'CLEAN_INPUT', target: 'newTask' })"
+                ::click=${cleanInput}
             >
                 ✗
             </div>

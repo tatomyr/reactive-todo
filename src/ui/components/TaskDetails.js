@@ -47,14 +47,6 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
       </section>
       <section class="task-details__controls">
         <button
-          class="invisible-button round"
-          onclick="dispatch({ 
-            type: 'CLOSE_TASK_DETAILS', 
-          })"
-        >
-          <Icon name=${'home'} />
-        </button>
-        <button
           class="invisible-button round ${task.completed ? 'completed' : ''}"
           onclick="
             dispatch({ type: 'CLOSE_TASK_DETAILS' })
@@ -63,6 +55,16 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
         >
           ✓
         </button>
+        
+        <button
+          class="invisible-button round"
+          onclick="dispatch({ 
+            type: 'CLOSE_TASK_DETAILS', 
+          })"
+        >
+          <Icon name=${'home'} />
+        </button>
+        
       </section>
     </div>
   `

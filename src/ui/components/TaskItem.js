@@ -1,3 +1,6 @@
+import { formatDescription } from '/services/index.js'
+import { DeleteButton, UpButton } from './TaskItemControls.js'
+
 export const TaskItem = task => `
   <li id="${task.id}">
     <div
@@ -12,31 +15,10 @@ export const TaskItem = task => `
         class="description"
         onclick="dispatch({ type: 'SHOW_TASK_DETAILS', taskId: '${task.id}' })"
       >
-        <div>${task.description}</div>
+        <div>${formatDescription(task)}</div>
       </div>
 
-      ${
-  task.completed
-    ? `
-        <button
-          class="invisible-button round delete-button"
-          onclick="dispatch({ type: 'DELETE_TASK', taskId: '${task.id}', pageY: event.pageY })"
-        >
-          ✗
-        </button>
-      ` // TODO: refactor & move to TaskItemControls
-    : `
-        <button
-          class="invisible-button round up-button"
-          onclick="dispatch({ 
-            type: 'UPDATE_TASK', 
-            task: { id: '${task.id}', updatedAt: Date.now() } 
-          })"
-        >
-          ▴
-        </button>
-      `
-}
+      ${(task.completed ? DeleteButton : UpButton)({ taskId: task.id })}
     </div>
   </li>
 `

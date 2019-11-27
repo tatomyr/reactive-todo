@@ -7,7 +7,7 @@ export const InfoPage = () => htmx({ Icon })`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 6.0.0
+      App version: 6.0.4
     </p>
     <p>
       Check out the repository:
@@ -43,14 +43,34 @@ export const InfoPage = () => htmx({ Icon })`
       </div>
 
       <div class="user-action">
-      <button 
-        class="invisible-button"
-        onclick="dispatch({ type: 'FILTER', view: 'active' })"
-      >
-        <Icon name=${'home'} size=${'S'}/>
-        <span class="user-action__description">go back</span>
-      </button>
-    </div>
+        <button 
+          class="invisible-button"
+          onclick="dispatch({ type: 'FILTER', view: 'active' })"
+        >
+          <Icon name=${'home'} size=${'S'}/>
+          <span class="user-action__description">go back</span>
+        </button>
+      </div>
+
+      <div class="user-action">
+        <button 
+          class="invisible-button"
+          onclick="localStorage.removeItem('customFont'); location.reload()"
+        >
+          <Icon name=${'fountain-pen'} size=${'S'}/>
+          <span class="user-action__description">use default font</span>
+        </button>
+      </div>
+
+      <div class="user-action">
+        <button 
+          class="invisible-button"
+          onclick="localStorage.setItem('customFont', 'Unisource'); location.reload()"
+        >
+          <Icon name=${'fountain-pen'} size=${'S'}/>
+          <span class="user-action__description">use Unisource font</span>
+        </button>
+      </div>
     </section>
     <hr />
     <h2>Credits</h2>
