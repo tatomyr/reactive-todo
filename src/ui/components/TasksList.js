@@ -1,5 +1,5 @@
-import { htmx } from '/modules/purity.js'
-import { connect } from '/store-provider/index.js'
+import { render } from '/modules/purity.js'
+import { connect } from '/store/provider.js'
 import { filters, filterByInput } from '/services/index.js'
 import { TaskItem } from './TaskItem.js'
 
@@ -8,7 +8,7 @@ export const TasksList = connect(({ tasks, view, input }) => {
   const currentTasks = tasks
     .filter(filters.find(({ id }) => id === view).filterByStatus)
     .filter(filterByInput(input))
-  return htmx()`
+  return render`
     <ol id="tasks-list" class="tasks-list">
       ${currentTasks.map(TaskItem)}
     </ol>

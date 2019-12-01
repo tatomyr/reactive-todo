@@ -1,7 +1,8 @@
-import { connect } from '/store-provider/index.js'
+import { render } from '/modules/purity.js'
+import { connect } from '/store/provider.js'
 
 export const Notification = connect(
-  ({ notification: { pageY = 70, text } }) => `
+  ({ notification: { pageY = 70, text } }) => render`
     <div
       id="notification"
       style="top: calc(${pageY}px - 1.5em)"

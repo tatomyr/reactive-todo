@@ -2,19 +2,21 @@
   "name": "todo",
   "scripts": {
     "start": "bash bin/start.sh",
-    "modules": "cd src/modules && npx static-server -p 8081 -c '*'",
     "ngrok": "bash bin/ngrok.sh",
     "build": "bash bin/build.sh",
     "deploy": "bash bin/deploy.sh",
     "lint": "eslint ./src/",
-    "fix": "eslint ./src/ --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress": "npx cypress open --config baseUrl=http://localhost:8080",
+    "e2e": "bash bin/e2e.sh -p 8089 -r src",
+    "debts": "bash bin/debts.sh",
+    "check": "npm run lint && npm run e2e && npm run debts && npm run build"
   },
   "author": "tatomyr",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "cypress": "^3.7.0",
+    "eslint": "^6.7.1",
+    "static-server": "^2.2.1"
   }
 }

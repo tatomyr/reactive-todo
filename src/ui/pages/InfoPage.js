@@ -1,13 +1,14 @@
-import { htmx } from '/modules/purity.js'
+import { render } from '/modules/purity.js'
+import { dispatch } from '/store/provider.js'
 import { Icon } from '../components/index.js'
 
-export const InfoPage = () => htmx({ Icon })`
+export const InfoPage = () => render`
   <div id="info-page">
     <h1>
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 6.0.4
+      App version: 7.0.0
     </p>
     <p>
       Check out the repository:
@@ -21,22 +22,30 @@ export const InfoPage = () => htmx({ Icon })`
     <section class="user-actions">
       <div class="user-action">
         <button 
-          onclick="dispatch({ type: 'DOWNLOAD_USER_DATA' })"
+          ::click=${e => {
+            dispatch({ type: 'DOWNLOAD_USER_DATA' })
+          }}
           class="invisible-button"
         >
-          <Icon name=${'download'} size=${'S'} />
+          ${Icon({ name: 'download', size: 'S' })}
           <span class="user-action__description">backup your data</span>
         </button>
       </div>
 
       <div class="user-action">
         <label for="backup">
-          <Icon name=${'upload'} size=${'S'} />
+          ${Icon({ name: 'upload', size: 'S' })}
           <input 
             type="file" 
             accept=".json"
             id="backup"
-            onchange="dispatch({ type: 'UPLOAD_USER_DATA', file: event.target.files[0] })" 
+            ::change=${({
+              target: {
+                files: [file],
+              },
+            }) => {
+              dispatch({ type: 'UPLOAD_USER_DATA', file })
+            }}
           />
           <span class="user-action__description">restore ToDos from file</span>
         </label>
@@ -45,9 +54,11 @@ export const InfoPage = () => htmx({ Icon })`
       <div class="user-action">
         <button 
           class="invisible-button"
-          onclick="dispatch({ type: 'FILTER', view: 'active' })"
+          ::click=${e => {
+            dispatch({ type: 'FILTER', view: 'active' })
+          }}
         >
-          <Icon name=${'home'} size=${'S'}/>
+          ${Icon({ name: 'home', size: 'S' })}
           <span class="user-action__description">go back</span>
         </button>
       </div>
@@ -55,9 +66,12 @@ export const InfoPage = () => htmx({ Icon })`
       <div class="user-action">
         <button 
           class="invisible-button"
-          onclick="localStorage.removeItem('customFont'); location.reload()"
+          ::click=${e => {
+            localStorage.removeItem('customFont')
+            location.reload()
+          }}
         >
-          <Icon name=${'fountain-pen'} size=${'S'}/>
+          ${Icon({ name: 'fountain-pen', size: 'S' })}
           <span class="user-action__description">use default font</span>
         </button>
       </div>
@@ -65,9 +79,12 @@ export const InfoPage = () => htmx({ Icon })`
       <div class="user-action">
         <button 
           class="invisible-button"
-          onclick="localStorage.setItem('customFont', 'Unisource'); location.reload()"
+          ::click=${e => {
+            localStorage.setItem('customFont', 'Unisource')
+            location.reload()
+          }}
         >
-          <Icon name=${'fountain-pen'} size=${'S'}/>
+          ${Icon({ name: 'fountain-pen', size: 'S' })}
           <span class="user-action__description">use Unisource font</span>
         </button>
       </div>

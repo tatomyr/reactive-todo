@@ -1,30 +1,22 @@
-extends: airbnb-base
 env:
   browser: true
+  es6: true
+extends: 'eslint:recommended'
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
 rules:
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
   semi:
     - error
     - never
-  arrow-parens:
-    - error
-    - as-needed
-  import/prefer-default-export:
-    - warning
-    - always
-  import/extensions:
-    - warning
-    - never
-  import/no-absolute-path:
-    - off
-  import/no-unresolved:
-    - warning
-    - always
   no-unused-vars:
     - off
-  comma-dangle:
-    - error
-    - arrays: always-multiline
-      objects: always-multiline
-      imports: always-multiline
-      exports: always-multiline
-      functions: never
