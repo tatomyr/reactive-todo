@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd src && npx static-server -p 8080
+cd src && npx static-server -p 8080 -c "*"

@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 const version = 'BUILD_DATE'
 const cacheName = version
 let srcFiles // Should come from bash script when building
@@ -13,10 +12,13 @@ let filesToCache = [
   '/assets/images/loading-shape.gif',
   '/assets/images/undefined-task.jpg',
   // Modules
-  'https://tatomyr.github.io/purity/factory.js',
-  'https://tatomyr.github.io/purity/htmx.js',
-  'https://tatomyr.github.io/shared-modules/md5.js',
-  // Font
+  'https://tatomyr.github.io/purity/core.js',
+  'https://tatomyr.github.io/purity/register-async.js',
+  'https://tatomyr.github.io/purity/lib/md5.js',
+  'https://tatomyr.github.io/purity/lib/debounce.js',
+  'https://tatomyr.github.io/purity/lib/sanitize.js',
+  // Fonts
+  'https://fonts.googleapis.com/css?family=Fira+Sans',
   'https://tatomyr.github.io/unisource/unisource.ttf',
 ]
 
@@ -38,15 +40,17 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   console.log('[ServiceWorker] Activate')
   e.waitUntil(
-    caches.keys().then(keyList => Promise.all(
-      keyList.map(key => {
-        if (key !== cacheName) {
-          console.log('[ServiceWorker] Removing old cache', key)
-          return caches.delete(key)
-        }
-        return undefined
-      })
-    ))
+    caches.keys().then(keyList =>
+      Promise.all(
+        keyList.map(key => {
+          if (key !== cacheName) {
+            console.log('[ServiceWorker] Removing old cache', key)
+            return caches.delete(key)
+          }
+          return undefined
+        })
+      )
+    )
   )
   return self.clients.claim()
 })

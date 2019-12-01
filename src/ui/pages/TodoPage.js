@@ -1,11 +1,16 @@
-import { htmx } from '/modules/purity.js'
-import * as components from '../components/index.js'
+import { render } from '/modules/purity.js'
+import {
+  NavBar,
+  TasksList,
+  InputForm,
+  TaskDetails,
+} from '../components/index.js'
 
-export const TodoPage = () => htmx(components)`
+export const TodoPage = () => render`
   <div id="todo-page" class="container">
-    <NavBar />
-    <TasksList />
-    <InputForm />
-    <TaskDetails />
+    ${NavBar()}
+    ${TasksList()}
+    ${InputForm()}
+    ${TaskDetails()}
   </div>
 `

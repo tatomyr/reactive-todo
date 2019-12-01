@@ -1,36 +1,34 @@
-import { htmx } from '/modules/purity.js'
-import { connect } from '/store-provider/index.js'
+import { render } from '/modules/purity.js'
+import { connect, dispatch } from '/store/provider.js'
 import { Icon } from './Icon.js'
 
 export const ChangeImage = connect(
-  ({ taskId, direction, disabled }) => htmx({ Icon })`
+  ({ taskId, direction, disabled }) => render`
     <button
       class="invisible-button round change-image ${direction}"
-      onclick="
-        event.stopPropagation();
-        dispatch({ type: 'CHANGE_IMAGE', direction: '${direction}', taskId: '${taskId}' })
-      "
-      ${disabled ? 'disabled' : ''}
+      ::click=${e => {
+        e.stopPropagation()
+        dispatch({ type: 'CHANGE_IMAGE', direction, taskId })
+      }}
+      ${disabled && 'disabled'}
     >
-      <Icon name=${direction} disabled=${disabled} />
+      ${Icon({ name: direction, disabled })}
     </button>
   `
 )
 
 export const CapturePhoto = connect(
-  ({ taskId }) => htmx({ Icon })`
+  ({ taskId }) => render`
     <label for="capture" class="round change-image">
-      <Icon name=${'camera'} />
+      ${Icon({ name: 'camera' })}
       <input
         type="file" 
         accept="image/*" 
         capture="environment" 
         id="capture"
-        onchange="dispatch({ 
-          type: 'CAPTURE_PHOTO', 
-          file: event.target.files[0], 
-          taskId: '${taskId}' 
-        })"
+        ::change=${e => {
+          dispatch({ type: 'CAPTURE_PHOTO', file: e.target.files[0], taskId })
+        }}
       />
     </label>
   `

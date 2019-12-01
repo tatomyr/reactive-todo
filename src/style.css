@@ -68,7 +68,7 @@ textarea {
   text-transform: uppercase;
   padding: 0 5px;
 }
-.nav-list .controls-contaiter.isActive .item {
+.nav-list .controls-contaiter.active .item {
   color: var(--light-color);
 }
 .nav-list .controls-contaiter {
@@ -90,7 +90,7 @@ textarea {
   font-weight: bold;
   color: #4a4a4a;
 }
-.nav-list .controls-contaiter.isActive .counter {
+.nav-list .controls-contaiter.active .counter {
   color: var(--light-color);
 }
 .nav-list .controls-contaiter .counter[data-count='0'] {
@@ -176,7 +176,7 @@ textarea {
   color: var(--auxilliary);
   display: none;
 }
-.form form input#newTask.input:valid + div#clear {
+.form form input#newTask.input:valid + #clear {
   display: initial;
 }
 

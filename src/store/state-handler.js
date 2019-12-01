@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { types } from './action-types.js'
 import { getCachedTasks } from '/services/index.js'
 
@@ -49,12 +48,14 @@ export const stateHandler = (state = defaults, action = {}) => {
     case types.UPDATE_TASK:
       return {
         tasks: state.tasks
-          .map(task => (task.id === action.task.id
-            ? {
-              ...task,
-              ...action.task,
-            }
-            : task))
+          .map(task =>
+            task.id === action.task.id
+              ? {
+                  ...task,
+                  ...action.task,
+                }
+              : task
+          )
           .sort((a, b) => b.updatedAt - a.updatedAt),
       }
     case types.NOTIFICATION_SHOW:
@@ -77,13 +78,13 @@ export const stateHandler = (state = defaults, action = {}) => {
     case types.SUBSTITUTE_ROUTE:
       return action.hasInput
         ? {
-          view: 'all',
-          _backupRoute: state._backupRoute || state.view,
-        }
+            view: 'all',
+            _backupRoute: state._backupRoute || state.view,
+          }
         : {
-          view: state._backupRoute || state.view,
-          _backupRoute: undefined,
-        }
+            view: state._backupRoute || state.view,
+            _backupRoute: undefined,
+          }
     case types.CHANGE_INPUT:
       return { input: action.input }
     case types.SHOW_INFO:
