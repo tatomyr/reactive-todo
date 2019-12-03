@@ -1,5 +1,6 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 import { dispatch } from '/store/provider.js'
+import { types } from '/store/action-types.js'
 import { formatDescription } from '/services/index.js'
 import { DeleteButton, UpButton } from './TaskItemControls.js'
 
@@ -8,7 +9,7 @@ export const TaskItem = task => render`
     <div
       class="task ${task.completed ? 'completed' : ''}"
       ::touchstart=${e => {
-        dispatch({ type: 'MOVE_TASK', taskId: task.id, event: e })
+        dispatch({ type: types.MOVE_TASK, taskId: task.id, event: e })
       }}
     >
       <div
@@ -18,7 +19,7 @@ export const TaskItem = task => render`
       <div
         class="description"
         ::click=${e => {
-          dispatch({ type: 'SHOW_TASK_DETAILS', taskId: task.id })
+          dispatch({ type: types.SHOW_TASK_DETAILS, taskId: task.id })
         }}
       >
         <div>${formatDescription(task)}</div>

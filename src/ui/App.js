@@ -1,4 +1,4 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 import { connect } from '/store/provider.js'
 import { TodoPage, InfoPage } from './pages/index.js'
 import { Notification } from './components/index.js'

@@ -1,5 +1,6 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 import { dispatch } from '/store/provider.js'
+import { types } from '/store/action-types.js'
 import { Icon } from '../components/index.js'
 
 export const InfoPage = () => render`
@@ -8,7 +9,7 @@ export const InfoPage = () => render`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 7.0.0
+      App version: 7.0.4
     </p>
     <p>
       Check out the repository:
@@ -23,7 +24,7 @@ export const InfoPage = () => render`
       <div class="user-action">
         <button 
           ::click=${e => {
-            dispatch({ type: 'DOWNLOAD_USER_DATA' })
+            dispatch({ type: types.DOWNLOAD_USER_DATA })
           }}
           class="invisible-button"
         >
@@ -44,7 +45,7 @@ export const InfoPage = () => render`
                 files: [file],
               },
             }) => {
-              dispatch({ type: 'UPLOAD_USER_DATA', file })
+              dispatch({ type: types.UPLOAD_USER_DATA, file })
             }}
           />
           <span class="user-action__description">restore ToDos from file</span>
@@ -55,7 +56,7 @@ export const InfoPage = () => render`
         <button 
           class="invisible-button"
           ::click=${e => {
-            dispatch({ type: 'FILTER', view: 'active' })
+            dispatch({ type: types.FILTER, view: 'active' })
           }}
         >
           ${Icon({ name: 'home', size: 'S' })}

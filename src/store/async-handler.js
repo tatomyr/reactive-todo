@@ -1,5 +1,4 @@
-import { registerAsync } from '/modules/purity.js'
-import { md5 } from '/modules/md5.js'
+import { registerAsync, md5 } from '/modules.js'
 import * as services from '/services/index.js'
 import { types } from './action-types.js'
 
@@ -17,6 +16,7 @@ async function createTask(action, dispatch, state) {
     return
   }
   dispatch({ type: types.ADD_TASK, description, date, id })
+  // action.onSuccess()
   dispatch({ type: types.RESET_INPUT })
   try {
     const { items } = await services.fetchImages(description)
@@ -284,8 +284,8 @@ async function uploadUserData(action, dispatch, state) {
       )
     ) {
       services.saveTasks(tasks)
-      dispatch({ type: 'FILTER', view: 'active' })
-      dispatch({ type: 'RESET_TASKS', tasks })
+      dispatch({ type: types.FILTER, view: 'active' })
+      dispatch({ type: types.RESET_TASKS, tasks })
     }
   } catch (err) {
     dispatch({ type: types.NOTIFY, text: err.message })

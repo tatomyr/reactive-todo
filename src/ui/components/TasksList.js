@@ -1,4 +1,4 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 import { connect } from '/store/provider.js'
 import { filters, filterByInput } from '/services/index.js'
 import { TaskItem } from './TaskItem.js'

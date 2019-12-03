@@ -1,5 +1,6 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 import { connect, dispatch } from '/store/provider.js'
+import { types } from '/store/action-types.js'
 import { filterByInput } from '/services/index.js'
 import { Bubble } from './Bubble.js'
 
@@ -12,7 +13,7 @@ export const NavItem = connect(
       <button
         id="nav-button-${id}"
         class="invisible-button item"  
-        ::click=${e => dispatch({ type: 'FILTER', view: id })}
+        ::click=${e => dispatch({ type: types.FILTER, view: id })}
       >
         ${title}
       </button>

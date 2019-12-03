@@ -1,6 +1,6 @@
-import { render } from '/modules/purity.js'
-import { sanitize } from '/modules/sanitize.js'
+import { render, sanitize } from '/modules.js'
 import { connect, dispatch } from '/store/provider.js'
+import { types } from '/store/action-types.js'
 import { selectTask } from '../../services/index.js'
 import { ChangeImage, CapturePhoto } from './TaskDetailsControls.js'
 import { Icon } from './Icon.js'
@@ -46,7 +46,7 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
           id="task-description-edit"
           ::change=${e => {
             dispatch({
-              type: 'UPDATE_TASK',
+              type: types.UPDATE_TASK,
               task: { id: taskId, description: sanitize(e.target.value) },
             })
           }}
@@ -58,8 +58,8 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
         <button
           class="invisible-button round ${task.completed ? 'completed' : ''}"
           ::click=${e => {
-            dispatch({ type: 'CLOSE_TASK_DETAILS' })
-            dispatch({ type: 'TRIGGER_TASK', taskId })
+            dispatch({ type: types.CLOSE_TASK_DETAILS })
+            dispatch({ type: types.TRIGGER_TASK, taskId })
           }}
         >
           ✓
@@ -69,7 +69,7 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
           class="invisible-button round"
           ::click=${e => {
             dispatch({
-              type: 'CLOSE_TASK_DETAILS',
+              type: types.CLOSE_TASK_DETAILS,
             })
           }}
         >
