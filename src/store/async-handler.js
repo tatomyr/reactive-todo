@@ -16,7 +16,6 @@ async function createTask(action, dispatch, state) {
     return
   }
   dispatch({ type: types.ADD_TASK, description, date, id })
-  // action.onSuccess()
   dispatch({ type: types.RESET_INPUT })
   try {
     const { items } = await services.fetchImages(description)
@@ -72,10 +71,6 @@ export function deleteTask(action, dispatch, state) {
     text: 'Task has been deleted',
     pageY: action.pageY,
   })
-}
-
-export function changeInput(action, dispatch, state) {
-  dispatch({ type: types.SUBSTITUTE_ROUTE, hasInput: !!action.input })
 }
 
 export function notify(action, dispatch, state) {
@@ -299,7 +294,6 @@ export default registerAsync(
     [types.TRIGGER_TASK]: triggerTask,
     [types.DELETE_TASK]: deleteTask,
     [types.UPDATE_TASK]: saveTasks,
-    [types.CHANGE_INPUT]: changeInput,
     [types.NOTIFY]: notify,
     [types.MOVE_TASK]: moveTask,
     [types.CHANGE_IMAGE]: changeImage,

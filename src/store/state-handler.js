@@ -7,7 +7,7 @@ const defaults = {
   taskId: undefined,
   input: '',
   view: 'active',
-  startedInputAt: undefined,
+  startedInputAt: 'active',
   notification: {
     text: '',
     notificationId: undefined,
@@ -22,7 +22,7 @@ export const stateHandler = (state = defaults, action = {}) => {
       return {
         view: action.view,
         // If we've intentionally changed view, apparently we don't want go back.
-        startedInputAt: undefined,
+        startedInputAt: action.view,
       }
     case types.ADD_TASK:
       return {
@@ -74,14 +74,11 @@ export const stateHandler = (state = defaults, action = {}) => {
           notificationId: undefined,
         },
       }
-    case types.CHANGE_INPUT: {
-      const newView = state.startedInputAt || state.view
+    case types.CHANGE_INPUT:
       return {
         input: action.input,
-        view: action.input ? 'all' : newView,
-        startedInputAt: action.input ? newView : undefined,
+        view: action.input ? 'all' : state.startedInputAt,
       }
-    }
     case types.SHOW_INFO:
       return { view: 'show-info' }
     case types.RESET_TASKS:
