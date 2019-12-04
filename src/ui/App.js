@@ -1,7 +1,7 @@
 import { render } from '/modules.js'
 import { connect } from '/store/provider.js'
 import { TodoPage, InfoPage } from './pages/index.js'
-import { Notification } from './components/index.js'
+import { Notification, NavBar } from './components/index.js'
 
 const fontStyles = font => {
   switch (font) {
@@ -29,7 +29,8 @@ export const App = connect(({ view }) => {
   )
 
   return render`
-    <div id="root">
+    <div id="root" class="container">
+      ${NavBar()}
       ${(() => {
         switch (view) {
           case 'show-info':

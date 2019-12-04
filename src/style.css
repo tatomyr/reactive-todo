@@ -97,11 +97,18 @@ textarea {
   display: none;
 }
 
+/* TODO: refactor styles */
+/* Todo page styles */
+.todo-page {
+  height: calc(100% - 2 * var(--height));
+  max-height: calc(100% - 2 * var(--height));
+}
+
 /* TasksList style */
 .tasks-list {
   overflow-y: auto;
-  height: calc(100% - 2 * var(--height));
-  max-height: calc(100% - 2 * var(--height));
+  height: 100%;
+  max-height: 100%;
   background: lightgrey;
 
   /* TODO: box-shadow: inset 0px 8px 5px -5px grey; */
