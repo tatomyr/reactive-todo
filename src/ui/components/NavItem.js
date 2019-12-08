@@ -13,7 +13,9 @@ export const NavItem = connect(
       <button
         id="nav-button-${id}"
         class="invisible-button item"  
-        ::click=${e => dispatch({ type: types.FILTER, view: id })}
+        ::click=${e => {
+          dispatch({ type: types.FILTER, view: id })
+        }}
       >
         ${title}
       </button>
