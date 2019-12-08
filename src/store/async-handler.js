@@ -1,5 +1,4 @@
-import { registerAsync } from '/modules/purity.js'
-import { md5 } from '/modules/md5.js'
+import { registerAsync, md5 } from '/modules.js'
 import * as services from '/services/index.js'
 import { types } from './action-types.js'
 
@@ -72,10 +71,6 @@ export function deleteTask(action, dispatch, state) {
     text: 'Task has been deleted',
     pageY: action.pageY,
   })
-}
-
-export function changeInput(action, dispatch, state) {
-  dispatch({ type: types.SUBSTITUTE_ROUTE, hasInput: !!action.input })
 }
 
 export function notify(action, dispatch, state) {
@@ -284,8 +279,8 @@ async function uploadUserData(action, dispatch, state) {
       )
     ) {
       services.saveTasks(tasks)
-      dispatch({ type: 'FILTER', view: 'active' })
-      dispatch({ type: 'RESET_TASKS', tasks })
+      dispatch({ type: types.FILTER, view: 'active' })
+      dispatch({ type: types.RESET_TASKS, tasks })
     }
   } catch (err) {
     dispatch({ type: types.NOTIFY, text: err.message })
@@ -299,7 +294,6 @@ export default registerAsync(
     [types.TRIGGER_TASK]: triggerTask,
     [types.DELETE_TASK]: deleteTask,
     [types.UPDATE_TASK]: saveTasks,
-    [types.CHANGE_INPUT]: changeInput,
     [types.NOTIFY]: notify,
     [types.MOVE_TASK]: moveTask,
     [types.CHANGE_IMAGE]: changeImage,

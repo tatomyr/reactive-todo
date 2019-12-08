@@ -1,6 +1,4 @@
-import { render } from '/modules/purity.js'
-import { debounce } from '/modules/debounce.js'
-import { sanitize } from '/modules/sanitize.js'
+import { render, debounce, sanitize } from '/modules.js'
 import { dispatch } from '/store/provider.js'
 import { types } from '/store/action-types.js'
 
@@ -9,9 +7,13 @@ const onSubmit = e => {
   dispatch({
     type: types.CREATE_TASK,
     description: sanitize(e.target.newTask.value),
+    // TODO: decide whether to reset the form here
+    // onSuccess: () => {
+    //   e.target.reset()
+    //   console.log(e.target, e.target.blur)
+    //   e.target.newTask.blur()
+    // },
   })
-  // TODO: decide whether to reset the form here
-  // e.target.reset()
 }
 
 const onKeyUp = debounce(e => {

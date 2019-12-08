@@ -1,4 +1,4 @@
-import { render } from '/modules/purity.js'
+import { render } from '/modules.js'
 
 const sizes = {
   M: '30px',

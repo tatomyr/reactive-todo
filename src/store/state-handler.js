@@ -4,15 +4,15 @@ import { getCachedTasks } from '/services/index.js'
 // Default Application state
 const defaults = {
   tasks: getCachedTasks(),
+  taskId: undefined,
+  input: '',
   view: 'active',
-  _backupRoute: undefined, // TODO: -> startedInputAt: [view]
+  startedInputAt: 'active',
   notification: {
     text: '',
     notificationId: undefined,
     pageY: undefined,
   },
-  input: '',
-  taskId: undefined,
 }
 
 // Main syncronous Application handler. Handle all App state changes.
@@ -22,7 +22,7 @@ export const stateHandler = (state = defaults, action = {}) => {
       return {
         view: action.view,
         // If we've intentionally changed view, apparently we don't want go back.
-        _backupRoute: undefined,
+        startedInputAt: action.view,
       }
     case types.ADD_TASK:
       return {
@@ -74,19 +74,11 @@ export const stateHandler = (state = defaults, action = {}) => {
           notificationId: undefined,
         },
       }
-    // TODO: combine this with CHANGE_INPUT
-    case types.SUBSTITUTE_ROUTE:
-      return action.hasInput
-        ? {
-            view: 'all',
-            _backupRoute: state._backupRoute || state.view,
-          }
-        : {
-            view: state._backupRoute || state.view,
-            _backupRoute: undefined,
-          }
     case types.CHANGE_INPUT:
-      return { input: action.input }
+      return {
+        input: action.input,
+        view: action.input ? 'all' : state.startedInputAt,
+      }
     case types.SHOW_INFO:
       return { view: 'show-info' }
     case types.RESET_TASKS:
