@@ -7,8 +7,8 @@ const sizes = {
 
 export const Icon = ({ name, disabled, size = 'M' }) => render`
   <img 
-    src="/assets/images/icon-pack/${name}.svg" 
-    alt="${name}" 
+    src="/assets/images/icon-pack/${name}.svg"
+    alt="${name}"
     width="${sizes[size]}"
     style="${disabled ? 'opacity: 0.3;' : ''}"
   />

@@ -2,6 +2,8 @@ import { registerAsync, md5 } from '/modules.js'
 import * as services from '/services/index.js'
 import { types } from './action-types.js'
 
+import { push } from '../hashrouter.js'
+
 async function createTask(action, dispatch, state) {
   const { description } = action
   const date = Date.now()
@@ -28,7 +30,7 @@ async function createTask(action, dispatch, state) {
     console.error(err)
     dispatch({
       type: types.UPDATE_TASK,
-      task: { id, images: [services.undefinedTaskImage] },
+      task: { id, images: [services.UNDEFINED_TASK_IMAGE] },
     })
     dispatch({ type: types.NOTIFY, text: err.message })
   }
@@ -39,7 +41,7 @@ function resetInput(action, dispatch, state) {
   const form = document.getElementById('newTask-form')
   form.reset()
   form.newTask.blur()
-  dispatch({ type: types.FILTER, view: 'active' })
+  push('#/active')
 }
 
 function triggerTask(action, dispatch, state) {
@@ -128,8 +130,8 @@ export function moveTask(action, dispatch, state) {
     const duration = 500 // FIXME: should depend on positionX
     currentTarget.style.transition = `left ${duration}ms`
     if (
-      (positionX > window.screen.width * 0.33 && !completed) ||
-      (positionX < -window.screen.width * 0.33 && completed)
+      (positionX > window.screen.width * 0.15 && !completed) ||
+      (positionX < -window.screen.width * 0.15 && completed)
     ) {
       // Go away.
       currentTarget.style.left = `${getDirection()}${window.screen.width}px`
@@ -213,6 +215,7 @@ export function swipeImage(action, dispatch, state) {
 // ---------- Carouselle -------------
 
 async function changeImage(action, dispatch, state) {
+  console.log(action.taskId, 'state-->', state)
   const { images } = services.selectTask(action.taskId)(state)
   dispatch({
     type: types.UPDATE_TASK,
@@ -279,7 +282,7 @@ async function uploadUserData(action, dispatch, state) {
       )
     ) {
       services.saveTasks(tasks)
-      dispatch({ type: types.FILTER, view: 'active' })
+      push('#/active')
       dispatch({ type: types.RESET_TASKS, tasks })
     }
   } catch (err) {

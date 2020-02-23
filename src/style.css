@@ -71,6 +71,10 @@ textarea {
 .nav-list .controls-contaiter.active .item {
   color: var(--light-color);
 }
+.nav-list .controls-contaiter.about.active > a > img {
+  transform: rotate(180deg);
+  transition: transform 0.4s;
+}
 .nav-list .controls-contaiter {
   position: relative;
 }
@@ -98,17 +102,22 @@ textarea {
 }
 
 /* TODO: refactor styles */
+/* Wrapper */
+.main-wrapper {
+  height: calc(100% - var(--height));
+  max-height: calc(100% - var(--height));
+}
+
 /* Todo page styles */
 .todo-page {
-  height: calc(100% - 2 * var(--height));
-  max-height: calc(100% - 2 * var(--height));
+  height: 100%;
 }
 
 /* TasksList style */
 .tasks-list {
   overflow-y: auto;
-  height: 100%;
-  max-height: 100%;
+  height: calc(100% - var(--height));
+  max-height: calc(100% - var(--height));
   background: lightgrey;
 
   /* TODO: box-shadow: inset 0px 8px 5px -5px grey; */
@@ -125,6 +134,9 @@ textarea {
   position: relative;
 
   box-shadow: 0px 0px 5px 0px grey;
+}
+.tasks-list .image {
+  object-fit: cover;
 }
 .tasks-list .task.completed .image {
   filter: grayscale(1);
@@ -242,12 +254,8 @@ textarea {
   align-items: center;
 }
 
-.task-details__controls > button {
-  background-color: #f3df34 !important; /* FIXME: */
-}
-
-.task-details__controls .completed {
-  text-decoration: line-through;
+.task-details__controls .round {
+  background-color: #f3df34;
 }
 
 /* Notification */
@@ -269,6 +277,11 @@ textarea {
 }
 
 /* InfoPage styles */
+.info-page {
+  overflow-y: auto;
+  height: 100%;
+  max-height: 100%;
+}
 .user-action {
   padding: 3px;
 }
@@ -296,6 +309,23 @@ button.invisible-button {
   box-shadow: none;
 }
 
+a.link {
+  all: unset;
+  padding: 0;
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.nav-list .controls-contaiter a.link {
+  display: flex;
+  align-items: center;
+}
+
 .round {
   display: flex;
   justify-content: center;
@@ -314,15 +344,6 @@ button.invisible-button {
 }
 
 /* Miscellaneous */
-.info-question-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: var(--action);
-  color: var(--light-color);
-  line-height: 30px;
-}
-
 label input[type='file'] {
   display: none;
 }

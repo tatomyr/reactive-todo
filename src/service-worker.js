@@ -9,8 +9,9 @@ let filesToCache = [
   '/manifest.json',
   '/reset.css',
   '/style.css',
-  '/assets/images/loading-shape.gif',
-  '/assets/images/undefined-task.jpg',
+  '/assets/images/loading-shape.gif', // LOADING_IMAGE
+  '/assets/images/icon-pack/idea.svg', // UNDEFINED_TASK_IMAGE
+  '/assets/images/icon-pack/forbidden.svg', //BROKEN_IMAGE
   // Modules
   'https://tatomyr.github.io/purity/core.js',
   'https://tatomyr.github.io/purity/utils/register-async.js',

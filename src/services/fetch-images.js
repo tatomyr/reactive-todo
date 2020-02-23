@@ -1,6 +1,8 @@
 import imageAPI from './google-api.js'
 
-export const undefinedTaskImage = '/assets/images/undefined-task.jpg'
+export const LOADING_IMAGE = '/assets/images/loading-shape.gif'
+export const UNDEFINED_TASK_IMAGE = '/assets/images/icon-pack/idea.svg'
+export const BROKEN_IMAGE = '/assets/images/icon-pack/forbidden.svg'
 
 const getResponseErrorMessage = ({ status }) => {
   switch (status) {
@@ -45,5 +47,5 @@ export const filterImages = async (items = []) => {
   const liveImages = (
     await Promise.all(items.map(({ link }) => link).map(await testImage))
   ).filter(Boolean)
-  return liveImages.length > 0 ? liveImages : [undefinedTaskImage]
+  return liveImages.length > 0 ? liveImages : [UNDEFINED_TASK_IMAGE]
 }

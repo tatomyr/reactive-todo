@@ -1,13 +1,13 @@
 import { types } from './action-types.js'
-import { getCachedTasks } from '/services/index.js'
+import { getCachedTasks, migrate, LOADING_IMAGE } from '/services/index.js'
+
+// Data migration
+migrate()
 
 // Default Application state
 const defaults = {
   tasks: getCachedTasks(),
-  taskId: undefined,
   input: '',
-  view: 'active',
-  startedInputAt: 'active',
   notification: {
     text: '',
     notificationId: undefined,
@@ -18,18 +18,12 @@ const defaults = {
 // Main syncronous Application handler. Handle all App state changes.
 export const stateHandler = (state = defaults, action = {}) => {
   switch (action.type) {
-    case types.FILTER:
-      return {
-        view: action.view,
-        // If we've intentionally changed view, apparently we don't want go back.
-        startedInputAt: action.view,
-      }
     case types.ADD_TASK:
       return {
         tasks: [
           {
             description: action.description,
-            images: ['./assets/images/loading-shape.gif'],
+            images: [LOADING_IMAGE],
             completed: false,
             id: action.id,
             createdAt: action.date,
@@ -75,19 +69,9 @@ export const stateHandler = (state = defaults, action = {}) => {
         },
       }
     case types.CHANGE_INPUT:
-      return {
-        input: action.input,
-        view: action.input ? 'all' : state.startedInputAt,
-      }
-    case types.SHOW_INFO:
-      return { view: 'show-info' }
+      return { input: action.input }
     case types.RESET_TASKS:
       return { tasks: action.tasks }
-
-    case types.SHOW_TASK_DETAILS:
-      return { taskId: action.taskId }
-    case types.CLOSE_TASK_DETAILS:
-      return { taskId: undefined }
 
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:

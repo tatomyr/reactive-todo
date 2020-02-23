@@ -9,18 +9,11 @@ import { Icon } from './Icon.js'
 // TODO: if screen height isn't large enough, hide the task image and controls section when textarea is focused (CSS?)
 
 export const TaskDetails = connect(({ tasks, taskId }) => {
-  if (!taskId) {
-    return '<div id="task-details" class="task-details__container hidden"></div>'
-  }
   const task = selectTask(taskId)({ tasks })
-
   const [image, others = []] = task.images
 
   return render`
-    <div 
-      id="task-details" 
-      class="task-details__container" 
-    >
+    <div class="task-details__container">
       <section>
         <div class="task-details__image--wrapper">
           <div
@@ -30,7 +23,7 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
             style="background-image: url(${image})"
 
             ::touchstart=${e => {
-              dispatch({ type: 'SWIPE_IMAGE', taskId, event: e })
+              dispatch({ type: types.SWIPE_IMAGE, taskId, event: e })
             }}
 
           ></div>
@@ -55,27 +48,17 @@ export const TaskDetails = connect(({ tasks, taskId }) => {
         </textarea>
       </section>
       <section class="task-details__controls">
-        <button
-          class="invisible-button round ${task.completed ? 'completed' : ''}"
+        <a
+          href="#/active"
+          class="link"
           ::click=${e => {
-            dispatch({ type: types.CLOSE_TASK_DETAILS })
             dispatch({ type: types.TRIGGER_TASK, taskId })
           }}
         >
-          ✓
-        </button>
-        
-        <button
-          class="invisible-button round"
-          ::click=${e => {
-            dispatch({
-              type: types.CLOSE_TASK_DETAILS,
-            })
-          }}
-        >
-          ${Icon({ name: 'home' })}
-        </button>
-        
+          <div class="round">
+            ${Icon({ name: task.completed ? 'push-pin' : 'success' })}
+          </div>
+        </a>
       </section>
     </div>
   `
