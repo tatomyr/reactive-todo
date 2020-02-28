@@ -1,5 +1,6 @@
 import { registerAsync, md5 } from '/modules.js'
 import * as services from '/services/index.js'
+import { IMAGES } from '/config/images.js'
 import { types } from './action-types.js'
 
 import { push } from '../hashrouter.js'
@@ -30,7 +31,7 @@ async function createTask(action, dispatch, state) {
     console.error(err)
     dispatch({
       type: types.UPDATE_TASK,
-      task: { id, images: [services.UNDEFINED_TASK_IMAGE] },
+      task: { id, images: [IMAGES.UNDEFINED_TASK] },
     })
     dispatch({ type: types.NOTIFY, text: err.message })
   }
@@ -290,8 +291,14 @@ async function uploadUserData(action, dispatch, state) {
   }
 }
 
+async function startup(action, dispatch, state) {
+  const version = await fetch('./config/version').then(res => res.text())
+  dispatch({ type: types.SET_DEFAULTS, version })
+}
+
 export default registerAsync(
   {
+    [types.INIT]: startup,
     [types.CREATE_TASK]: createTask,
     [types.RESET_INPUT]: resetInput,
     [types.TRIGGER_TASK]: triggerTask,

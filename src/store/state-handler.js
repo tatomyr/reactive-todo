@@ -1,5 +1,6 @@
+import { getCachedTasks, migrate, extractPayload } from '/services/index.js'
+import { IMAGES } from '/config/images.js'
 import { types } from './action-types.js'
-import { getCachedTasks, migrate, LOADING_IMAGE } from '/services/index.js'
 
 // Data migration
 migrate()
@@ -13,6 +14,7 @@ const defaults = {
     notificationId: undefined,
     pageY: undefined,
   },
+  version: '0.0.0',
 }
 
 // Main syncronous Application handler. Handle all App state changes.
@@ -23,7 +25,7 @@ export const stateHandler = (state = defaults, action = {}) => {
         tasks: [
           {
             description: action.description,
-            images: [LOADING_IMAGE],
+            images: [IMAGES.LOADING],
             completed: false,
             id: action.id,
             createdAt: action.date,
@@ -72,6 +74,9 @@ export const stateHandler = (state = defaults, action = {}) => {
       return { input: action.input }
     case types.RESET_TASKS:
       return { tasks: action.tasks }
+
+    case types.SET_DEFAULTS:
+      return extractPayload(action)
 
     // This should be triggered for the first time handler is used to create store.
     case types.INIT:

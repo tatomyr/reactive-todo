@@ -1,7 +1,8 @@
 import { render } from '/modules.js'
 import { dispatch } from '/store/provider.js'
 import { types } from '/store/action-types.js'
-import { formatDescription, BROKEN_IMAGE } from '/services/index.js'
+import { formatDescription } from '/services/index.js'
+import { IMAGES } from '/config/images.js'
 import { ActionButton } from './TaskItemControls.js'
 
 import { router } from '../../hashrouter.js'
@@ -18,7 +19,7 @@ export const TaskItem = router(
         <img
           class="image round"
           src="${task.images && task.images[0]}"
-          srcset="${task.images && task.images[0]}, ${BROKEN_IMAGE}"
+          srcset="${task.images && task.images[0]}, ${IMAGES.BROKEN}"
           loading="lazy"
         />
         

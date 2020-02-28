@@ -1,4 +1,4 @@
-import { UNDEFINED_TASK_IMAGE } from './fetch-images.js'
+import { IMAGES } from '/config/images.js'
 
 export const getCachedTasks = () =>
   localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : []
@@ -22,7 +22,7 @@ export const migrate = () => {
                 url,
                 url.match('/assets/images/undefined-task.jpg')
               ) || url.match('/assets/images/undefined-task.jpg')
-                ? UNDEFINED_TASK_IMAGE
+                ? IMAGES.UNDEFINED_TASK
                 : url
             ),
           }))

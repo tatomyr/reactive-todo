@@ -18,6 +18,7 @@ export const types = {
   DOWNLOAD_USER_DATA: 'DOWNLOAD_USER_DATA',
   UPLOAD_USER_DATA: 'UPLOAD_USER_DATA',
   RESET_TASKS: 'RESET_TASKS',
+  SET_DEFAULTS: 'SET_DEFAULTS',
 }
 
 // TODO: implement patching tasks on long press or smthg

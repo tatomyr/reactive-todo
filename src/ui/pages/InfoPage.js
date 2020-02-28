@@ -1,5 +1,5 @@
 import { render } from '/modules.js'
-import { dispatch } from '/store/provider.js'
+import { getState, dispatch } from '/store/provider.js'
 import { types } from '/store/action-types.js'
 import { Icon } from '../components/index.js'
 
@@ -9,7 +9,7 @@ export const InfoPage = () => render`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 9.0.0
+      App version: ${getState().version}
     </p>
     <p>
       Check out the repository:
@@ -22,7 +22,7 @@ export const InfoPage = () => render`
     <h2>Actions</h2>
     <section class="user-actions">
       <div class="user-action">
-        <button 
+        <button
           ::click=${e => {
             dispatch({ type: types.DOWNLOAD_USER_DATA })
           }}
@@ -36,8 +36,8 @@ export const InfoPage = () => render`
       <div class="user-action">
         <label for="backup">
           ${Icon({ name: 'upload', size: 'S' })}
-          <input 
-            type="file" 
+          <input
+            type="file"
             accept=".json"
             id="backup"
             ::change=${({
@@ -53,7 +53,7 @@ export const InfoPage = () => render`
       </div>
 
       <div class="user-action">
-        <button 
+        <button
           class="invisible-button"
           ::click=${e => {
             localStorage.removeItem('customFont')
@@ -66,7 +66,7 @@ export const InfoPage = () => render`
       </div>
 
       <div class="user-action">
-        <button 
+        <button
           class="invisible-button"
           ::click=${e => {
             localStorage.setItem('customFont', 'Unisource')
