@@ -13,7 +13,7 @@ let filesToCache = [
   '/assets/images/undefined-task.jpg',
   // Modules
   'https://tatomyr.github.io/purity/core.js',
-  'https://tatomyr.github.io/purity/register-async.js',
+  'https://tatomyr.github.io/purity/utils/register-async.js',
   'https://tatomyr.github.io/purity/lib/md5.js',
   'https://tatomyr.github.io/purity/lib/debounce.js',
   'https://tatomyr.github.io/purity/lib/sanitize.js',

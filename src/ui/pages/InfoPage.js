@@ -9,7 +9,7 @@ export const InfoPage = () => render`
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 7.0.6
+      App version: 8.0.0
     </p>
     <p>
       Check out the repository:
