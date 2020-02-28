@@ -5,6 +5,9 @@ rm -rf dist
 mkdir -p dist
 cp -R ./src/* ./dist/
 
+# Building manifest file
+bash ./bin/process-manifest.sh > ./dist/manifest.json
+
 # Obtaining list of files to cache
 remove=src
 put=''

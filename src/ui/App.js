@@ -1,7 +1,9 @@
 import { render } from '/modules.js'
-import { connect } from '/store/provider.js'
-import { TodoPage, InfoPage } from './pages/index.js'
-import { Notification, NavBar } from './components/index.js'
+import { rerender } from '/store/provider.js'
+import { StartPage, TodoPage, InfoPage } from './pages/index.js'
+import { Notification, NavBar, TaskDetails } from './components/index.js'
+
+import { Switch, registerRouter } from '../hashrouter.js'
 
 const fontStyles = font => {
   switch (font) {
@@ -23,23 +25,30 @@ const fontStyles = font => {
 }
 
 // FIXME: do routing nicely
-export const App = connect(({ view }) => {
+registerRouter(rerender)
+
+export const App = () => {
   document.getElementById('applied-styles').innerHTML = fontStyles(
     localStorage.customFont
   )
 
   return render`
     <div id="root" class="container">
-      ${NavBar()}
-      ${(() => {
-        switch (view) {
-          case 'show-info':
-            return InfoPage()
-          default:
-            return TodoPage()
-        }
-      })()}
+      ${Switch({ '#/:view': NavBar })}
+      
+      <div id="main" class="main-wrapper">
+        ${Switch({
+          '#/about': InfoPage,
+          '#/:view': TodoPage,
+          '#/': StartPage,
+        })}
+      </div>
+
+      <div id="task-details">
+        ${Switch({ '#/:view/tasks/:taskId': TaskDetails })}
+      </div>
+        
       ${Notification()}
     </div>
   `
-})
+}
