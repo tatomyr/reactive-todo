@@ -1,5 +1,5 @@
 import { render, debounce, sanitize } from '/modules.js'
-import { connect, dispatch } from '/store/provider.js'
+import { getState, dispatch } from '/store/provider.js'
 import { types } from '/store/action-types.js'
 
 const onSubmit = e => {
@@ -17,37 +17,35 @@ const onSubmit = e => {
 }
 
 const onKeyUp = debounce(e => {
-  dispatch({ type: types.CHANGE_INPUT, input: e.target.value })
+  dispatch({ type: types.CHANGE_INPUT, input: sanitize(e.target.value) })
 }, 500)
 
 const cleanInput = e => {
   dispatch({ type: types.CHANGE_INPUT, input: '' })
 }
 
-export const InputForm = connect(
-  ({ input }) => render`
-    <div class="form">
-      <form id="newTask-form" ::submit=${onSubmit}>
-        <input
-          class="input"
-          id="newTask"
-          name="newTask"
-          placeholder="New task..."
-          required
-          maxlength="60"
-          autocomplete="off"
-          ::keyup=${onKeyUp}
-          value="${input}"
-        />
-        <button
-          type="reset"
-          id="clear"
-          class="round"
-          ::click=${cleanInput}
-        >
-          ✗
-        </button>
-      </form>
-    </div>
-  `
-)
+export const InputForm = () => render`
+  <div class="form">
+    <form id="newTask-form" ::submit=${onSubmit}>
+      <input
+        class="input"
+        id="newTask"
+        name="newTask"
+        placeholder="New task..."
+        required
+        maxlength="60"
+        autocomplete="off"
+        ::keyup=${onKeyUp}
+        value="${getState().input}"
+      />
+      <button
+        type="reset"
+        id="clear"
+        class="round"
+        ::click=${cleanInput}
+      >
+        ✗
+      </button>
+    </form>
+  </div>
+`

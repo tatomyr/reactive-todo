@@ -3,6 +3,8 @@ let match
 // FIXME: I believe the common `match` will cause data inferring issues. Work this out.
 export const router = component => props => component({ ...match, ...props })
 
+export const getParams = () => match
+
 export const Switch = props => {
   for (const [path, component] of Object.entries(props)) {
     const params = (path.match(/:(\w+)/g) || []).map(param => param.slice(1))

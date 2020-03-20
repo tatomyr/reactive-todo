@@ -139,3 +139,20 @@ context('Basic flow', () => {
       .should('not.have.focus')
   })
 })
+
+context.skip('Security', () => {
+  beforeEach(() => {
+    cy.visit('/#/active')
+  })
+  // TODO: make test fail first
+  it('sanitizes quotes', async () => {
+    cy.get('#newTask').type('test" onclick="event.target.value = \'OOPS\'"')
+    // FIXME: why click doesn't work??
+    // TODO: [!MAJOR] investigate why can't add multiple event handlers
+    cy.get('#newTask').click()
+    cy.get('#newTask').should(
+      'have.value',
+      'test" onclick="event.target.value = \'OOPS\'"'
+    )
+  })
+})

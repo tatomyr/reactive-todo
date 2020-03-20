@@ -1,9 +1,8 @@
 import { render } from '/modules.js'
-import { rerender } from '/store/provider.js'
 import { StartPage, TodoPage, InfoPage } from './pages/index.js'
 import { Notification, NavBar, TaskDetails } from './components/index.js'
 
-import { Switch, registerRouter } from '../hashrouter.js'
+import { Switch } from '../hashrouter.js'
 
 const fontStyles = font => {
   switch (font) {
@@ -23,9 +22,6 @@ const fontStyles = font => {
       return ''
   }
 }
-
-// FIXME: do routing nicely
-registerRouter(rerender)
 
 export const App = () => {
   document.getElementById('applied-styles').innerHTML = fontStyles(

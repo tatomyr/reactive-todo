@@ -7,8 +7,8 @@ let filesToCache = [
   '/index.html',
   '/index.js',
   '/manifest.json',
-  '/reset.css',
-  '/style.css',
+  '/styles/reset.css',
+  '/styles/style.css',
   '/assets/images/loading-shape.gif', // IMAGES.LOADING
   '/assets/images/icon-pack/idea.svg', // IMAGES.UNDEFINED_TASK
   '/assets/images/icon-pack/forbidden.svg', // IMAGES.BROKEN
