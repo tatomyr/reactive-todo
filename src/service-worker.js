@@ -7,10 +7,11 @@ let filesToCache = [
   '/index.html',
   '/index.js',
   '/manifest.json',
-  '/reset.css',
-  '/style.css',
-  '/assets/images/loading-shape.gif',
-  '/assets/images/undefined-task.jpg',
+  '/styles/reset.css',
+  '/styles/style.css',
+  '/assets/images/loading-shape.gif', // IMAGES.LOADING
+  '/assets/images/icon-pack/idea.svg', // IMAGES.UNDEFINED_TASK
+  '/assets/images/icon-pack/forbidden.svg', // IMAGES.BROKEN
   // Modules
   'https://tatomyr.github.io/purity/core.js',
   'https://tatomyr.github.io/purity/utils/register-async.js',

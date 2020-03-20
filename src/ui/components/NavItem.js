@@ -1,27 +1,24 @@
 import { render } from '/modules.js'
-import { connect, dispatch } from '/store/provider.js'
-import { types } from '/store/action-types.js'
-import { filterByInput } from '/services/index.js'
+import { getState } from '/store/provider.js'
+import { filterByInput, isActive } from '/services/index.js'
 import { Bubble } from './Bubble.js'
 
-export const NavItem = connect(
-  ({ id, title, filterByStatus, view, tasks, input }) => render`
+import { getParams } from '../../hashrouter.js'
+
+export const NavItem = ({ id, title, filterByStatus }) => {
+  const { tasks, input } = getState()
+  const { view } = getParams()
+  return render`
     <li 
-      id="${id}" 
-      class="controls-contaiter ${id === view ? 'active' : ''}"
+      id="${id}"
+      class="controls-contaiter ${isActive(input, view)({ id }) && 'active'}"
     >
-      <button
-        id="nav-button-${id}"
-        class="invisible-button item"  
-        ::click=${e => {
-          dispatch({ type: types.FILTER, view: id })
-        }}
-      >
+      <a href="#/${id}" id="nav-button-${id}" class="link item">
         ${title}
-      </button>
+      </a>
       ${Bubble({
         count: tasks.filter(filterByStatus).filter(filterByInput(input)).length,
       })}
     </li>
   `
-)
+}
