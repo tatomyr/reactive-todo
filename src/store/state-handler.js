@@ -19,6 +19,9 @@ const defaults = {
 
 // Main syncronous Application handler. Handle all App state changes.
 export const stateHandler = (state = defaults, action = {}) => {
+  setTimeout(() => {
+    console.info('•', action.type, action, state)
+  })
   switch (action.type) {
     case types.ADD_TASK:
       return {

@@ -1,5 +1,7 @@
 # Purity ToDo Application
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/05f29ca9-75bf-4c65-be73-e648421a0ac6/deploy-status)](https://app.netlify.com/sites/reactive-todo-app/deploys)
+
 The app is built using [Purity](https://github.com/tatomyr/purity) reactive store & rendering library
 and bare native ES modules.
 The aim is mostly proof of concept.

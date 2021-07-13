@@ -5,18 +5,18 @@ export const router = component => props => component({ ...match, ...props })
 
 export const getParams = () => match
 
-export const Switch = props => {
-  for (const [path, component] of Object.entries(props)) {
+export const Switch = routes => {
+  for (const path in routes) {
     const params = (path.match(/:(\w+)/g) || []).map(param => param.slice(1))
     const matchRe = new RegExp(path.replace(/:\w+/g, '(\\w+[\\w\\-\\.]*)'))
     const matches = window.location.hash.match(matchRe)
+    console.log(matches, path, ':', routes[path])
     if (!matches) {
       continue
     }
-    const [_, ...args] = window.location.hash.match(matchRe)
+    const [_, ...args] = matches
     match = params.reduce(($, param, i) => ({ ...$, [param]: args[i] }), {})
-    return (props => component({ ...props, ...match }))()
-    // return router(component)(props)
+    return routes[path](match)
   }
 }
 

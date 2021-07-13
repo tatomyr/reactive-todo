@@ -296,23 +296,18 @@ async function startup(action, dispatch, state) {
   dispatch({ type: types.SET_DEFAULTS, version })
 }
 
-export default registerAsync(
-  {
-    [types.INIT]: startup,
-    [types.CREATE_TASK]: createTask,
-    [types.RESET_INPUT]: resetInput,
-    [types.TRIGGER_TASK]: triggerTask,
-    [types.DELETE_TASK]: deleteTask,
-    [types.UPDATE_TASK]: saveTasks,
-    [types.NOTIFY]: notify,
-    [types.MOVE_TASK]: moveTask,
-    [types.CHANGE_IMAGE]: changeImage,
-    [types.CAPTURE_PHOTO]: capturePhoto,
-    [types.DOWNLOAD_USER_DATA]: downloadUserData,
-    [types.UPLOAD_USER_DATA]: uploadUserData,
-    SWIPE_IMAGE: swipeImage,
-  },
-  ({ type, ...rest }, state) => {
-    console.info('•', type, rest)
-  }
-)
+export default registerAsync({
+  [types.INIT]: startup,
+  [types.CREATE_TASK]: createTask,
+  [types.RESET_INPUT]: resetInput,
+  [types.TRIGGER_TASK]: triggerTask,
+  [types.DELETE_TASK]: deleteTask,
+  [types.UPDATE_TASK]: saveTasks,
+  [types.NOTIFY]: notify,
+  [types.MOVE_TASK]: moveTask,
+  [types.CHANGE_IMAGE]: changeImage,
+  [types.CAPTURE_PHOTO]: capturePhoto,
+  [types.DOWNLOAD_USER_DATA]: downloadUserData,
+  [types.UPLOAD_USER_DATA]: uploadUserData,
+  SWIPE_IMAGE: swipeImage,
+})
