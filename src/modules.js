@@ -1,8 +1,8 @@
-export { createStore, render } from 'https://tatomyr.github.io/purity/core.js'
-export { registerAsync } from 'https://tatomyr.github.io/purity/utils/register-async.js'
-export { debounce } from 'https://tatomyr.github.io/purity/utils/debounce.js'
-export { md5 } from 'https://tatomyr.github.io/purity/utils/md5.js'
-export { sanitize } from 'https://tatomyr.github.io/purity/utils/sanitize.js'
+export { createStore, render } from './purity-modules/core.js'
+export { registerAsync } from './purity-modules/register-async.js'
+export { debounce } from './purity-modules/debounce.js'
+export { md5 } from './purity-modules/md5.js'
+export { sanitize } from './purity-modules/sanitize.js'
 
 // Local:
 
