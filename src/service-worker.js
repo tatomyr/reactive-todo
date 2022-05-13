@@ -7,16 +7,17 @@ let filesToCache = [
   '/index.html',
   '/index.js',
   '/manifest.json',
-  '/reset.css',
-  '/style.css',
-  '/assets/images/loading-shape.gif',
-  '/assets/images/undefined-task.jpg',
+  '/styles/reset.css',
+  '/styles/style.css',
+  '/assets/images/loading-shape.gif', // IMAGES.LOADING
+  '/assets/images/icon-pack/idea.svg', // IMAGES.UNDEFINED_TASK
+  '/assets/images/icon-pack/forbidden.svg', // IMAGES.BROKEN
   // Modules
-  'https://tatomyr.github.io/purity/core.js',
-  'https://tatomyr.github.io/purity/utils/register-async.js',
-  'https://tatomyr.github.io/purity/lib/md5.js',
-  'https://tatomyr.github.io/purity/lib/debounce.js',
-  'https://tatomyr.github.io/purity/lib/sanitize.js',
+  './purity-modules/core.js',
+  './purity-modules/register-async.js',
+  './purity-modules/debounce.js',
+  './purity-modules/md5.js',
+  './purity-modules/sanitize.js',
   // Fonts
   'https://fonts.googleapis.com/css?family=Fira+Sans',
   'https://tatomyr.github.io/unisource/unisource.ttf',

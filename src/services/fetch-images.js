@@ -1,6 +1,5 @@
+import { IMAGES } from '/config/images.js'
 import imageAPI from './google-api.js'
-
-export const undefinedTaskImage = '/assets/images/undefined-task.jpg'
 
 const getResponseErrorMessage = ({ status }) => {
   switch (status) {
@@ -45,5 +44,5 @@ export const filterImages = async (items = []) => {
   const liveImages = (
     await Promise.all(items.map(({ link }) => link).map(await testImage))
   ).filter(Boolean)
-  return liveImages.length > 0 ? liveImages : [undefinedTaskImage]
+  return liveImages.length > 0 ? liveImages : [IMAGES.UNDEFINED_TASK]
 }

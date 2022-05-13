@@ -1,15 +1,15 @@
 import { render } from '/modules.js'
-import { dispatch } from '/store/provider.js'
+import { getState, dispatch } from '/store/provider.js'
 import { types } from '/store/action-types.js'
 import { Icon } from '../components/index.js'
 
 export const InfoPage = () => render`
-  <div id="info-page">
+  <div id="info-page" class="info-page">
     <h1>
       Purity ToDo App Info
     </h1>
     <p>
-      App version: 8.0.0
+      App version: ${getState().version}
     </p>
     <p>
       Check out the repository:
@@ -22,13 +22,13 @@ export const InfoPage = () => render`
     <h2>Actions</h2>
     <section class="user-actions">
       <div class="user-action">
-        <button 
+        <button
           ::click=${e => {
             dispatch({ type: types.DOWNLOAD_USER_DATA })
           }}
           class="invisible-button"
         >
-          ${Icon({ name: 'download', size: 'S' })}
+          ${Icon({ name: 'save', size: 'S' })}
           <span class="user-action__description">backup your data</span>
         </button>
       </div>
@@ -36,8 +36,8 @@ export const InfoPage = () => render`
       <div class="user-action">
         <label for="backup">
           ${Icon({ name: 'upload', size: 'S' })}
-          <input 
-            type="file" 
+          <input
+            type="file"
             accept=".json"
             id="backup"
             ::change=${({
@@ -53,45 +53,33 @@ export const InfoPage = () => render`
       </div>
 
       <div class="user-action">
-        <button 
-          class="invisible-button"
-          ::click=${e => {
-            dispatch({ type: types.FILTER, view: 'active' })
-          }}
-        >
-          ${Icon({ name: 'home', size: 'S' })}
-          <span class="user-action__description">go back</span>
-        </button>
-      </div>
-
-      <div class="user-action">
-        <button 
+        <button
           class="invisible-button"
           ::click=${e => {
             localStorage.removeItem('customFont')
             location.reload()
           }}
         >
-          ${Icon({ name: 'fountain-pen', size: 'S' })}
+          ${Icon({ name: 'edit', size: 'S' })}
           <span class="user-action__description">use default font</span>
         </button>
       </div>
 
       <div class="user-action">
-        <button 
+        <button
           class="invisible-button"
           ::click=${e => {
             localStorage.setItem('customFont', 'Unisource')
             location.reload()
           }}
         >
-          ${Icon({ name: 'fountain-pen', size: 'S' })}
+          ${Icon({ name: 'edit', size: 'S' })}
           <span class="user-action__description">use Unisource font</span>
         </button>
       </div>
     </section>
     <hr />
     <h2>Credits</h2>
-    <div>Icons made by <a href="https://www.flaticon.com/authors/iconnice" title="Iconnice">Iconnice</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"             title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 `
